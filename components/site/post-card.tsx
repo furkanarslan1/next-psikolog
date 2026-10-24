@@ -64,7 +64,7 @@ export function FeaturedPostCard({ post, eager }: { post: PostCardData; eager?: 
       <Cover post={post} eager={eager} sizes="(min-width: 1024px) 40rem, 100vw" />
       <div className="flex flex-col gap-3">
         <Meta post={post} />
-        <h2 className="font-serif-site text-3xl leading-tight font-medium tracking-tight text-balance sm:text-4xl">
+        <h2 className="font-serif-site text-2xl leading-tight font-medium tracking-tight text-balance sm:text-3xl">
           <Link href={`/blog/${post.slug}`} className={titleLink}>
             {post.title}
           </Link>

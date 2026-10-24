@@ -136,7 +136,7 @@ export default async function PostPage({ params }: PageProps<"/blog/[slug]">) {
               </>
             )}
           </nav>
-          <h1 className="font-serif-site text-4xl leading-[1.1] font-normal tracking-tight text-balance sm:text-6xl">
+          <h1 className="font-serif-site text-3xl leading-[1.12] font-normal tracking-tight text-balance sm:text-5xl">
             {post.title}
           </h1>
           <p className="text-xl leading-relaxed text-ink-soft">{post.excerpt}</p>

@@ -62,7 +62,7 @@ export function Hero({ hero }: { hero: HeroData }) {
         className={`mx-auto grid w-full max-w-6xl gap-10 px-5 py-14 sm:px-8 sm:py-20 lg:min-h-[34rem] lg:items-center lg:py-28 xl:min-h-[40rem] ${containerClass}`}
       >
         <div className="relative z-10 flex flex-col items-start gap-6">
-          <h1 className="font-serif-site text-5xl leading-[1.05] font-normal tracking-tight text-balance sm:text-6xl lg:text-7xl">
+          <h1 className="font-serif-site text-4xl leading-[1.08] font-normal tracking-tight text-balance sm:text-5xl lg:text-6xl">
             {hero.headline}
           </h1>
           {hero.description && (

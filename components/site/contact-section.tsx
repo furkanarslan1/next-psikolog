@@ -11,7 +11,7 @@ export function ContactSection({ contact }: { contact: ContactData | null }) {
       <div className="mx-auto flex w-full max-w-6xl flex-col gap-8 px-5 py-12 sm:px-8 sm:py-14">
         <h2
           id="contact-heading"
-          className="font-serif-site text-3xl font-normal tracking-tight"
+          className="font-serif-site text-2xl sm:text-3xl font-normal tracking-tight"
         >
           İletişim
         </h2>

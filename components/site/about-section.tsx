@@ -44,7 +44,7 @@ export function AboutSection({ about }: { about: AboutData | null }) {
         <div className="flex w-full max-w-2xl flex-col items-center text-center lg:items-start lg:text-left">
           <h2
             id="about-heading"
-            className="font-serif-site text-4xl leading-tight font-normal tracking-tight sm:text-5xl"
+            className="font-serif-site text-3xl leading-tight font-normal tracking-tight sm:text-4xl"
           >
             Hakkımda
           </h2>

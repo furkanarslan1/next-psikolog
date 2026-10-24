@@ -9,7 +9,7 @@ export function PageHeading({
 }) {
   return (
     <div className="flex max-w-3xl flex-col gap-4">
-      <Heading className="font-serif-site text-5xl leading-[1.05] font-normal tracking-tight text-balance sm:text-6xl">
+      <Heading className="font-serif-site text-4xl leading-[1.08] font-normal tracking-tight text-balance sm:text-5xl">
         {title}
       </Heading>
       {description && (
