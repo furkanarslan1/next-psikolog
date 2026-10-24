@@ -9,6 +9,8 @@ export const cacheTags = {
   categories: "categories",
   /** Ana sayfa hero bölümü */
   hero: "hero",
+  /** İletişim bilgileri */
+  contact: "contact",
   /** Tek yazı sayfası */
   post: (slug: string) => `post:${slug}`,
   /** Kategori sayfası, o kategorideki yazılar ve onların "benzer yazılar" bölümü */
@@ -47,4 +49,9 @@ export function invalidateBlog({
 // Yalnızca Server Action içinden çağrılır.
 export function invalidateHero() {
   updateTag(cacheTags.hero)
+}
+
+// Yalnızca Server Action içinden çağrılır.
+export function invalidateContact() {
+  updateTag(cacheTags.contact)
 }

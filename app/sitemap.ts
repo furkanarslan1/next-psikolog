@@ -8,6 +8,7 @@ export default async function sitemap(): Promise<MetadataRoute.Sitemap> {
 
   return [
     { url: absoluteUrl("/"), changeFrequency: "weekly", priority: 1 },
+    { url: absoluteUrl("/iletisim"), changeFrequency: "yearly", priority: 0.5 },
     ...categories.map((category) => ({
       url: absoluteUrl(`/kategori/${category.slug}`),
       changeFrequency: "weekly" as const,
