@@ -26,13 +26,16 @@ export function postImageIds(post: {
 // Veritabanında (taslaklar dahil) bir yerde geçen tüm görsel kimlikleri.
 // Yeni bir yer görsel kullanmaya başladığında (örn. hero) buraya eklenmeli.
 export async function getReferencedImageIds() {
-  const posts = await db.post.findMany({
-    select: { coverImageUrl: true, content: true },
-  })
+  const [posts, hero] = await Promise.all([
+    db.post.findMany({ select: { coverImageUrl: true, content: true } }),
+    db.hero.findUnique({ where: { id: "main" }, select: { imageUrl: true } }),
+  ])
   const ids = new Set<string>()
   for (const post of posts) {
     for (const id of postImageIds(post)) ids.add(id)
   }
+  const heroId = hero?.imageUrl ? publicIdFromUrl(hero.imageUrl) : null
+  if (heroId) ids.add(heroId)
   return ids
 }
 

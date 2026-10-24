@@ -71,6 +71,16 @@ export async function listCloudinaryAssets() {
   return assets
 }
 
+// Saklanan (gelen dönüşümden sonraki) gerçek görsel boyutu
+export async function getCloudinaryAssetSize(publicId: string) {
+  try {
+    const asset = await cloudinary.api.resource(publicId, { resource_type: "image" })
+    return { width: asset.width as number, height: asset.height as number }
+  } catch {
+    return null
+  }
+}
+
 export async function cloudinaryAssetExists(publicId: string) {
   try {
     await cloudinary.api.resource(publicId, { resource_type: "image" })

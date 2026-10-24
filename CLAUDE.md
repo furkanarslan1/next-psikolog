@@ -21,4 +21,5 @@ Psikolog tanıtım + blog sitesi. Next.js (App Router), Auth.js v5, Prisma + Neo
 - `pnpm create-admin` ile admin hesabı oluşturulur/güncellenir.
 - Veritabanı değişikliği: `prisma/schema.prisma` → `pnpm prisma migrate dev --name ...`.
 - `cacheComponents` açık: `auth()`, `cookies()`, `headers()` veya DB okuyan her sunucu bileşeni `<Suspense>` içinde olmalı ve `auth()` çağrısından önce `await connection()` (`next/server`) almalı; aksi halde `next build` "Blocking Route" hatası verir. Her admin özelliğinden sonra `pnpm build` ile doğrula.
+- Cloudinary görseli kullanan her yeni alan (hero gibi) `lib/media.ts` içindeki `getReferencedImageIds`'e eklenmeli; değişen/kaldırılan eski görsel kaydedilirken `deleteIfUnreferenced` ile silinmeli. `pnpm verify-media` ile doğrulanır. Taslaklardaki görseller silinmez.
 - Herkese açık sayfalar statik kalmalı (SEO); gereksiz yere `auth()`/`cookies()`/`headers()` kullanma.

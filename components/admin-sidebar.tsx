@@ -3,6 +3,7 @@
 import {
   FileTextIcon,
   FolderIcon,
+  HouseIcon,
   KeyRoundIcon,
   LayoutDashboardIcon,
   LogOutIcon,
@@ -29,6 +30,7 @@ const navigation = [
     label: "Genel",
     items: [
       { title: "Panel", url: "/admin/dashboard", icon: LayoutDashboardIcon },
+      { title: "Hero", url: "/admin/hero", icon: HouseIcon },
       { title: "Blog yazıları", url: "/admin/posts", icon: FileTextIcon },
       { title: "Kategoriler", url: "/admin/categories", icon: FolderIcon },
     ],

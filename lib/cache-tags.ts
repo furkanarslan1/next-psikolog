@@ -7,6 +7,8 @@ export const cacheTags = {
   posts: "posts",
   /** Kategori menüsü (yayınlanmış yazısı olan kategoriler) */
   categories: "categories",
+  /** Ana sayfa hero bölümü */
+  hero: "hero",
   /** Tek yazı sayfası */
   post: (slug: string) => `post:${slug}`,
   /** Kategori sayfası, o kategorideki yazılar ve onların "benzer yazılar" bölümü */
@@ -40,4 +42,9 @@ export function invalidateBlog({
   for (const slug of tagSlugs) if (slug) tags.add(cacheTags.tag(slug))
 
   for (const tag of tags) updateTag(tag)
+}
+
+// Yalnızca Server Action içinden çağrılır.
+export function invalidateHero() {
+  updateTag(cacheTags.hero)
 }

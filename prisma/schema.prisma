@@ -66,3 +66,17 @@ model Tag {
   slug  String @unique
   posts Post[]
 }
+
+// Tek satırlık ana sayfa (hero) ayarı: id her zaman "main"
+model Hero {
+  id          String   @id @default("main")
+  headline    String
+  description String?
+  buttonLabel String
+  buttonUrl   String
+  imageUrl    String?
+  imageAlt    String?
+  imageWidth  Int?
+  imageHeight Int?
+  updatedAt   DateTime @updatedAt
+}
