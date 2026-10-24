@@ -128,3 +128,55 @@
     @apply font-sans;
   }
 }
+/* Blog içeriği: hem Tiptap editöründe hem herkese açık yazı sayfasında kullanılır */
+.rich-content {
+  line-height: 1.75;
+}
+.rich-content > * + * {
+  margin-top: 1rem;
+}
+.rich-content h2 {
+  font-size: 1.5rem;
+  font-weight: 600;
+  line-height: 1.3;
+  margin-top: 2rem;
+}
+.rich-content h3 {
+  font-size: 1.25rem;
+  font-weight: 600;
+  line-height: 1.4;
+  margin-top: 1.5rem;
+}
+.rich-content ul {
+  list-style: disc;
+  padding-left: 1.5rem;
+}
+.rich-content ol {
+  list-style: decimal;
+  padding-left: 1.5rem;
+}
+.rich-content blockquote {
+  border-left: 3px solid var(--border);
+  padding-left: 1rem;
+  color: var(--muted-foreground);
+  font-style: italic;
+}
+.rich-content a {
+  text-decoration: underline;
+  text-underline-offset: 3px;
+}
+.rich-content img {
+  border-radius: 0.5rem;
+  max-width: 100%;
+  height: auto;
+}
+.rich-content hr {
+  border-color: var(--border);
+}
+.rich-content p.is-editor-empty:first-child::before {
+  content: attr(data-placeholder);
+  color: var(--muted-foreground);
+  float: left;
+  height: 0;
+  pointer-events: none;
+}

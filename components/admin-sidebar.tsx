@@ -1,6 +1,12 @@
 "use client"
 
-import { FileTextIcon, KeyRoundIcon, LayoutDashboardIcon, LogOutIcon } from "lucide-react"
+import {
+  FileTextIcon,
+  FolderIcon,
+  KeyRoundIcon,
+  LayoutDashboardIcon,
+  LogOutIcon,
+} from "lucide-react"
 import Link from "next/link"
 import { usePathname } from "next/navigation"
 import * as React from "react"
@@ -24,6 +30,7 @@ const navigation = [
     items: [
       { title: "Panel", url: "/admin/dashboard", icon: LayoutDashboardIcon },
       { title: "Blog yazıları", url: "/admin/posts", icon: FileTextIcon },
+      { title: "Kategoriler", url: "/admin/categories", icon: FolderIcon },
     ],
   },
   {

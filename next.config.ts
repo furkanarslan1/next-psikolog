@@ -10,7 +10,7 @@ const contentSecurityPolicy = [
   "style-src 'self' 'unsafe-inline'",
   "img-src 'self' data: blob: https://res.cloudinary.com",
   "font-src 'self'",
-  "connect-src 'self'",
+  "connect-src 'self' https://api.cloudinary.com",
   "object-src 'none'",
   "base-uri 'self'",
   "form-action 'self'",
@@ -37,6 +37,11 @@ const nextConfig: NextConfig = {
   /* config options here */
   experimental: {
     agentFeedback: true,
+  },
+  images: {
+    remotePatterns: [
+      { protocol: "https", hostname: "res.cloudinary.com" },
+    ],
   },
   cacheComponents: true,
   partialPrefetching: true,
