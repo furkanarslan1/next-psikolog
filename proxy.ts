@@ -3,6 +3,8 @@ import { NextResponse, type NextRequest } from "next/server"
 
 // Yalnızca iyimser kontrol: imzalı oturum çerezi var mı?
 // Asıl yetki kontrolü sayfalarda ve server action'larda auth() ile yapılır.
+// /admin giriş sayfası burada yönlendirilmez: çerez imzalı ama oturum DB'de
+// geçersizse (şifre değişti) yönlendirme döngüsü oluşurdu. Sayfa kendisi yönlendirir.
 export async function proxy(request: NextRequest) {
   const { pathname } = request.nextUrl
 
@@ -16,8 +18,6 @@ export async function proxy(request: NextRequest) {
   let response: NextResponse
   if (!token && !isLoginPage) {
     response = NextResponse.redirect(new URL("/admin", request.url))
-  } else if (token && isLoginPage) {
-    response = NextResponse.redirect(new URL("/admin/dashboard", request.url))
   } else {
     response = NextResponse.next()
   }

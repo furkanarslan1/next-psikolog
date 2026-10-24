@@ -2,6 +2,7 @@
 // Admin zaten varsa şifresi güncellenir.
 import { loadEnvConfig } from "@next/env"
 import bcrypt from "bcryptjs"
+import { passwordSchema } from "../lib/validations/auth"
 import { createInterface } from "node:readline/promises"
 
 loadEnvConfig(process.cwd())
@@ -11,20 +12,22 @@ async function main() {
   const rl = createInterface({ input: process.stdin, output: process.stdout })
 
   const email = (await rl.question("Admin e-posta: ")).trim().toLowerCase()
-  const password = await rl.question("Şifre (min 12 karakter): ")
+  const password = await rl.question("Şifre (min 6, büyük harf + özel karakter): ")
   rl.close()
 
-  if (!email.includes("@") || password.length < 12) {
-    throw new Error("Geçersiz e-posta veya şifre çok kısa")
+  const result = passwordSchema.safeParse(password)
+  if (!email.includes("@") || !result.success) {
+    throw new Error(result.error?.issues[0]?.message ?? "Geçersiz e-posta")
   }
 
   const passwordHash = await bcrypt.hash(password, 12)
   await db.admin.deleteMany({ where: { email: { not: email } } })
   await db.admin.upsert({
     where: { email },
-    update: { passwordHash },
+    update: { passwordHash, passwordChangedAt: new Date() },
     create: { email, passwordHash },
   })
+  await db.loginAttempt.deleteMany({ where: { key: `email:${email}` } })
   console.log("Admin hazır:", email)
   await db.$disconnect()
 }

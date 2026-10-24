@@ -27,13 +27,34 @@ export const { handlers, auth, signIn, signOut } = NextAuth({
         )
         if (!admin || !valid) return null
 
-        return { id: admin.id, email: admin.email }
+        return {
+          id: admin.id,
+          email: admin.email,
+          pwdAt: admin.passwordChangedAt.getTime(),
+        }
       },
     }),
   ],
   callbacks: {
-    jwt({ token, user }) {
-      if (user?.id) token.sub = user.id
+    async jwt({ token, user }) {
+      if (user?.id) {
+        // giriş anı: şifre zaman damgasını token'a yaz
+        token.sub = user.id
+        token.pwdAt = user.pwdAt
+        return token
+      }
+
+      // sonraki her auth() çağrısı: şifre değiştiyse oturumu düşür
+      // (yalnızca admin sayfaları/action'ları auth() çağırır, ziyaretçiler değil)
+      const admin = token.sub
+        ? await db.admin.findUnique({
+            where: { id: token.sub },
+            select: { passwordChangedAt: true },
+          })
+        : null
+      if (!admin || admin.passwordChangedAt.getTime() !== token.pwdAt) {
+        return null
+      }
       return token
     },
     session({ session, token }) {
