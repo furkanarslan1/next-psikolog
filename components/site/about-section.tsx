@@ -1,13 +1,19 @@
 import Image from "next/image"
+import Link from "next/link"
 
-import { optimizeContentHtml } from "@/lib/content-images"
-import { frameRatio } from "@/lib/image-ratio"
 import type { AboutData } from "@/lib/queries/about"
+import { siteConfig } from "@/lib/site"
+import { teaser } from "@/lib/teaser"
 
-// Ana sayfada hero'nun altında: solda görsel, sağda hakkımda metni (geniş ekranda iki eşit sütun)
+const TEASER_CHARS = 800
+
+// Ana sayfada hero'nun altında: geniş ekranda solda yuvarlak portre, sağda başlık ve
+// yaklaşık 10 satırlık önizleme; mobilde üst üste ve ortalı
 export function AboutSection({ about }: { about: AboutData | null }) {
   if (!about) return null
-  const ratio = frameRatio(about.imageWidth, about.imageHeight)
+  const preview = teaser(about.content, TEASER_CHARS)
+  // başlık, liste, görsel gibi yapılar önizlemede görünmez; tam sayfaya gitmeye değer
+  const hasMore = preview.truncated || /<(h[1-6]|img|ul|ol|blockquote)\b/i.test(about.content)
 
   return (
     <section
@@ -16,39 +22,47 @@ export function AboutSection({ about }: { about: AboutData | null }) {
       className="scroll-mt-4 border-b border-line bg-surface"
     >
       <div
-        className={`mx-auto grid w-full max-w-6xl items-start gap-10 px-5 py-14 sm:px-8 sm:py-20 lg:min-h-[28rem] ${
-          about.imageUrl ? "lg:grid-cols-2 lg:gap-16" : ""
+        className={`mx-auto grid w-full max-w-6xl items-center gap-10 px-5 py-14 sm:px-8 sm:py-20 ${
+          about.imageUrl ? "lg:grid-cols-[20rem_1fr] lg:gap-20" : "justify-items-center"
         }`}
       >
         {about.imageUrl && (
-          // fill kullanan görselin üst elemanı relative olmalı: sticky dış kutuda
-          <div className="mx-auto w-full max-w-md self-start lg:sticky lg:top-8 lg:max-w-none">
-            <div
-              className="relative overflow-hidden rounded-xs bg-line aspect-(--about-ratio)"
-              style={{ "--about-ratio": ratio } as React.CSSProperties}
-            >
+          // halka ile görsel arasındaki boşluk madalyon etkisi verir
+          <div className="flex justify-center">
+            <div className="relative size-48 overflow-hidden rounded-full ring-1 ring-line ring-offset-8 ring-offset-surface sm:size-60 lg:size-72">
               <Image
                 src={about.imageUrl}
                 alt={about.imageAlt ?? ""}
                 fill
-                sizes="(min-width: 1024px) 32rem, (min-width: 640px) 28rem, 100vw"
-                className="object-cover"
+                sizes="(min-width: 1024px) 18rem, 15rem"
+                className="object-cover object-top"
               />
             </div>
           </div>
         )}
-        <div className="flex max-w-xl flex-col gap-6">
+
+        <div className="flex w-full max-w-2xl flex-col items-center text-center lg:items-start lg:text-left">
           <h2
             id="about-heading"
-            className="font-serif-site text-3xl leading-tight font-normal tracking-tight sm:text-4xl"
+            className="font-serif-site text-4xl leading-tight font-normal tracking-tight sm:text-5xl"
           >
             Hakkımda
           </h2>
-          <div
-            className="rich-content rich-content-compact"
-            // içerik kaydedilirken sunucuda temizlenir (lib/sanitize.ts)
-            dangerouslySetInnerHTML={{ __html: optimizeContentHtml(about.content) }}
-          />
+          <p className="mt-3 text-ink-soft">{siteConfig.name}</p>
+          <span aria-hidden className="mt-6 block h-px w-16 bg-anthracite" />
+
+          <p className="mt-8 line-clamp-10 w-full text-left text-[1.0625rem] leading-[1.85] whitespace-pre-line text-ink">
+            {preview.text}
+          </p>
+
+          {hasMore && (
+            <Link
+              href="/hakkimda"
+              className="mt-8 inline-flex items-center rounded-xs bg-anthracite px-7 py-3.5 text-base font-medium text-white transition-colors hover:bg-ink focus-visible:outline-2 focus-visible:outline-offset-4 focus-visible:outline-anthracite"
+            >
+              Devamını oku
+            </Link>
+          )}
         </div>
       </div>
     </section>

@@ -4,7 +4,7 @@ import Link from "next/link"
 import { usePathname } from "next/navigation"
 
 const links = [
-  { href: "/#hakkimda", label: "Hakkımda", prefixes: [] as string[] },
+  { href: "/hakkimda", label: "Hakkımda", prefixes: ["/hakkimda"] },
   {
     href: "/yazilar",
     label: "Yazılarım",

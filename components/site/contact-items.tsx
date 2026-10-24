@@ -3,7 +3,7 @@ import { MailIcon, MapPinIcon, MessageCircleIcon, PhoneIcon } from "lucide-react
 import { telHref, whatsappHref } from "@/lib/phone"
 import type { ContactData } from "@/lib/queries/contact"
 
-const WHATSAPP_TEXT = "Merhaba, randevu hakkında bilgi almak istiyorum."
+export const WHATSAPP_TEXT = "Merhaba, randevu hakkında bilgi almak istiyorum."
 
 type Item = {
   key: string

@@ -17,7 +17,7 @@ type HeroData = {
 const buttonClass =
   "inline-flex w-fit items-center rounded-xs bg-paper px-7 py-3.5 text-base font-medium text-anthracite transition-colors hover:bg-white focus-visible:outline-2 focus-visible:outline-offset-4 focus-visible:outline-white"
 
-function HeroButton({ label, url }: { label: string; url: string }) {
+export function HeroButton({ label, url }: { label: string; url: string }) {
   // site içi yol Link ile, dış adresler yeni sekmede açılır
   if (url.startsWith("/")) {
     return (
