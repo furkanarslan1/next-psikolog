@@ -6,9 +6,9 @@ import { usePathname } from "next/navigation"
 const links = [
   { href: "/#hakkimda", label: "Hakkımda", prefixes: [] as string[] },
   {
-    href: "/#yazilar",
+    href: "/yazilar",
     label: "Yazılarım",
-    prefixes: ["/blog", "/kategori", "/etiket"],
+    prefixes: ["/yazilar", "/blog", "/kategori", "/etiket"],
   },
   { href: "/iletisim", label: "İletişim", prefixes: ["/iletisim"] },
 ]

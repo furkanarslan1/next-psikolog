@@ -23,9 +23,11 @@ function Cover({ post, sizes, eager }: { post: PostCardData; sizes: string; eage
 
 function Meta({ post }: { post: PostCardData }) {
   return (
-    <p className="flex flex-wrap items-baseline gap-x-4 text-sm text-ink-soft">
+    <p className="flex flex-wrap items-center gap-x-3 gap-y-2 text-sm text-ink-soft">
       {post.category && (
-        <span className="font-medium text-anthracite">{post.category.name}</span>
+        <span className="rounded-full bg-anthracite px-3 py-1 text-xs font-medium text-white">
+          {post.category.name}
+        </span>
       )}
       {post.publishedAt && (
         <time dateTime={post.publishedAt.toISOString()}>
@@ -50,7 +52,7 @@ export function PostCard({ post, eager }: { post: PostCardData; eager?: boolean 
             {post.title}
           </Link>
         </h3>
-        <p className="line-clamp-3 leading-relaxed text-ink-soft">{post.excerpt}</p>
+        <p className="line-clamp-3 text-sm leading-relaxed text-ink-soft sm:text-[0.9375rem]">{post.excerpt}</p>
       </div>
     </article>
   )
@@ -67,7 +69,7 @@ export function FeaturedPostCard({ post, eager }: { post: PostCardData; eager?: 
             {post.title}
           </Link>
         </h2>
-        <p className="text-lg leading-relaxed text-ink-soft">{post.excerpt}</p>
+        <p className="text-sm leading-relaxed text-ink-soft sm:text-base">{post.excerpt}</p>
       </div>
     </article>
   )
@@ -83,7 +85,11 @@ export function PostGrid({ posts }: { posts: PostCardData[] }) {
     <div className="flex flex-col gap-14">
       <FeaturedPostCard post={featured} eager />
       {rest.length > 0 && (
-        <div className="grid gap-x-8 gap-y-12 border-t border-line pt-12 sm:grid-cols-2 lg:grid-cols-3">
+        <div
+          className={`grid gap-x-8 gap-y-12 border-t border-line pt-12 sm:grid-cols-2 ${
+            rest.length === 4 ? "lg:grid-cols-4" : "lg:grid-cols-3"
+          }`}
+        >
           {rest.map((post, index) => (
             <PostCard key={post.id} post={post} eager={index < 3} />
           ))}

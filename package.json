@@ -9,7 +9,8 @@
     "lint": "eslint",
     "create-admin": "tsx scripts/create-admin.ts",
     "postinstall": "prisma generate",
-    "verify-media": "tsx scripts/verify-media.ts"
+    "verify-media": "tsx scripts/verify-media.ts",
+    "seed-posts": "tsx scripts/seed-posts.ts"
   },
   "dependencies": {
     "@base-ui/react": "^1.9.0",

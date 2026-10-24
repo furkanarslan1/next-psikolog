@@ -38,6 +38,37 @@ export async function getPublishedPosts(
   })
 }
 
+// Sayfalanmış liste: yazılar ve (sayfa sayısını hesaplamak için) toplam adet
+export async function getPostsPage({
+  page,
+  pageSize,
+  categorySlug,
+}: {
+  page: number
+  pageSize: number
+  categorySlug?: string
+}) {
+  "use cache"
+  cacheLife("days")
+  cacheTag(categorySlug ? cacheTags.category(categorySlug) : cacheTags.posts)
+
+  const where = {
+    ...published,
+    ...(categorySlug ? { category: { slug: categorySlug } } : {}),
+  }
+  const [posts, total] = await Promise.all([
+    db.post.findMany({
+      where,
+      orderBy: { publishedAt: "desc" },
+      skip: (page - 1) * pageSize,
+      take: pageSize,
+      select: cardSelect,
+    }),
+    db.post.count({ where }),
+  ])
+  return { posts, total }
+}
+
 export type PostCard = Awaited<ReturnType<typeof getPublishedPosts>>[number]
 
 export async function getPostBySlug(slug: string) {

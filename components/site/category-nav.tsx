@@ -15,7 +15,7 @@ export function CategoryNav({
   return (
     <nav aria-label="Kategoriler" className="flex flex-wrap gap-x-8 gap-y-3">
       <Link
-        href="/"
+        href="/yazilar"
         aria-current={activeSlug ? undefined : "page"}
         className={`${linkClass} ${activeSlug ? "border-transparent text-ink-soft hover:text-ink" : "border-anthracite text-anthracite"}`}
       >

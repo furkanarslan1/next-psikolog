@@ -1,13 +1,12 @@
 import type { Metadata } from "next"
 import { notFound } from "next/navigation"
 
-import { CategoryNav } from "@/components/site/category-nav"
-import { PageHeading } from "@/components/site/page-heading"
-import { EmptyPosts, PostGrid } from "@/components/site/post-card"
+import { PostsListing } from "@/components/site/posts-listing"
+import { POSTS_PER_PAGE, totalPages } from "@/lib/blog-config"
 import {
   getCategoriesWithPosts,
   getCategoryBySlug,
-  getPublishedPosts,
+  getPostsPage,
 } from "@/lib/queries/posts"
 
 const PLACEHOLDER_SLUG = "__yok__"
@@ -26,10 +25,19 @@ export async function generateMetadata({
   const category = await getCategoryBySlug(slug)
   if (!category) return {}
 
+  const { total } = await getPostsPage({
+    page: 1,
+    pageSize: POSTS_PER_PAGE,
+    categorySlug: slug,
+  })
   return {
     title: `${category.name} yazıları`,
     description: `${category.name} kategorisindeki yazılar.`,
     alternates: { canonical: `/kategori/${category.slug}` },
+    pagination:
+      totalPages(total) > 1
+        ? { next: `/kategori/${category.slug}/sayfa/2` }
+        : undefined,
   }
 }
 
@@ -40,16 +48,20 @@ export default async function CategoryPage({
   const category = await getCategoryBySlug(slug)
   if (!category) notFound()
 
-  const [posts, categories] = await Promise.all([
-    getPublishedPosts({ categorySlug: slug }),
+  const [{ posts, total }, categories] = await Promise.all([
+    getPostsPage({ page: 1, pageSize: POSTS_PER_PAGE, categorySlug: slug }),
     getCategoriesWithPosts(),
   ])
 
   return (
-    <div className="mx-auto flex w-full max-w-6xl flex-col gap-10 px-5 py-14 sm:px-8 sm:py-20">
-      <PageHeading title={category.name} />
-      <CategoryNav categories={categories} activeSlug={slug} />
-      {posts.length === 0 ? <EmptyPosts /> : <PostGrid posts={posts} />}
-    </div>
+    <PostsListing
+      title={category.name}
+      posts={posts}
+      categories={categories}
+      activeSlug={slug}
+      base={`/kategori/${slug}`}
+      page={1}
+      pages={totalPages(total)}
+    />
   )
 }
