@@ -2,7 +2,11 @@
 
 import { zodResolver } from "@hookform/resolvers/zod"
 import { cn } from "cn"
+import { useRouter } from "next/navigation"
 import { Controller, useForm } from "react-hook-form"
+import { toast } from "sonner"
+
+import { loginAction } from "@/app/admin/actions"
 
 import { Button } from "@/components/ui/button"
 import {
@@ -25,14 +29,21 @@ export function LoginForm({
   className,
   ...props
 }: React.ComponentProps<"div">) {
+  const router = useRouter()
   const form = useForm<LoginValues>({
     resolver: zodResolver(loginSchema),
     defaultValues: { email: "", password: "" },
   })
 
   async function onSubmit(values: LoginValues) {
-    // TODO: Auth.js signIn action bağlanacak
-    console.log(values.email)
+    const result = await loginAction(values)
+    if (result.error) {
+      toast.error(result.error)
+      form.resetField("password")
+      return
+    }
+    router.replace("/admin/dashboard")
+    router.refresh()
   }
 
   return (
