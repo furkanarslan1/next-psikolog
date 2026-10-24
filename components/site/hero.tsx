@@ -1,6 +1,8 @@
 import Image from "next/image"
 import Link from "next/link"
 
+import { frameRatio } from "@/lib/image-ratio"
+
 type HeroData = {
   headline: string
   description: string | null
@@ -34,13 +36,6 @@ function HeroButton({ label, url }: { label: string; url: string }) {
       {label}
     </a>
   )
-}
-
-// Geniş ekranda çerçeve görselin kendi oranını izler (kırpma yok); aşırı dar
-// veya geniş oranlar sınırlanır. Oran bilinmiyorsa 4:5.
-function frameRatio(width: number | null, height: number | null) {
-  if (!width || !height) return 4 / 5
-  return Math.min(1.6, Math.max(0.6, width / height))
 }
 
 // Dikeyde (portre) mobilde görsel arka plan olur; yatay veya kare görseller bu
@@ -87,7 +82,8 @@ export function Hero({ hero }: { hero: HeroData }) {
               src={hero.imageUrl}
               alt={hero.imageAlt ?? ""}
               fill
-              priority
+              loading="eager"
+              fetchPriority="high"
               sizes="(min-width: 1024px) 36rem, 100vw"
               className="object-cover object-top"
             />

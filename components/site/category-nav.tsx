@@ -1,7 +1,7 @@
 import Link from "next/link"
 
 const linkClass =
-  "border-b-2 pb-1 text-base transition-colors focus-visible:outline-2 focus-visible:outline-offset-4 focus-visible:outline-copper"
+  "border-b-2 pb-1 text-base transition-colors focus-visible:outline-2 focus-visible:outline-offset-4 focus-visible:outline-anthracite"
 
 export function CategoryNav({
   categories,
@@ -17,7 +17,7 @@ export function CategoryNav({
       <Link
         href="/"
         aria-current={activeSlug ? undefined : "page"}
-        className={`${linkClass} ${activeSlug ? "border-transparent text-ink-soft hover:text-ink" : "border-copper text-ink"}`}
+        className={`${linkClass} ${activeSlug ? "border-transparent text-ink-soft hover:text-ink" : "border-anthracite text-anthracite"}`}
       >
         Tümü
       </Link>
@@ -28,7 +28,7 @@ export function CategoryNav({
             key={category.slug}
             href={`/kategori/${category.slug}`}
             aria-current={active ? "page" : undefined}
-            className={`${linkClass} ${active ? "border-copper text-ink" : "border-transparent text-ink-soft hover:text-ink"}`}
+            className={`${linkClass} ${active ? "border-anthracite text-anthracite" : "border-transparent text-ink-soft hover:text-ink"}`}
           >
             {category.name}
           </Link>

@@ -6,6 +6,7 @@ import {
   HouseIcon,
   KeyRoundIcon,
   PhoneIcon,
+  UserRoundIcon,
   LayoutDashboardIcon,
   LogOutIcon,
 } from "lucide-react"
@@ -32,6 +33,7 @@ const navigation = [
     items: [
       { title: "Panel", url: "/admin/dashboard", icon: LayoutDashboardIcon },
       { title: "Hero", url: "/admin/hero", icon: HouseIcon },
+      { title: "Hakkımda", url: "/admin/about", icon: UserRoundIcon },
       { title: "İletişim", url: "/admin/contact", icon: PhoneIcon },
       { title: "Blog yazıları", url: "/admin/posts", icon: FileTextIcon },
       { title: "Kategoriler", url: "/admin/categories", icon: FolderIcon },

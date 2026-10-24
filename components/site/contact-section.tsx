@@ -7,7 +7,7 @@ export function ContactSection({ contact }: { contact: ContactData | null }) {
   if (items.length === 0) return null
 
   return (
-    <section aria-labelledby="contact-heading" className="border-b border-line bg-surface">
+    <section aria-labelledby="contact-heading" className="border-t border-line bg-surface">
       <div className="mx-auto flex w-full max-w-6xl flex-col gap-8 px-5 py-12 sm:px-8 sm:py-14">
         <h2
           id="contact-heading"

@@ -90,3 +90,14 @@ model Contact {
   address   String?
   updatedAt DateTime @updatedAt
 }
+
+// Tek satırlık "Hakkımda": id her zaman "main"
+model About {
+  id          String   @id @default("main")
+  content     String   @db.Text
+  imageUrl    String?
+  imageAlt    String?
+  imageWidth  Int?
+  imageHeight Int?
+  updatedAt   DateTime @updatedAt
+}

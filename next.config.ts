@@ -45,6 +45,10 @@ const nextConfig: NextConfig = {
     deviceSizes: [640, 960, 1280, 1920],
     imageSizes: [320],
   },
+  // Geliştirme terminaline sunucu işlemi argümanlarını (şifreler dahil) yazma
+  logging: {
+    serverFunctions: false,
+  },
   cacheComponents: true,
   partialPrefetching: true,
   async headers() {

@@ -46,7 +46,7 @@ export default async function TagPage({ params }: PageProps<"/etiket/[slug]">) {
     <div className="mx-auto flex w-full max-w-6xl flex-col gap-10 px-5 py-14 sm:px-8 sm:py-20">
       <PageHeading title={tag.name} description="Bu etiketle işaretlenmiş yazılar" />
       <p>
-        <Link href="/" className="border-b-2 border-transparent pb-1 text-ink-soft hover:border-copper hover:text-ink">
+        <Link href="/" className="border-b-2 border-transparent pb-1 text-ink-soft hover:border-anthracite hover:text-ink">
           Tüm yazılar
         </Link>
       </p>

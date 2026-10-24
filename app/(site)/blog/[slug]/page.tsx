@@ -129,7 +129,7 @@ export default async function PostPage({ params }: PageProps<"/blog/[slug]">) {
                 <span aria-hidden className="mx-2">/</span>
                 <Link
                   href={`/kategori/${post.category.slug}`}
-                  className="font-medium text-copper-ink hover:underline"
+                  className="font-medium text-anthracite hover:underline"
                 >
                   {post.category.name}
                 </Link>
@@ -156,7 +156,8 @@ export default async function PostPage({ params }: PageProps<"/blog/[slug]">) {
               src={post.coverImageUrl}
               alt={post.coverImageAlt ?? ""}
               fill
-              priority
+              loading="eager"
+              fetchPriority="high"
               sizes="(min-width: 1024px) 64rem, 100vw"
               className="object-cover"
             />
@@ -175,7 +176,7 @@ export default async function PostPage({ params }: PageProps<"/blog/[slug]">) {
               <li key={tag.slug}>
                 <Link
                   href={`/etiket/${tag.slug}`}
-                  className="inline-block rounded-xs border border-line bg-surface px-3 py-1 text-sm text-ink-soft transition-colors hover:border-copper hover:text-ink"
+                  className="inline-block rounded-xs border border-line bg-surface px-3 py-1 text-sm text-ink-soft transition-colors hover:border-anthracite hover:text-ink"
                 >
                   {tag.name}
                 </Link>
