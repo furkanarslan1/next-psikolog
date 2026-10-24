@@ -1,5 +1,6 @@
 "use server"
 
+import { invalidateBlog } from "@/lib/cache-tags"
 import { createUploadSignature } from "@/lib/cloudinary"
 import { db } from "@/lib/db"
 import { requireAdmin } from "@/lib/require-admin"
@@ -17,9 +18,13 @@ function isUniqueViolation(error: unknown) {
   )
 }
 
-async function categoryMissing(categoryId: string) {
-  if (!categoryId) return false
-  return !(await db.category.findUnique({ where: { id: categoryId } }))
+// Seçilen kategori yoksa null, seçilmediyse undefined döner.
+async function findCategory(categoryId: string) {
+  if (!categoryId) return undefined
+  return db.category.findUnique({
+    where: { id: categoryId },
+    select: { slug: true },
+  })
 }
 
 function buildPostData(values: PostValues) {
@@ -56,9 +61,8 @@ export async function createPostAction(values: PostValues) {
     return { error: parsed.error.issues[0]?.message ?? "Geçersiz bilgi" }
   }
 
-  if (await categoryMissing(parsed.data.categoryId)) {
-    return { error: "Seçilen kategori bulunamadı" }
-  }
+  const category = await findCategory(parsed.data.categoryId)
+  if (category === null) return { error: "Seçilen kategori bulunamadı" }
 
   const { tagLinks, ...data } = buildPostData(parsed.data)
   try {
@@ -69,6 +73,11 @@ export async function createPostAction(values: PostValues) {
         publishedAt: data.status === "PUBLISHED" ? new Date() : null,
         tags: { connectOrCreate: tagLinks },
       },
+    })
+    invalidateBlog({
+      postSlugs: [post.slug],
+      categorySlugs: [category?.slug],
+      tagSlugs: tagLinks.map((tag) => tag.where.slug),
     })
     return { error: undefined, id: post.id }
   } catch (error) {
@@ -87,24 +96,27 @@ export async function updatePostAction(id: string, values: PostValues) {
     return { error: parsed.error.issues[0]?.message ?? "Geçersiz bilgi" }
   }
 
-  const existing = await db.post.findUnique({ where: { id } })
+  const existing = await db.post.findUnique({
+    where: { id },
+    include: { category: { select: { slug: true } }, tags: { select: { slug: true } } },
+  })
   if (!existing) return { error: "Yazı bulunamadı" }
 
-  if (await categoryMissing(parsed.data.categoryId)) {
-    return { error: "Seçilen kategori bulunamadı" }
-  }
+  const nextCategory = await findCategory(parsed.data.categoryId)
+  if (nextCategory === null) return { error: "Seçilen kategori bulunamadı" }
 
   const { tagLinks, category, ...data } = buildPostData(parsed.data)
+  const slug =
+    existing.publishedAt === null && existing.title !== data.title
+      ? await uniquePostSlug(data.title, id)
+      : existing.slug
   try {
     await db.post.update({
       where: { id },
       data: {
         ...data,
         // yayınlanmamış yazının adresi başlıkla birlikte güncellenir
-        slug:
-          existing.publishedAt === null && existing.title !== data.title
-            ? await uniquePostSlug(data.title, id)
-            : existing.slug,
+        slug,
         category: category ?? { disconnect: true },
         // yayın tarihi ilk yayınlanışta atanır, taslağa alınınca korunur
         publishedAt:
@@ -113,6 +125,15 @@ export async function updatePostAction(id: string, values: PostValues) {
             : existing.publishedAt,
         tags: { set: [], connectOrCreate: tagLinks },
       },
+    })
+    // eski ve yeni değerlerin ikisi de etkilenir
+    invalidateBlog({
+      postSlugs: [existing.slug, slug],
+      categorySlugs: [existing.category?.slug, nextCategory?.slug],
+      tagSlugs: [
+        ...existing.tags.map((tag) => tag.slug),
+        ...tagLinks.map((tag) => tag.where.slug),
+      ],
     })
     return { error: undefined, id }
   } catch (error) {
@@ -125,9 +146,20 @@ export async function updatePostAction(id: string, values: PostValues) {
 
 export async function deletePostAction(id: string) {
   await requireAdmin()
-  await db.post.deleteMany({ where: { id } })
+  const existing = await db.post.findUnique({
+    where: { id },
+    include: { category: { select: { slug: true } }, tags: { select: { slug: true } } },
+  })
+  if (!existing) return
+
+  await db.post.delete({ where: { id } })
   // kullanılmayan etiketleri temizle
   await db.tag.deleteMany({ where: { posts: { none: {} } } })
+  invalidateBlog({
+    postSlugs: [existing.slug],
+    categorySlugs: [existing.category?.slug],
+    tagSlugs: existing.tags.map((tag) => tag.slug),
+  })
 }
 
 export async function getUploadSignatureAction() {

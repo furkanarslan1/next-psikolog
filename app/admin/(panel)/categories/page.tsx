@@ -1,7 +1,9 @@
 import type { Metadata } from "next"
 import { connection } from "next/server"
+import { Suspense } from "react"
 
 import { deleteCategoryAction } from "@/app/admin/(panel)/categories/actions"
+import { TableSkeleton } from "@/components/admin/skeletons"
 import { CategoryForm } from "@/components/category-form"
 import { DeleteButton } from "@/components/delete-button"
 import { RenameCategoryButton } from "@/components/rename-category-button"
@@ -20,7 +22,19 @@ export const metadata: Metadata = {
   robots: { index: false, follow: false },
 }
 
-export default async function CategoriesPage() {
+export default function CategoriesPage() {
+  return (
+    <>
+      <h1 className="text-2xl font-semibold">Kategoriler</h1>
+      <CategoryForm />
+      <Suspense fallback={<TableSkeleton rows={3} />}>
+        <CategoriesTable />
+      </Suspense>
+    </>
+  )
+}
+
+async function CategoriesTable() {
   await connection()
   const categories = await db.category.findMany({
     orderBy: { name: "asc" },
@@ -29,8 +43,6 @@ export default async function CategoriesPage() {
 
   return (
     <>
-      <h1 className="text-2xl font-semibold">Kategoriler</h1>
-      <CategoryForm />
       {categories.length === 0 ? (
         <p className="text-muted-foreground">Henüz kategori yok.</p>
       ) : (

@@ -3,6 +3,7 @@
 import { revalidatePath } from "next/cache"
 
 import { db } from "@/lib/db"
+import { invalidateBlog } from "@/lib/cache-tags"
 import { requireAdmin } from "@/lib/require-admin"
 import { slugify } from "@/lib/slug"
 import { categorySchema, type CategoryValues } from "@/lib/validations/post"
@@ -62,11 +63,18 @@ export async function renameCategoryAction(id: string, values: CategoryValues) {
   })
   if (exists) return { error: "Bu kategori zaten var" }
 
-  const result = await db.category.updateMany({
+  const existing = await db.category.findUnique({
+    where: { id },
+    select: { slug: true },
+  })
+  if (!existing) return { error: "Kategori bulunamadı" }
+
+  await db.category.update({
     where: { id },
     data: { name: parsed.data.name, slug },
   })
-  if (result.count === 0) return { error: "Kategori bulunamadı" }
+  // kategori adı kartlarda, menüde ve yazı sayfalarında görünür
+  invalidateBlog({ categorySlugs: [existing.slug, slug] })
 
   revalidatePath("/admin/categories")
   return { error: undefined }

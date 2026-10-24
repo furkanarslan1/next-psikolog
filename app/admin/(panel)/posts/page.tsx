@@ -1,9 +1,11 @@
 import { PlusIcon, PencilIcon } from "lucide-react"
 import type { Metadata } from "next"
 import { connection } from "next/server"
+import { Suspense } from "react"
 import Link from "next/link"
 
 import { deletePostAction } from "@/app/admin/(panel)/posts/actions"
+import { TableSkeleton } from "@/components/admin/skeletons"
 import { DeleteButton } from "@/components/delete-button"
 import { Badge } from "@/components/ui/badge"
 import { buttonVariants } from "@/components/ui/button"
@@ -24,13 +26,7 @@ export const metadata: Metadata = {
 
 const dateFormat = new Intl.DateTimeFormat("tr-TR", { dateStyle: "medium" })
 
-export default async function PostsPage() {
-  await connection()
-  const posts = await db.post.findMany({
-    orderBy: { updatedAt: "desc" },
-    include: { category: true },
-  })
-
+export default function PostsPage() {
   return (
     <>
       <div className="flex items-center justify-between">
@@ -40,6 +36,22 @@ export default async function PostsPage() {
           Yeni yazı
         </Link>
       </div>
+      <Suspense fallback={<TableSkeleton />}>
+        <PostsTable />
+      </Suspense>
+    </>
+  )
+}
+
+async function PostsTable() {
+  await connection()
+  const posts = await db.post.findMany({
+    orderBy: { updatedAt: "desc" },
+    include: { category: true },
+  })
+
+  return (
+    <>
 
       {posts.length === 0 ? (
         <p className="text-muted-foreground">Henüz yazı yok.</p>

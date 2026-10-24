@@ -180,3 +180,44 @@
   height: 0;
   pointer-events: none;
 }
+
+/* Herkese açık site: antrasit + bakır */
+@theme {
+  --color-ink: #23272b;
+  --color-ink-soft: #5b6168;
+  --color-paper: #f4f5f6;
+  --color-surface: #ffffff;
+  --color-line: #dcdfe3;
+  --color-anthracite: #1f2327;
+  --color-copper: #b87333;
+  --color-copper-ink: #8e4f22;
+}
+
+@theme inline {
+  --font-serif-site: var(--site-serif);
+  --font-sans-site: var(--site-sans);
+}
+
+.site {
+  --site-serif: var(--font-newsreader), Georgia, "Times New Roman", serif;
+  --site-sans: var(--font-instrument), system-ui, sans-serif;
+  --border: var(--color-line);
+  --muted-foreground: var(--color-ink-soft);
+}
+.site .rich-content {
+  font-size: 1.125rem;
+  line-height: 1.8;
+}
+.site .rich-content h2,
+.site .rich-content h3 {
+  font-family: var(--site-serif);
+  font-weight: 500;
+  letter-spacing: -0.01em;
+}
+.site .rich-content a {
+  text-decoration-color: var(--color-copper);
+  text-decoration-thickness: 1.5px;
+}
+.site .rich-content a:hover {
+  color: var(--color-copper-ink);
+}

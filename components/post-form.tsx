@@ -69,9 +69,13 @@ export function PostForm({
       toast.error(result.error)
       return
     }
-    toast.success(postId ? "Yazı güncellendi" : "Yazı oluşturuldu")
-    if (postId) router.refresh()
-    else router.replace(`/admin/posts/${result.id}`)
+    if (postId) {
+      toast.success("Yazı güncellendi")
+      router.refresh()
+    } else {
+      toast.success("Yazı oluşturuldu")
+      router.push("/admin/posts")
+    }
   }
 
   async function onCoverSelected(file: File | undefined) {
