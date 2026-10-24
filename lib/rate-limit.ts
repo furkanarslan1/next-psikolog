@@ -14,13 +14,13 @@ export async function isRateLimited(keys: string[]) {
 }
 
 export async function recordFailedAttempt(keys: string[]) {
+  // süresi dolan kayıtları burada da temizle, tablo saldırı altında şişmesin
+  await db.loginAttempt.deleteMany({
+    where: { createdAt: { lt: new Date(Date.now() - WINDOW_MS) } },
+  })
   await db.loginAttempt.createMany({ data: keys.map((key) => ({ key })) })
 }
 
 export async function clearAttempts(keys: string[]) {
   await db.loginAttempt.deleteMany({ where: { key: { in: keys } } })
-  // eski kayıtları temizle
-  await db.loginAttempt.deleteMany({
-    where: { createdAt: { lt: new Date(Date.now() - WINDOW_MS) } },
-  })
 }
