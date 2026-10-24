@@ -69,22 +69,16 @@ export function PostForm({
       toast.error(result.error)
       return
     }
-    if (postId) {
-      toast.success("Yazı güncellendi")
-      router.refresh()
-    } else {
-      toast.success("Yazı oluşturuldu")
-      router.push("/admin/posts")
-    }
+    toast.success(postId ? "Yazı güncellendi" : "Yazı oluşturuldu")
+    router.push("/admin/posts")
   }
 
   async function onCoverSelected(file: File | undefined) {
     if (!file) return
     setProgress(0)
     try {
-      form.setValue("coverImageUrl", await uploadImage(file, setProgress), {
-        shouldDirty: true,
-      })
+      const image = await uploadImage(file, setProgress)
+      form.setValue("coverImageUrl", image.url, { shouldDirty: true })
     } catch (error) {
       toast.error(error instanceof Error ? error.message : "Görsel yüklenemedi")
     } finally {

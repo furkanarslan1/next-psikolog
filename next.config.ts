@@ -39,9 +39,11 @@ const nextConfig: NextConfig = {
     agentFeedback: true,
   },
   images: {
-    remotePatterns: [
-      { protocol: "https", hostname: "res.cloudinary.com" },
-    ],
+    loader: "custom",
+    loaderFile: "./lib/cloudinary-loader.ts",
+    // Cloudinary dönüşüm sayısı = benzersiz genişlik sayısı; listeyi kısa tut.
+    deviceSizes: [640, 960, 1280, 1920],
+    imageSizes: [320],
   },
   cacheComponents: true,
   partialPrefetching: true,

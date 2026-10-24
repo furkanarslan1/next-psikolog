@@ -8,7 +8,8 @@
     "start": "next start",
     "lint": "eslint",
     "create-admin": "tsx scripts/create-admin.ts",
-    "postinstall": "prisma generate"
+    "postinstall": "prisma generate",
+    "verify-media": "tsx scripts/verify-media.ts"
   },
   "dependencies": {
     "@base-ui/react": "^1.9.0",

@@ -3,6 +3,7 @@
 import { invalidateBlog } from "@/lib/cache-tags"
 import { createUploadSignature } from "@/lib/cloudinary"
 import { db } from "@/lib/db"
+import { deleteIfUnreferenced, postImageIds } from "@/lib/media"
 import { requireAdmin } from "@/lib/require-admin"
 import { sanitizeContent } from "@/lib/sanitize"
 import { slugify } from "@/lib/slug"
@@ -126,6 +127,11 @@ export async function updatePostAction(id: string, values: PostValues) {
         tags: { set: [], connectOrCreate: tagLinks },
       },
     })
+    // kaydedilen içerikte artık geçmeyen görselleri (başka yerde kullanılmıyorsa) sil
+    const kept = postImageIds(data)
+    await deleteIfUnreferenced(
+      [...postImageIds(existing)].filter((imageId) => !kept.has(imageId))
+    )
     // eski ve yeni değerlerin ikisi de etkilenir
     invalidateBlog({
       postSlugs: [existing.slug, slug],
@@ -155,6 +161,8 @@ export async function deletePostAction(id: string) {
   await db.post.delete({ where: { id } })
   // kullanılmayan etiketleri temizle
   await db.tag.deleteMany({ where: { posts: { none: {} } } })
+  // yazının görselleri başka yerde kullanılmıyorsa Cloudinary'den sil
+  await deleteIfUnreferenced(postImageIds(existing))
   invalidateBlog({
     postSlugs: [existing.slug],
     categorySlugs: [existing.category?.slug],

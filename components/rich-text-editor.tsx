@@ -24,7 +24,7 @@ import { toast } from "sonner"
 import { TextPromptDialog } from "@/components/text-prompt-dialog"
 import { Button } from "@/components/ui/button"
 import { UploadProgress } from "@/components/upload-progress"
-import { uploadImage } from "@/lib/upload-image"
+import { uploadImage, type UploadedImage } from "@/lib/upload-image"
 
 const IMAGE_INPUT_ID = "rich-text-editor-image"
 
@@ -40,7 +40,7 @@ export function RichTextEditor({
   type Dialog =
     | { kind: "link"; initial: string }
     | { kind: "alt"; initial: string }
-    | { kind: "new-image"; url: string }
+    | { kind: "new-image"; image: UploadedImage }
   const [dialog, setDialog] = React.useState<Dialog | null>(null)
   const [progress, setProgress] = React.useState<number | null>(null)
 
@@ -69,13 +69,21 @@ export function RichTextEditor({
     if (!file) return
     try {
       setProgress(0)
-      const url = await uploadImage(file, setProgress)
-      setDialog({ kind: "new-image", url })
+      const image = await uploadImage(file, setProgress)
+      setDialog({ kind: "new-image", image })
     } catch (error) {
       toast.error(error instanceof Error ? error.message : "Görsel yüklenemedi")
     } finally {
       setProgress(null)
     }
+  }
+
+  function insertImage(image: UploadedImage, alt: string) {
+    editor
+      ?.chain()
+      .focus()
+      .setImage({ src: image.url, alt, width: image.width, height: image.height })
+      .run()
   }
 
   function applyLink(url: string) {
@@ -91,7 +99,7 @@ export function RichTextEditor({
     if (open) return
     // alt metin girilmeden kapatılan yeni görsel yine de eklenir
     if (dialog?.kind === "new-image") {
-      editor?.chain().focus().setImage({ src: dialog.url, alt: "" }).run()
+      insertImage(dialog.image, "")
     }
     setDialog(null)
   }
@@ -171,7 +179,7 @@ export function RichTextEditor({
         cancelLabel={dialog?.kind === "new-image" ? "Atla" : "Vazgeç"}
         onSubmit={(value) => {
           if (dialog?.kind === "new-image") {
-            editor.chain().focus().setImage({ src: dialog.url, alt: value }).run()
+            insertImage(dialog.image, value)
           } else {
             editor.chain().focus().updateAttributes("image", { alt: value }).run()
           }
