@@ -20,4 +20,5 @@ Psikolog tanıtım + blog sitesi. Next.js (App Router), Auth.js v5, Prisma + Neo
 - Her özellik ayrı `feature/...` dalında yapılır; commit mesajları `feat:`, `fix:`, `chore:` önekiyle.
 - `pnpm create-admin` ile admin hesabı oluşturulur/güncellenir.
 - Veritabanı değişikliği: `prisma/schema.prisma` → `pnpm prisma migrate dev --name ...`.
+- `cacheComponents` açık: `auth()`, `cookies()`, `headers()` veya DB okuyan her sunucu bileşeni `<Suspense>` içinde olmalı ve `auth()` çağrısından önce `await connection()` (`next/server`) almalı; aksi halde `next build` "Blocking Route" hatası verir. Her admin özelliğinden sonra `pnpm build` ile doğrula.
 - Herkese açık sayfalar statik kalmalı (SEO); gereksiz yere `auth()`/`cookies()`/`headers()` kullanma.

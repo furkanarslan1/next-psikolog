@@ -24,3 +24,26 @@ model LoginAttempt {
   @@index([key, createdAt])
   @@index([createdAt])
 }
+
+enum PostStatus {
+  DRAFT
+  PUBLISHED
+}
+
+model Post {
+  id              String     @id @default(cuid())
+  title           String
+  slug            String     @unique
+  excerpt         String
+  content         String     @db.Text
+  coverImageUrl   String?
+  coverImageAlt   String?
+  status          PostStatus @default(DRAFT)
+  publishedAt     DateTime?
+  metaTitle       String?
+  metaDescription String?
+  createdAt       DateTime   @default(now())
+  updatedAt       DateTime   @updatedAt
+
+  @@index([status, publishedAt])
+}
