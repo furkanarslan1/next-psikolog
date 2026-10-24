@@ -20,7 +20,7 @@ const instrumentSans = Instrument_Sans({
 export default function SiteLayout({ children }: { children: React.ReactNode }) {
   return (
     <div
-      className={`${newsreader.variable} ${instrumentSans.variable} site flex min-h-svh flex-col bg-paper pb-24 md:pb-0 font-sans-site text-ink`}
+      className={`${newsreader.variable} ${instrumentSans.variable} site flex min-h-svh flex-col bg-paper font-sans-site text-ink`}
     >
       <SiteHeader />
       <main className="flex-1">{children}</main>

@@ -35,6 +35,8 @@ async function ContactEditor() {
               phone: contact.phone ?? "",
               whatsapp: contact.whatsapp ?? "",
               address: contact.address ?? "",
+              instagram: contact.instagram ?? "",
+              x: contact.x ?? "",
             }
           : undefined
       }

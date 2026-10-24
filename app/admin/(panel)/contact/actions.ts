@@ -3,6 +3,7 @@
 import { invalidateContact } from "@/lib/cache-tags"
 import { db } from "@/lib/db"
 import { requireAdmin } from "@/lib/require-admin"
+import { parseInstagram, parseX } from "@/lib/social"
 import { contactSchema, type ContactValues } from "@/lib/validations/contact"
 
 export async function saveContactAction(values: ContactValues) {
@@ -18,6 +19,8 @@ export async function saveContactAction(values: ContactValues) {
     phone: parsed.data.phone || null,
     whatsapp: parsed.data.whatsapp || null,
     address: parsed.data.address || null,
+    instagram: parseInstagram(parsed.data.instagram),
+    x: parseX(parsed.data.x),
   }
   await db.contact.upsert({
     where: { id: "main" },

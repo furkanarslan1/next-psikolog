@@ -2,19 +2,21 @@ import type { Metadata } from "next"
 
 import { ContactItems, contactItems } from "@/components/site/contact-items"
 import { JsonLd } from "@/components/site/json-ld"
+import { SocialBandContent, socialItems } from "@/components/site/social-links"
 import { PageHeading } from "@/components/site/page-heading"
 import { getContact } from "@/lib/queries/contact"
 import { absoluteUrl, siteConfig } from "@/lib/site"
 
 export const metadata: Metadata = {
   title: "İletişim",
-  description: `${siteConfig.name} ile iletişime geçin: e-posta, telefon, WhatsApp ve adres bilgileri.`,
+  description: `${siteConfig.name} ile iletişime geçin: e-posta, telefon, WhatsApp, adres ve sosyal medya hesapları.`,
   alternates: { canonical: "/iletisim" },
 }
 
 export default async function ContactPage() {
   const contact = await getContact()
   const items = contactItems(contact)
+  const social = socialItems(contact)
 
   return (
     <>
@@ -31,6 +33,7 @@ export default async function ContactPage() {
             email: contact?.email ?? undefined,
             telephone: contact?.phone ?? undefined,
             address: contact?.address ?? undefined,
+            sameAs: socialItems(contact).map((item) => item.href),
           },
         }}
       />
@@ -39,12 +42,19 @@ export default async function ContactPage() {
           title="İletişim"
           description="Randevu ve bilgi almak için aşağıdaki kanallardan bana ulaşabilirsiniz."
         />
-        {items.length === 0 ? (
+        {items.length === 0 && social.length === 0 ? (
           <p className="max-w-prose text-lg text-ink-soft">
             İletişim bilgileri yakında burada olacak.
           </p>
         ) : (
-          <ContactItems items={items} />
+          <>
+            {social.length > 0 && (
+              <div className="bg-anthracite px-6 py-8 sm:px-10">
+                <SocialBandContent items={social} />
+              </div>
+            )}
+            {items.length > 0 && <ContactItems items={items} />}
+          </>
         )}
       </div>
     </>

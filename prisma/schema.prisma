@@ -88,6 +88,8 @@ model Contact {
   phone     String?
   whatsapp  String?
   address   String?
+  instagram String?
+  x         String?
   updatedAt DateTime @updatedAt
 }
 
