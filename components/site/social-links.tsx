@@ -1,29 +1,20 @@
-import { InstagramIcon, XIcon } from "@/components/site/social-icons"
+import { InstagramIcon } from "@/components/site/social-icons"
 import type { ContactData } from "@/lib/queries/contact"
-import { instagramUrl, xUrl } from "@/lib/social"
+import { siteConfig } from "@/lib/site"
+import { instagramUrl } from "@/lib/social"
 
+// Yalnızca Instagram gösterilir (müşteri isteği); admin'de girilmediyse varsayılan hesap.
 export function socialItems(contact: ContactData | null) {
-  if (!contact) return []
-  const items: { key: string; label: string; handle: string; href: string; icon: typeof XIcon }[] = []
-  if (contact.instagram) {
-    items.push({
+  const handle = contact?.instagram || siteConfig.instagram
+  return [
+    {
       key: "instagram",
       label: "Instagram",
-      handle: `@${contact.instagram}`,
-      href: instagramUrl(contact.instagram),
+      handle: `@${handle}`,
+      href: instagramUrl(handle),
       icon: InstagramIcon,
-    })
-  }
-  if (contact.x) {
-    items.push({
-      key: "x",
-      label: "X",
-      handle: `@${contact.x}`,
-      href: xUrl(contact.x),
-      icon: XIcon,
-    })
-  }
-  return items
+    },
+  ]
 }
 
 type Items = ReturnType<typeof socialItems>

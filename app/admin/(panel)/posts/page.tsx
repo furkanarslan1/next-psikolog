@@ -20,7 +20,7 @@ import {
 import { db } from "@/lib/db"
 
 export const metadata: Metadata = {
-  title: "Blog yazıları",
+  title: "Yazılar",
   robots: { index: false, follow: false },
 }
 
@@ -30,7 +30,7 @@ export default function PostsPage() {
   return (
     <>
       <div className="flex items-center justify-between">
-        <h1 className="text-2xl font-semibold">Blog yazıları</h1>
+        <h1 className="text-2xl font-semibold">Yazılar</h1>
         <Link href="/admin/posts/new" className={buttonVariants()}>
           <PlusIcon />
           Yeni yazı

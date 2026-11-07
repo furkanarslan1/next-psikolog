@@ -84,7 +84,7 @@ export default async function PostPage({ params }: PageProps<"/blog/[slug]">) {
             {
               "@type": "BreadcrumbList",
               itemListElement: [
-                { "@type": "ListItem", position: 1, name: "Yazılarım", item: absoluteUrl("/") },
+                { "@type": "ListItem", position: 1, name: "Yazılar", item: absoluteUrl("/") },
                 ...(post.category
                   ? [
                       {
@@ -111,7 +111,7 @@ export default async function PostPage({ params }: PageProps<"/blog/[slug]">) {
         <header className="mx-auto flex w-full max-w-3xl flex-col gap-5">
           <nav aria-label="Konum" className="text-sm text-ink-soft">
             <Link href="/" className="hover:text-ink hover:underline">
-              Yazılarım
+              Yazılar
             </Link>
             {post.category && (
               <>

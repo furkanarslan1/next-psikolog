@@ -3,23 +3,31 @@
 import Link from "next/link"
 import { usePathname } from "next/navigation"
 
-const links = [
+// Menü dört sayfa: masaüstü başlığı ve mobil alt menü aynı listeyi kullanır
+export const navLinks = [
+  { href: "/", label: "Anasayfa", prefixes: [] as string[] },
   { href: "/hakkimda", label: "Hakkımda", prefixes: ["/hakkimda"] },
   {
     href: "/yazilar",
-    label: "Yazılarım",
+    label: "Yazılar",
     prefixes: ["/yazilar", "/blog", "/kategori", "/etiket"],
   },
   { href: "/iletisim", label: "İletişim", prefixes: ["/iletisim"] },
 ]
+
+export function isActive(link: (typeof navLinks)[number], pathname: string) {
+  return link.href === "/"
+    ? pathname === "/"
+    : link.prefixes.some((prefix) => pathname.startsWith(prefix))
+}
 
 export function SiteNav() {
   const pathname = usePathname()
 
   return (
     <nav aria-label="Ana menü" className="flex items-center gap-6 sm:gap-8">
-      {links.map((link) => {
-        const active = link.prefixes.some((prefix) => pathname.startsWith(prefix))
+      {navLinks.map((link) => {
+        const active = isActive(link, pathname)
         return (
           <Link
             key={link.href}

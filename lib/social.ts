@@ -20,7 +20,5 @@ function parseHandle(input: string, hosts: string[]) {
 }
 
 export const parseInstagram = (input: string) => parseHandle(input, ["instagram.com"])
-export const parseX = (input: string) => parseHandle(input, ["x.com", "twitter.com"])
 
 export const instagramUrl = (handle: string) => `https://www.instagram.com/${handle}`
-export const xUrl = (handle: string) => `https://x.com/${handle}`
