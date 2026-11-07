@@ -30,41 +30,41 @@ enum PostStatus {
   PUBLISHED
 }
 
+enum PostType {
+  YAZI
+  CEVIRI
+}
+
+// Yazılar ve çeviriler tek arşivde; tür ile ayrılır. Çeviriye özel alanlar
+// (originalAuthor, originalTitle, originalLang, source*) yazıda boş kalır.
 model Post {
   id              String     @id @default(cuid())
+  type            PostType   @default(YAZI)
+  // içeriğin dili: "tr" veya "fr" (listede ayrılmaz, birlikte görünür)
+  lang            String     @default("tr")
   title           String
   slug            String     @unique
   excerpt         String
   content         String     @db.Text
-  coverImageUrl   String?
-  coverImageAlt   String?
+  // false ise yalnızca özet gösterilir ve sourceUrl'e dış link verilir (telif)
+  fullText        Boolean    @default(true)
+  // yayımlandığı yer (dergi, sayı, sempozyum)
+  publishedIn     String?
+  originalAuthor  String?
+  originalTitle   String?
+  originalLang    String?
+  // orijinal yayın ve yıl
+  sourceCitation  String?
+  sourceUrl       String?
   status          PostStatus @default(DRAFT)
   publishedAt     DateTime?
   metaTitle       String?
   metaDescription String?
-  categoryId      String?
-  category        Category?  @relation(fields: [categoryId], references: [id], onDelete: SetNull)
-  tags            Tag[]
   createdAt       DateTime   @default(now())
   updatedAt       DateTime   @updatedAt
 
   @@index([status, publishedAt])
-  @@index([categoryId])
-}
-
-model Category {
-  id        String   @id @default(cuid())
-  name      String   @unique
-  slug      String   @unique
-  posts     Post[]
-  createdAt DateTime @default(now())
-}
-
-model Tag {
-  id    String @id @default(cuid())
-  name  String @unique
-  slug  String @unique
-  posts Post[]
+  @@index([status, type, publishedAt])
 }
 
 // Tek satırlık ana sayfa (hero) ayarı: id her zaman "main"
@@ -72,12 +72,6 @@ model Hero {
   id          String   @id @default("main")
   headline    String
   description String?
-  buttonLabel String
-  buttonUrl   String
-  imageUrl    String?
-  imageAlt    String?
-  imageWidth  Int?
-  imageHeight Int?
   updatedAt   DateTime @updatedAt
 }
 
@@ -89,7 +83,6 @@ model Contact {
   whatsapp  String?
   address   String?
   instagram String?
-  x         String?
   updatedAt DateTime @updatedAt
 }
 
@@ -97,9 +90,5 @@ model Contact {
 model About {
   id          String   @id @default("main")
   content     String   @db.Text
-  imageUrl    String?
-  imageAlt    String?
-  imageWidth  Int?
-  imageHeight Int?
   updatedAt   DateTime @updatedAt
 }

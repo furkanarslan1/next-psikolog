@@ -45,23 +45,20 @@ export default function PostsPage() {
 
 async function PostsTable() {
   await connection()
-  const posts = await db.post.findMany({
-    orderBy: { updatedAt: "desc" },
-    include: { category: true },
-  })
+  const posts = await db.post.findMany({ orderBy: { updatedAt: "desc" } })
 
   return (
     <>
 
       {posts.length === 0 ? (
-        <p className="text-muted-foreground">Henüz yazı yok.</p>
+        <p className="text-muted-foreground">Henüz kayıt yok.</p>
       ) : (
         <Table>
           <TableHeader>
             <TableRow>
               <TableHead>Başlık</TableHead>
               <TableHead>Durum</TableHead>
-              <TableHead>Kategori</TableHead>
+              <TableHead>Tür</TableHead>
               <TableHead>Güncelleme</TableHead>
               <TableHead className="w-24" />
             </TableRow>
@@ -75,7 +72,7 @@ async function PostsTable() {
                     {post.status === "PUBLISHED" ? "Yayında" : "Taslak"}
                   </Badge>
                 </TableCell>
-                <TableCell>{post.category?.name ?? "—"}</TableCell>
+                <TableCell>{post.type === "CEVIRI" ? "Çeviri" : "Yazı"}</TableCell>
                 <TableCell>{dateFormat.format(post.updatedAt)}</TableCell>
                 <TableCell>
                   <div className="flex justify-end gap-1">

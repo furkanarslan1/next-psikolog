@@ -2,7 +2,7 @@ import type { Metadata } from "next"
 
 import { PostsListing } from "@/components/site/posts-listing"
 import { POSTS_PER_PAGE, totalPages } from "@/lib/blog-config"
-import { getCategoriesWithPosts, getPostsPage } from "@/lib/queries/posts"
+import { getPostsPage } from "@/lib/queries/posts"
 import { siteConfig } from "@/lib/site"
 
 export async function generateMetadata(): Promise<Metadata> {
@@ -17,19 +17,7 @@ export async function generateMetadata(): Promise<Metadata> {
 }
 
 export default async function PostsPage() {
-  const [{ posts, total }, categories] = await Promise.all([
-    getPostsPage({ page: 1, pageSize: POSTS_PER_PAGE }),
-    getCategoriesWithPosts(),
-  ])
+  const { posts, total } = await getPostsPage({ page: 1, pageSize: POSTS_PER_PAGE })
 
-  return (
-    <PostsListing
-      title="Yazılar"
-      posts={posts}
-      categories={categories}
-      base="/yazilar"
-      page={1}
-      pages={totalPages(total)}
-    />
-  )
+  return <PostsListing type={null} posts={posts} page={1} pages={totalPages(total)} />
 }

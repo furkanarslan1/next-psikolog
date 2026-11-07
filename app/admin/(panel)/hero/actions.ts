@@ -18,12 +18,10 @@ export async function saveHeroAction(values: HeroValues) {
     description: parsed.data.description || null,
   }
 
-  // butonlar artık sabit (Hakkımda / İletişime Geçin); şemadaki buton sütunları
-  // kullanılmıyor, posts migration'ında silinecek
   await db.hero.upsert({
     where: { id: "main" },
     update: data,
-    create: { id: "main", ...data, buttonLabel: "Hakkımda", buttonUrl: "/hakkimda" },
+    create: { id: "main", ...data },
   })
 
   invalidateHero()

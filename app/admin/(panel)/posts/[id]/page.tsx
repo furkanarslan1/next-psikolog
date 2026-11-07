@@ -8,14 +8,14 @@ import { PostForm } from "@/components/post-form"
 import { db } from "@/lib/db"
 
 export const metadata: Metadata = {
-  title: "Yazıyı düzenle",
+  title: "Kaydı düzenle",
   robots: { index: false, follow: false },
 }
 
 export default function EditPostPage({ params }: PageProps<"/admin/posts/[id]">) {
   return (
     <>
-      <h1 className="text-2xl font-semibold">Yazıyı düzenle</h1>
+      <h1 className="text-2xl font-semibold">Yazıyı / çeviriyi düzenle</h1>
       <Suspense fallback={<FormSkeleton />}>
         <EditPostForm params={params} />
       </Suspense>
@@ -30,25 +30,25 @@ async function EditPostForm({
 }) {
   await connection()
   const { id } = await params
-  const [post, categories] = await Promise.all([
-    db.post.findUnique({ where: { id }, include: { tags: true } }),
-    db.category.findMany({
-      orderBy: { name: "asc" },
-      select: { id: true, name: true },
-    }),
-  ])
+  const post = await db.post.findUnique({ where: { id } })
   if (!post) notFound()
 
   return (
     <PostForm
-      categories={categories}
       postId={post.id}
       initialValues={{
+        type: post.type,
+        lang: post.lang === "fr" ? "fr" : "tr",
         title: post.title,
         excerpt: post.excerpt,
         content: post.content,
-        categoryId: post.categoryId ?? "",
-        tags: post.tags.map((tag) => tag.name),
+        fullText: post.fullText,
+        publishedIn: post.publishedIn ?? "",
+        originalAuthor: post.originalAuthor ?? "",
+        originalTitle: post.originalTitle ?? "",
+        originalLang: post.originalLang ?? "",
+        sourceCitation: post.sourceCitation ?? "",
+        sourceUrl: post.sourceUrl ?? "",
         status: post.status,
         metaTitle: post.metaTitle ?? "",
         metaDescription: post.metaDescription ?? "",

@@ -1,9 +1,8 @@
 "use client"
 
 import { zodResolver } from "@hookform/resolvers/zod"
-import Link from "next/link"
 import { useRouter } from "next/navigation"
-import { Controller, useForm } from "react-hook-form"
+import { Controller, useForm, useWatch } from "react-hook-form"
 import { toast } from "sonner"
 
 import {
@@ -11,7 +10,6 @@ import {
   updatePostAction,
 } from "@/app/admin/(panel)/posts/actions"
 import { RichTextEditor } from "@/components/rich-text-editor"
-import { TagInput } from "@/components/tag-input"
 import { Button } from "@/components/ui/button"
 import { Card, CardContent, CardHeader, CardTitle } from "@/components/ui/card"
 import { Field, FieldDescription, FieldError, FieldGroup, FieldLabel } from "@/components/ui/field"
@@ -20,11 +18,18 @@ import { Textarea } from "@/components/ui/textarea"
 import { postSchema, type PostValues } from "@/lib/validations/post"
 
 const emptyValues: PostValues = {
+  type: "YAZI",
+  lang: "tr",
   title: "",
   excerpt: "",
   content: "",
-  categoryId: "",
-  tags: [],
+  fullText: true,
+  publishedIn: "",
+  originalAuthor: "",
+  originalTitle: "",
+  originalLang: "",
+  sourceCitation: "",
+  sourceUrl: "",
   status: "DRAFT",
   metaTitle: "",
   metaDescription: "",
@@ -34,11 +39,9 @@ const selectClass =
   "h-8 w-full rounded-lg border border-input bg-transparent px-2.5 text-sm outline-none focus-visible:border-ring focus-visible:ring-3 focus-visible:ring-ring/50"
 
 export function PostForm({
-  categories,
   postId,
   initialValues,
 }: {
-  categories: { id: string; name: string }[]
   postId?: string
   initialValues?: PostValues
 }) {
@@ -48,6 +51,9 @@ export function PostForm({
     resolver: zodResolver(postSchema),
     defaultValues: initialValues ?? emptyValues,
   })
+
+  const type = useWatch({ control: form.control, name: "type" })
+  const fullText = useWatch({ control: form.control, name: "fullText" })
 
   async function onSubmit(values: PostValues) {
     const result = postId
@@ -99,20 +105,59 @@ export function PostForm({
               )}
             />
             <Controller
-              name="content"
+              name="fullText"
               control={form.control}
-              render={({ field, fieldState }) => (
-                <Field data-invalid={fieldState.invalid}>
-                  <FieldLabel>İçerik *</FieldLabel>
-                  <RichTextEditor
-                    value={field.value}
-                    onChange={field.onChange}
-                    invalid={fieldState.invalid}
+              render={({ field }) => (
+                <Field orientation="horizontal">
+                  <input
+                    id="fullText"
+                    type="checkbox"
+                    checked={field.value}
+                    onChange={(event) => field.onChange(event.target.checked)}
+                    className="size-4"
                   />
-                  {fieldState.invalid && <FieldError errors={[fieldState.error]} />}
+                  <FieldLabel htmlFor="fullText">Tam metni sitede yayımla</FieldLabel>
                 </Field>
               )}
             />
+            {fullText ? (
+              <Controller
+                name="content"
+                control={form.control}
+                render={({ field, fieldState }) => (
+                  <Field data-invalid={fieldState.invalid}>
+                    <FieldLabel>İçerik *</FieldLabel>
+                    <RichTextEditor
+                      value={field.value}
+                      onChange={field.onChange}
+                      invalid={fieldState.invalid}
+                    />
+                    {fieldState.invalid && <FieldError errors={[fieldState.error]} />}
+                  </Field>
+                )}
+              />
+            ) : (
+              <Controller
+                name="sourceUrl"
+                control={form.control}
+                render={({ field, fieldState }) => (
+                  <Field data-invalid={fieldState.invalid}>
+                    <FieldLabel htmlFor="sourceUrl">Tam metnin dış bağlantısı *</FieldLabel>
+                    <Input
+                      {...field}
+                      id="sourceUrl"
+                      placeholder="https://..."
+                      aria-invalid={fieldState.invalid}
+                    />
+                    <FieldDescription>
+                      Telif nedeniyle yalnızca özet gösterilir; &quot;Tam metne git&quot; bu adrese
+                      yönlendirir (örn. dergi veya Corpus).
+                    </FieldDescription>
+                    {fieldState.invalid && <FieldError errors={[fieldState.error]} />}
+                  </Field>
+                )}
+              />
+            )}
           </FieldGroup>
         </CardContent>
       </Card>
@@ -138,44 +183,46 @@ export function PostForm({
                 )}
               />
               <Controller
-                name="categoryId"
+                name="type"
                 control={form.control}
-                render={({ field, fieldState }) => (
-                  <Field data-invalid={fieldState.invalid}>
-                    <FieldLabel htmlFor="categoryId">Kategori (yayın için zorunlu)</FieldLabel>
-                    <select
-                      {...field}
-                      id="categoryId"
-                      className={selectClass}
-                      aria-invalid={fieldState.invalid}
-                    >
-                      <option value="">Kategori seçin</option>
-                      {categories.map((category) => (
-                        <option key={category.id} value={category.id}>
-                          {category.name}
-                        </option>
-                      ))}
+                render={({ field }) => (
+                  <Field>
+                    <FieldLabel htmlFor="type">Tür</FieldLabel>
+                    <select {...field} id="type" className={selectClass}>
+                      <option value="YAZI">Yazı</option>
+                      <option value="CEVIRI">Çeviri</option>
                     </select>
-                    {categories.length === 0 && (
-                      <FieldDescription>
-                        Henüz kategori yok.{" "}
-                        <Link href="/admin/categories" className="underline">
-                          Önce bir kategori ekleyin
-                        </Link>
-                        .
-                      </FieldDescription>
-                    )}
-                    {fieldState.invalid && <FieldError errors={[fieldState.error]} />}
                   </Field>
                 )}
               />
               <Controller
-                name="tags"
+                name="lang"
+                control={form.control}
+                render={({ field }) => (
+                  <Field>
+                    <FieldLabel htmlFor="lang">Dil</FieldLabel>
+                    <select {...field} id="lang" className={selectClass}>
+                      <option value="tr">Türkçe</option>
+                      <option value="fr">Fransızca</option>
+                    </select>
+                    <FieldDescription>
+                      Listede dillere göre ayrılmaz; yalnızca sayfanın dil bilgisi için kullanılır.
+                    </FieldDescription>
+                  </Field>
+                )}
+              />
+              <Controller
+                name="publishedIn"
                 control={form.control}
                 render={({ field, fieldState }) => (
                   <Field data-invalid={fieldState.invalid}>
-                    <FieldLabel htmlFor="tags">Etiketler</FieldLabel>
-                    <TagInput id="tags" value={field.value} onChange={field.onChange} />
+                    <FieldLabel htmlFor="publishedIn">Yayımlandığı yer</FieldLabel>
+                    <Input
+                      {...field}
+                      id="publishedIn"
+                      placeholder="Dergi, sayı veya sempozyum"
+                      aria-invalid={fieldState.invalid}
+                    />
                     {fieldState.invalid && <FieldError errors={[fieldState.error]} />}
                   </Field>
                 )}
@@ -186,6 +233,91 @@ export function PostForm({
             </FieldGroup>
           </CardContent>
         </Card>
+
+        {type === "CEVIRI" && (
+          <Card>
+            <CardHeader>
+              <CardTitle>Çeviri bilgileri</CardTitle>
+            </CardHeader>
+            <CardContent>
+              <FieldGroup>
+                <Controller
+                  name="originalAuthor"
+                  control={form.control}
+                  render={({ field, fieldState }) => (
+                    <Field data-invalid={fieldState.invalid}>
+                      <FieldLabel htmlFor="originalAuthor">Orijinal yazar *</FieldLabel>
+                      <Input {...field} id="originalAuthor" aria-invalid={fieldState.invalid} />
+                      {fieldState.invalid && <FieldError errors={[fieldState.error]} />}
+                    </Field>
+                  )}
+                />
+                <Controller
+                  name="originalTitle"
+                  control={form.control}
+                  render={({ field, fieldState }) => (
+                    <Field data-invalid={fieldState.invalid}>
+                      <FieldLabel htmlFor="originalTitle">Orijinal başlık</FieldLabel>
+                      <Input {...field} id="originalTitle" aria-invalid={fieldState.invalid} />
+                      {fieldState.invalid && <FieldError errors={[fieldState.error]} />}
+                    </Field>
+                  )}
+                />
+                <Controller
+                  name="originalLang"
+                  control={form.control}
+                  render={({ field, fieldState }) => (
+                    <Field data-invalid={fieldState.invalid}>
+                      <FieldLabel htmlFor="originalLang">Orijinal dil</FieldLabel>
+                      <Input
+                        {...field}
+                        id="originalLang"
+                        placeholder="Fransızca"
+                        aria-invalid={fieldState.invalid}
+                      />
+                      {fieldState.invalid && <FieldError errors={[fieldState.error]} />}
+                    </Field>
+                  )}
+                />
+                <Controller
+                  name="sourceCitation"
+                  control={form.control}
+                  render={({ field, fieldState }) => (
+                    <Field data-invalid={fieldState.invalid}>
+                      <FieldLabel htmlFor="sourceCitation">Kaynak</FieldLabel>
+                      <Textarea
+                        {...field}
+                        id="sourceCitation"
+                        rows={2}
+                        placeholder="Orijinal yayın, yıl"
+                        aria-invalid={fieldState.invalid}
+                      />
+                      {fieldState.invalid && <FieldError errors={[fieldState.error]} />}
+                    </Field>
+                  )}
+                />
+                {fullText && (
+                  <Controller
+                    name="sourceUrl"
+                    control={form.control}
+                    render={({ field, fieldState }) => (
+                      <Field data-invalid={fieldState.invalid}>
+                        <FieldLabel htmlFor="sourceUrl">Kaynak bağlantısı</FieldLabel>
+                        <Input
+                          {...field}
+                          id="sourceUrl"
+                          placeholder="https://..."
+                          aria-invalid={fieldState.invalid}
+                        />
+                        {fieldState.invalid && <FieldError errors={[fieldState.error]} />}
+                      </Field>
+                    )}
+                  />
+                )}
+              </FieldGroup>
+            </CardContent>
+          </Card>
+        )}
 
         <Card>
           <CardHeader>

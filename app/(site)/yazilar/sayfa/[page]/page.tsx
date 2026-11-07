@@ -8,18 +8,13 @@ import {
   parsePageNumber,
   totalPages,
 } from "@/lib/blog-config"
-import {
-  getCategoriesWithPosts,
-  getPostsPage,
-  getSitemapData,
-} from "@/lib/queries/posts"
+import { getPostsPage, getSitemapData } from "@/lib/queries/posts"
 import { siteConfig } from "@/lib/site"
 
 // Cache Components en az bir parametre ister: tek sayfa varsa "2" yer tutucudur (404 döner)
 export async function generateStaticParams() {
-  const { posts } = await getSitemapData()
-  const pages = totalPages(posts.length)
-  const params = Array.from({ length: pages - 1 }, (_, index) => ({
+  const { counts } = await getSitemapData()
+  const params = Array.from({ length: totalPages(counts.all) - 1 }, (_, index) => ({
     page: String(index + 2),
   }))
   return params.length > 0 ? params : [{ page: "2" }]
@@ -55,20 +50,15 @@ export default async function PostsPageN({
   const page = parsePageNumber(raw)
   if (!page) notFound()
 
-  const [{ posts, total }, categories] = await Promise.all([
-    getPostsPage({ page, pageSize: POSTS_PER_PAGE }),
-    getCategoriesWithPosts(),
-  ])
+  const { posts, total } = await getPostsPage({ page, pageSize: POSTS_PER_PAGE })
   const pages = totalPages(total)
   if (page > pages) notFound()
 
   return (
     <PostsListing
-      title="Yazılar"
+      type={null}
       description={`Sayfa ${page} / ${pages}`}
       posts={posts}
-      categories={categories}
-      base="/yazilar"
       page={page}
       pages={pages}
     />
