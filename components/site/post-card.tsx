@@ -7,7 +7,7 @@ function Meta({ post }: { post: PostCardData }) {
   return (
     <p className="flex flex-wrap items-center gap-x-3 gap-y-2 font-sans-site text-sm text-ink-soft">
       {post.category && (
-        <span className="rounded-full bg-anthracite px-3 py-1 font-sans-site text-xs font-medium text-on-anthracite">
+        <span className="label-caps text-brand">
           {post.category.name}
         </span>
       )}
@@ -21,7 +21,7 @@ function Meta({ post }: { post: PostCardData }) {
 }
 
 const titleLink =
-  "after:absolute after:inset-0 decoration-anthracite decoration-2 underline-offset-4 group-hover:underline focus-visible:outline-2 focus-visible:outline-offset-4 focus-visible:outline-anthracite"
+  "after:absolute after:inset-0 decoration-brand decoration-2 underline-offset-4 group-hover:underline focus-visible:outline-2 focus-visible:outline-offset-4 focus-visible:outline-brand"
 
 export function PostCard({ post }: { post: PostCardData }) {
   return (

@@ -71,7 +71,7 @@ export default async function AboutPage() {
             </h1>
             <p className="text-ink-soft">{siteConfig.name}</p>
           </div>
-          <span aria-hidden className="mt-2 block h-px w-16 bg-anthracite" />
+          <span aria-hidden className="mt-2 block h-px w-16 bg-brand" />
         </header>
 
         {about ? (
@@ -87,7 +87,7 @@ export default async function AboutPage() {
         )}
       </article>
 
-      <section className="bg-panel text-white">
+      <section className="border-t border-line bg-surface">
         <div className="mx-auto flex w-full max-w-6xl flex-col items-center gap-6 px-5 py-14 text-center sm:px-8 sm:py-16">
           <h2 className="font-serif-site text-3xl font-normal tracking-tight sm:text-4xl">
             Tanışmak için bir adım atın

@@ -17,7 +17,7 @@ export function SiteNav() {
   const pathname = usePathname()
 
   return (
-    <nav aria-label="Ana menü" className="flex items-center gap-6 font-sans-site sm:gap-8">
+    <nav aria-label="Ana menü" className="flex items-center gap-6 sm:gap-8">
       {links.map((link) => {
         const active = link.prefixes.some((prefix) => pathname.startsWith(prefix))
         return (
@@ -25,10 +25,8 @@ export function SiteNav() {
             key={link.href}
             href={link.href}
             aria-current={active ? "page" : undefined}
-            className={`border-b-2 pb-1 text-base transition-colors focus-visible:outline-2 focus-visible:outline-offset-4 focus-visible:outline-anthracite ${
-              active
-                ? "border-anthracite text-anthracite"
-                : "border-transparent text-ink-soft hover:text-ink"
+            className={`label-caps py-1 transition-colors focus-visible:outline-2 focus-visible:outline-offset-4 focus-visible:outline-brand ${
+              active ? "text-brand" : "text-ink hover:text-brand"
             }`}
           >
             {link.label}

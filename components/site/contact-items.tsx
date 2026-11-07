@@ -83,16 +83,16 @@ export function ContactItems({ items }: { items: Item[] }) {
           <a
             href={item.href}
             {...(item.external ? { target: "_blank", rel: "noopener noreferrer" } : {})}
-            className="group flex h-full items-start gap-4 border-t border-line pt-5 focus-visible:outline-2 focus-visible:outline-offset-4 focus-visible:outline-anthracite"
+            className="group flex h-full items-start gap-4 border-t border-line pt-5 focus-visible:outline-2 focus-visible:outline-offset-4 focus-visible:outline-brand"
           >
-            <item.icon className="mt-0.5 size-5 shrink-0 text-anthracite" aria-hidden />
+            <item.icon className="mt-0.5 size-5 shrink-0 text-brand" aria-hidden />
             <span className="flex min-w-0 flex-col gap-1.5">
               <span className="text-sm text-ink-soft">{item.label}</span>
-              <span className="font-serif-site text-xl leading-snug break-words whitespace-pre-line decoration-anthracite decoration-2 underline-offset-4 group-hover:underline">
+              <span className="font-serif-site text-xl leading-snug break-words whitespace-pre-line decoration-brand decoration-2 underline-offset-4 group-hover:underline">
                 {item.value}
               </span>
               {item.action && (
-                <span className="text-sm font-medium text-anthracite">{item.action}</span>
+                <span className="text-sm font-medium text-brand">{item.action}</span>
               )}
             </span>
           </a>

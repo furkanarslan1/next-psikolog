@@ -3,7 +3,7 @@ import Link from "next/link"
 import { pagePath } from "@/lib/blog-config"
 
 const linkClass =
-  "border-b-2 pb-1 font-sans-site text-base transition-colors focus-visible:outline-2 focus-visible:outline-offset-4 focus-visible:outline-anthracite"
+  "label-caps border-b-2 pb-1 transition-colors focus-visible:outline-2 focus-visible:outline-offset-4 focus-visible:outline-brand"
 
 // Geçerli sayfanın etrafındaki numaralar; arada boşluk varsa "…" gösterilir
 function visiblePages(current: number, total: number) {
@@ -53,7 +53,7 @@ export function Pagination({
             aria-current={item === current ? "page" : undefined}
             className={`${linkClass} ${
               item === current
-                ? "border-anthracite text-anthracite"
+                ? "border-brand text-brand"
                 : "border-transparent text-ink-soft hover:text-ink"
             }`}
           >

@@ -5,7 +5,7 @@ import Link from "next/link"
 import { useCallback, useEffect, useRef, useState } from "react"
 
 const linkClass =
-  "shrink-0 whitespace-nowrap font-sans-site border-b-2 pb-1 text-base transition-colors focus-visible:outline-2 focus-visible:outline-offset-4 focus-visible:outline-anthracite"
+  "label-caps shrink-0 whitespace-nowrap border-b-2 pb-1 transition-colors focus-visible:outline-2 focus-visible:outline-offset-4 focus-visible:outline-brand"
 
 const arrowClass =
   "absolute top-0 flex h-[calc(100%-0.25rem)] w-14 items-center focus-visible:outline-none"
@@ -62,7 +62,7 @@ export function CategoryNav({
         <Link
           href="/yazilar"
           aria-current={activeSlug ? undefined : "page"}
-          className={`${linkClass} snap-start ${activeSlug ? "border-transparent text-ink-soft hover:text-ink" : "border-anthracite text-anthracite"}`}
+          className={`${linkClass} snap-start ${activeSlug ? "border-transparent text-ink-soft hover:text-ink" : "border-brand text-brand"}`}
         >
           Tümü
         </Link>
@@ -73,7 +73,7 @@ export function CategoryNav({
               key={category.slug}
               href={`/kategori/${category.slug}`}
               aria-current={active ? "page" : undefined}
-              className={`${linkClass} snap-start ${active ? "border-anthracite text-anthracite" : "border-transparent text-ink-soft hover:text-ink"}`}
+              className={`${linkClass} snap-start ${active ? "border-brand text-brand" : "border-transparent text-ink-soft hover:text-ink"}`}
             >
               {category.name}
             </Link>
@@ -88,7 +88,7 @@ export function CategoryNav({
           aria-label="Önceki kategoriler"
           className={`${arrowClass} left-0 justify-start bg-linear-to-r from-paper from-50% to-transparent`}
         >
-          <span className="flex size-8 items-center justify-center rounded-full bg-anthracite text-on-anthracite transition-colors hover:bg-ink">
+          <span className="flex size-8 items-center justify-center rounded-full bg-brand text-on-brand transition-opacity hover:opacity-85">
             <ChevronLeftIcon className="size-4" aria-hidden />
           </span>
         </button>
@@ -100,7 +100,7 @@ export function CategoryNav({
           aria-label="Sonraki kategoriler"
           className={`${arrowClass} right-0 justify-end bg-linear-to-l from-paper from-50% to-transparent`}
         >
-          <span className="flex size-8 items-center justify-center rounded-full bg-anthracite text-on-anthracite transition-colors hover:bg-ink">
+          <span className="flex size-8 items-center justify-center rounded-full bg-brand text-on-brand transition-opacity hover:opacity-85">
             <ChevronRightIcon className="size-4" aria-hidden />
           </span>
         </button>

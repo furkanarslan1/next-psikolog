@@ -17,7 +17,7 @@ export function SiteHeader() {
         <Link
           href="/"
           aria-label={`${siteConfig.name}, ana sayfa`}
-          className="flex size-11 items-center justify-center border-2 border-anthracite font-serif-site text-xl leading-none font-medium tracking-wide focus-visible:outline-2 focus-visible:outline-offset-4 focus-visible:outline-anthracite"
+          className="flex size-11 items-center justify-center rounded-full border-[1.5px] border-anthracite font-serif-site text-lg leading-none font-medium tracking-wide focus-visible:outline-2 focus-visible:outline-offset-4 focus-visible:outline-anthracite"
         >
           EA
         </Link>
