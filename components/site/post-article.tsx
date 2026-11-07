@@ -88,7 +88,7 @@ export function PostArticle({ post, locale }: { post: Post; locale: Locale }) {
               </>
             )}
           </nav>
-          <h1 className="font-serif-site text-4xl leading-[1.08] font-normal tracking-tight text-balance sm:text-6xl">
+          <h1 className="font-serif-site text-4xl leading-[1.08] font-normal tracking-tight text-balance sm:text-5xl lg:text-6xl">
             {post.title}
           </h1>
           <p className="text-xl leading-relaxed text-ink-soft">{post.excerpt}</p>

@@ -54,7 +54,7 @@ export default async function AboutPage() {
       <article className="mx-auto flex w-full max-w-6xl flex-col items-center px-5 py-14 sm:px-8 sm:py-20">
         <header className="flex flex-col items-center gap-6 text-center">
           <div className="flex flex-col items-center gap-3 pt-2">
-            <h1 className="font-serif-site text-5xl leading-tight font-normal tracking-tight sm:text-6xl">
+            <h1 className="font-serif-site text-4xl leading-[1.08] font-normal tracking-tight sm:text-5xl lg:text-6xl">
               Hakkımda
             </h1>
             <p className="text-ink-soft">{siteConfig.name}</p>

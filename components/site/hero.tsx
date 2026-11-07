@@ -1,5 +1,6 @@
 import Link from "next/link"
 
+import { Rings } from "@/components/site/rings"
 import { SocialIconButtons, socialItems } from "@/components/site/social-links"
 import { dict, type Locale } from "@/lib/i18n"
 import { siteConfig } from "@/lib/site"
@@ -27,14 +28,16 @@ export function Hero({
   const description = locale === "fr" ? hero?.descriptionFr : hero?.description
 
   return (
-    <section>
-      <div className="mx-auto flex w-full max-w-6xl flex-col items-start gap-8 px-5 py-16 sm:px-8 sm:py-24 lg:py-32">
+    <section className="relative overflow-hidden">
+      {/* mobilde büyük ve silik bir arka plan; geniş ekranda sağda belirgin */}
+      <Rings className="absolute top-1/2 left-1/2 w-[34rem] max-w-none -translate-x-[38%] -translate-y-1/2 opacity-45 sm:top-1/2 sm:right-[-6rem] sm:left-auto sm:w-[32rem] sm:translate-x-0 sm:opacity-100 lg:right-4 lg:w-[38rem]" />
+      <div className="relative mx-auto flex w-full max-w-6xl flex-col items-start gap-8 px-5 py-16 sm:px-8 sm:py-24 lg:py-32">
         <p className="label-caps text-brand">{t.tagline}</p>
         <h1 className="font-serif-site max-w-4xl text-[clamp(3.5rem,9vw,7.5rem)] leading-[0.95] font-normal tracking-[-0.02em] text-balance">
           {hero?.headline ?? siteConfig.name}
         </h1>
         {description && (
-          <p className="max-w-2xl text-xl leading-relaxed text-ink-soft sm:text-[1.375rem]">
+          <p className="max-w-2xl text-xl leading-relaxed text-ink-soft sm:text-[1.375rem] lg:max-w-[30rem] xl:max-w-[34rem]">
             {description}
           </p>
         )}

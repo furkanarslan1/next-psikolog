@@ -52,7 +52,7 @@ export function RecentPosts({
         </div>
       ) : (
         <div className="mt-10 flex flex-col">
-          <article className="group relative flex max-w-3xl flex-col gap-4 pb-12">
+          <article className="group relative mb-10 flex flex-col gap-4 [&>*]:max-w-3xl rounded-sm border border-line bg-tile p-6 transition-colors hover:border-brand sm:p-10">
             <div className="flex items-center gap-4">
               <Matheme seed={latest.slug} />
               <p className="label-caps flex gap-x-4 text-ink-soft">
@@ -78,7 +78,7 @@ export function RecentPosts({
           {rest.map((post) => (
             <article
               key={post.id}
-              className="group relative flex flex-col gap-1 border-t border-line py-5 sm:flex-row sm:items-baseline sm:justify-between sm:gap-8"
+              className="group relative -mx-3 flex flex-col gap-1 border-t border-line px-3 py-5 transition-colors hover:bg-tile sm:flex-row sm:items-baseline sm:justify-between sm:gap-8"
             >
               <h3 className="font-serif-site text-xl leading-snug sm:text-2xl">
                 <Link

@@ -191,6 +191,7 @@
   --color-ink-soft: var(--site-ink-soft);
   --color-paper: var(--site-paper);
   --color-surface: var(--site-surface);
+  --color-tile: var(--site-tile);
   --color-line: var(--site-line);
   --color-brand: var(--site-brand);
   --color-on-brand: var(--site-on-brand);
@@ -206,11 +207,13 @@
 .site {
   --site-serif: var(--font-garamond), Georgia, "Times New Roman", serif;
   --site-sans: var(--font-instrument), system-ui, sans-serif;
-  --site-paper: #fafaf7;
-  --site-surface: #f3efe5;
+  --site-paper: #f8f7f2;
+  /* kartlar sayfa zemininden belirgin biçimde koyu; footer en koyu ton */
+  --site-tile: #f0ece1;
+  --site-surface: #ebe6d8;
   --site-ink: #161615;
-  --site-ink-soft: #5f5f5b;
-  --site-line: #e2dfd6;
+  --site-ink-soft: #55554f;
+  --site-line: #d9d5c8;
   --site-brand: #8a3a28;
   --site-on-brand: #ffffff;
   --site-accent: #161615;
@@ -242,9 +245,43 @@
   font-weight: 500;
   letter-spacing: 0.16em;
   text-transform: uppercase;
-  transition: background-color 0.2s;
+  transition:
+    background-color 0.2s,
+    transform 0.2s;
   &:hover {
     background: color-mix(in oklab, var(--site-brand), black 18%);
+    transform: translateY(-1px);
+  }
+}
+
+/* menü bağlantısı: üzerine gelince alt çizgi soldan kayarak çizilir */
+@utility link-slide {
+  position: relative;
+  &::after {
+    content: "";
+    position: absolute;
+    left: 0;
+    right: 0;
+    bottom: 0;
+    height: 1px;
+    background: var(--site-brand);
+    transform: scaleX(0);
+    transform-origin: left;
+    transition: transform 0.25s ease;
+  }
+  &:hover::after,
+  &[aria-current="page"]::after {
+    transform: scaleX(1);
+  }
+}
+
+@media (prefers-reduced-motion: reduce) {
+  .site * {
+    transition-duration: 0.01ms !important;
+    scroll-behavior: auto !important;
+  }
+  .btn-primary:hover {
+    transform: none;
   }
 }
 
@@ -256,7 +293,13 @@
 }
 .site .rich-content {
   font-size: 1.25rem;
-  line-height: 1.75;
+  line-height: 1.8;
+}
+.site .rich-content > * + * {
+  margin-top: 1.25rem;
+}
+.site .rich-content h2 {
+  margin-top: 2.5rem;
 }
 .site .rich-content h2,
 .site .rich-content h3 {
