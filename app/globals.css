@@ -236,9 +236,17 @@
   color-scheme: light;
 }
 
-/* Koyu tema: kullanıcının sistem ayarını izler (anahtar yok). Vurgu zeminin tersidir. */
+/* Tema: varsayılan sistem ayarı (prefers-color-scheme). Header'daki düğme <html data-theme>
+   ile elle "light" veya "dark" seçtirir; seçim yoksa özellik hiç yazılmaz. Koyu değişkenler
+   iki yerde tekrar eder (medya sorgusu ve elle seçim); değiştirirken ikisini birlikte güncelle. */
+html:has(.site) {
+  background: #f7f6f3;
+}
+html[data-theme="light"]:has(.site) {
+  color-scheme: light;
+}
 @media (prefers-color-scheme: dark) {
-  .site {
+  html:not([data-theme="light"]) .site {
     --site-paper: #141413;
     --site-tile: #1d1d1b;
     --site-surface: #242422;
@@ -251,13 +259,65 @@
     --site-on-accent: #141413;
     color-scheme: dark;
   }
-  html:has(.site) {
+  html:not([data-theme="light"]):has(.site) {
     background: #141413;
     color-scheme: dark;
   }
 }
-html:has(.site) {
-  background: #f7f6f3;
+html[data-theme="dark"] .site {
+    --site-paper: #141413;
+    --site-tile: #1d1d1b;
+    --site-surface: #242422;
+    --site-ink: #edebe6;
+    --site-ink-soft: #a9a69e;
+    --site-line: #363531;
+    --site-brand: #edebe6;
+    --site-on-brand: #141413;
+    --site-accent: #edebe6;
+    --site-on-accent: #141413;
+    color-scheme: dark;
+}
+html[data-theme="dark"]:has(.site) {
+  background: #141413;
+  color-scheme: dark;
+}
+
+/* tema düğmesi: simge basınca geçilecek temayı gösterir (açıkken ay, koyuyken güneş).
+   <html data-theme> veya sistem ayarına göre yalnızca CSS ile seçilir (titreme yok). */
+.theme-icon {
+  display: none;
+}
+html[data-theme="light"] .theme-icon-moon,
+html:not([data-theme]) .theme-icon-moon,
+html[data-theme="dark"] .theme-icon-sun {
+  display: block;
+}
+@media (prefers-color-scheme: dark) {
+  html:not([data-theme]) .theme-icon-moon {
+    display: none;
+  }
+  html:not([data-theme]) .theme-icon-sun {
+    display: block;
+  }
+}
+
+/* tema değişirken renkler ani değil yumuşak geçsin (düğme sınıfı kısa süre ekler) */
+html.theme-transition,
+html.theme-transition *,
+html.theme-transition *::before,
+html.theme-transition *::after {
+  transition:
+    background-color 300ms ease,
+    color 300ms ease,
+    border-color 300ms ease,
+    fill 300ms ease,
+    stroke 300ms ease !important;
+}
+@media (prefers-reduced-motion: reduce) {
+  html.theme-transition,
+  html.theme-transition * {
+    transition: none !important;
+  }
 }
 
 /* menü, etiket, tür: küçük, harf aralıklı büyük harf (sans) */
