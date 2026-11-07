@@ -30,6 +30,11 @@ export default async function sitemap(): Promise<MetadataRoute.Sitemap> {
       })),
     ]),
     { url: absoluteUrl("/iletisim"), changeFrequency: "yearly", priority: 0.5 },
+    ...["/kvkk", "/gizlilik", "/yasal-uyari"].map((path) => ({
+      url: absoluteUrl(path),
+      changeFrequency: "yearly" as const,
+      priority: 0.2,
+    })),
     ...posts.map((post) => ({
       url: absoluteUrl(`/yazilar/${post.slug}`),
       lastModified: post.updatedAt,

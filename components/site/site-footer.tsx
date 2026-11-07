@@ -1,9 +1,16 @@
 import { cacheLife } from "next/cache"
+import Link from "next/link"
 import { Suspense } from "react"
 
 import { SocialIconButtons, socialItems } from "@/components/site/social-links"
 import { getContact } from "@/lib/queries/contact"
 import { institutions, siteConfig } from "@/lib/site"
+
+const legalLinks = [
+  { href: "/kvkk", label: "KVKK Aydınlatma Metni" },
+  { href: "/gizlilik", label: "Gizlilik ve Çerez Politikası" },
+  { href: "/yasal-uyari", label: "Yasal Uyarı" },
+]
 
 const linkClass =
   "transition-colors hover:text-brand focus-visible:outline-2 focus-visible:outline-offset-4 focus-visible:outline-brand"
@@ -75,11 +82,22 @@ export function SiteFooter() {
 
       <div className="border-t border-line">
         <div className="mx-auto flex w-full max-w-6xl flex-col items-center justify-between gap-4 px-5 py-5 sm:px-8 md:flex-row">
-          <p className="text-center text-sm md:text-left">
-            <Suspense fallback={null}>
-              <FooterYear />
-            </Suspense>
-          </p>
+          <div className="flex flex-col items-center gap-3 text-sm md:items-start">
+            <ul className="flex flex-wrap justify-center gap-x-6 gap-y-2 md:justify-start">
+              {legalLinks.map((item) => (
+                <li key={item.href}>
+                  <Link href={item.href} className={linkClass}>
+                    {item.label}
+                  </Link>
+                </li>
+              ))}
+            </ul>
+            <p>
+              <Suspense fallback={null}>
+                <FooterYear />
+              </Suspense>
+            </p>
+          </div>
           <a href="#" className={`label-caps rounded-full border border-line px-4 py-2 ${linkClass}`}>
             Yukarı ↑
           </a>
