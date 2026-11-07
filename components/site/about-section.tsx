@@ -40,7 +40,7 @@ export function AboutSection({ about }: { about: AboutData | null }) {
           {hasMore && (
             <Link
               href="/hakkimda"
-              className="mt-8 inline-flex items-center rounded-xs bg-anthracite px-7 py-3.5 text-base font-medium text-white transition-colors hover:bg-ink focus-visible:outline-2 focus-visible:outline-offset-4 focus-visible:outline-anthracite"
+              className="mt-8 inline-flex items-center rounded-xs bg-anthracite px-7 py-3.5 font-sans-site text-base font-medium text-on-anthracite transition-colors hover:bg-ink focus-visible:outline-2 focus-visible:outline-offset-4 focus-visible:outline-anthracite"
             >
               Devamını oku
             </Link>

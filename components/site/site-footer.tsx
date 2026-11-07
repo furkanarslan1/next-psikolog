@@ -53,7 +53,7 @@ async function FooterYear() {
 
 export function SiteFooter() {
   return (
-    <footer className="bg-anthracite pb-28 text-white/70 md:pb-0">
+    <footer className="bg-panel font-sans-site pb-28 text-white/70 md:pb-0">
       <div className="mx-auto grid w-full max-w-6xl gap-10 px-5 text-center md:text-left py-14 sm:px-8 md:grid-cols-[1.4fr_1fr_1.2fr] md:gap-12">
         <div className="flex flex-col items-center gap-3 md:items-start">
           <p className="font-serif-site text-2xl text-white">{siteConfig.name}</p>

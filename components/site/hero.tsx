@@ -8,7 +8,7 @@ type HeroData = {
 }
 
 const buttonClass =
-  "inline-flex w-fit items-center rounded-xs bg-paper px-7 py-3.5 text-base font-medium text-anthracite transition-colors hover:bg-white focus-visible:outline-2 focus-visible:outline-offset-4 focus-visible:outline-white"
+  "inline-flex w-fit items-center rounded-xs bg-white px-7 py-3.5 font-sans-site text-base font-medium text-panel transition-colors hover:bg-white/90 focus-visible:outline-2 focus-visible:outline-offset-4 focus-visible:outline-white"
 
 export function HeroButton({ label, url }: { label: string; url: string }) {
   // site içi yol Link ile, dış adresler yeni sekmede açılır
@@ -33,7 +33,7 @@ export function HeroButton({ label, url }: { label: string; url: string }) {
 
 export function Hero({ hero }: { hero: HeroData }) {
   return (
-    <section className="bg-anthracite text-white">
+    <section className="bg-panel text-white">
       <div className="mx-auto flex w-full max-w-6xl flex-col items-start gap-6 px-5 py-14 sm:px-8 sm:py-20 lg:py-28">
         <h1 className="font-serif-site max-w-3xl text-4xl leading-[1.08] font-normal tracking-tight text-balance sm:text-5xl lg:text-6xl">
           {hero.headline}

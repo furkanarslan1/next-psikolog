@@ -3,7 +3,7 @@ import Link from "next/link"
 import { pagePath } from "@/lib/blog-config"
 
 const linkClass =
-  "border-b-2 pb-1 text-base transition-colors focus-visible:outline-2 focus-visible:outline-offset-4 focus-visible:outline-anthracite"
+  "border-b-2 pb-1 font-sans-site text-base transition-colors focus-visible:outline-2 focus-visible:outline-offset-4 focus-visible:outline-anthracite"
 
 // Geçerli sayfanın etrafındaki numaralar; arada boşluk varsa "…" gösterilir
 function visiblePages(current: number, total: number) {

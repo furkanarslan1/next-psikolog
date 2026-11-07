@@ -140,7 +140,7 @@ export default async function PostPage({ params }: PageProps<"/blog/[slug]">) {
         </header>
 
         <div
-          className="rich-content mx-auto w-full max-w-3xl"
+          className="rich-content mx-auto w-full max-w-[70ch]"
           // içerik kaydedilirken sunucuda temizlenir (lib/sanitize.ts)
           dangerouslySetInnerHTML={{ __html: stripImages(post.content) }}
         />

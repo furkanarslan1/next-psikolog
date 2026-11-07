@@ -49,7 +49,7 @@ export default async function ContactPage() {
         ) : (
           <>
             {social.length > 0 && (
-              <div className="bg-anthracite px-6 py-8 sm:px-10">
+              <div className="bg-panel px-6 py-8 sm:px-10">
                 <SocialBandContent items={social} />
               </div>
             )}
