@@ -21,7 +21,6 @@ export const dict = {
     skip: "İçeriğe atla",
     notFound: { title: "Sayfa bulunamadı", text: "Aradığınız sayfa taşınmış ya da hiç var olmamış olabilir.", button: "Ana sayfaya dön" },
     mobileNavAria: "Mobil menü",
-    role: "Psikolog",
     tagline: "Psikolog · Psikanaliz Formasyonunda",
     cta: {
       title: "Bana Ulaşın",
@@ -75,7 +74,6 @@ export const dict = {
     skip: "Aller au contenu",
     notFound: { title: "Page introuvable", text: "La page demandée a peut-être été déplacée ou n'a jamais existé.", button: "Retour à l'accueil" },
     mobileNavAria: "Menu mobile",
-    role: "Psychologue",
     tagline: "Psychologue · formation psychanalytique en cours",
     cta: {
       title: "Me contacter",

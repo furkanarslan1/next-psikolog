@@ -67,7 +67,7 @@ export function RecentPosts({
             <h3 className="font-serif-site text-3xl leading-tight font-normal tracking-tight text-balance sm:text-5xl">
               <Link
                 href={postHref(latest.slug)}
-                className={`decoration-brand decoration-2 underline-offset-4 after:absolute after:inset-0 group-hover:underline ${focus}`}
+                className={`underline decoration-transparent decoration-2 underline-offset-4 after:absolute after:inset-0 group-hover:decoration-brand ${focus}`}
               >
                 {latest.title}
               </Link>
@@ -83,7 +83,7 @@ export function RecentPosts({
               <h3 className="font-serif-site text-xl leading-snug sm:text-2xl">
                 <Link
                   href={postHref(post.slug)}
-                  className={`decoration-brand decoration-2 underline-offset-4 after:absolute after:inset-0 group-hover:underline ${focus}`}
+                  className={`underline decoration-transparent decoration-2 underline-offset-4 after:absolute after:inset-0 group-hover:decoration-brand ${focus}`}
                 >
                   {post.title}
                 </Link>
