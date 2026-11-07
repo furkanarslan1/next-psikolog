@@ -1,5 +1,13 @@
 <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 64 64">
-  <rect x="2" y="2" width="60" height="60" rx="14" fill="#f7f6f3" stroke="#d8d5ce" stroke-width="2"/>
-  <text x="29" y="43" text-anchor="middle" font-family="Georgia, 'Times New Roman', serif" font-size="28" font-weight="500" letter-spacing="0.5" fill="#2b2b28">EA</text>
-  <circle cx="50" cy="42" r="3.2" fill="#2b2b28"/>
+  <style>
+    .bg { fill: #f7f6f3; stroke: #d8d5ce }
+    .t { fill: #2b2b28 }
+    @media (prefers-color-scheme: dark) {
+      .bg { fill: #1d1d1b; stroke: #363531 }
+      .t { fill: #edebe6 }
+    }
+  </style>
+  <rect class="bg" x="2" y="2" width="60" height="60" rx="14" stroke-width="2"/>
+  <text class="t" x="29" y="43" text-anchor="middle" font-family="Georgia, 'Times New Roman', serif" font-size="28" font-weight="500" letter-spacing="0.5">EA</text>
+  <circle class="t" cx="50" cy="42" r="3.2"/>
 </svg>

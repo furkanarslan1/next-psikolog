@@ -197,7 +197,7 @@
 }
 
 /* Herkese açık site: kırık beyaz zemin, koyu metin, TEK vurgu rengi (brand).
-   Renkler .site üzerinde değişken olarak tanımlanır. Site yalnızca açık temadır (müşteri isteği).
+   Renkler .site üzerinde değişken olarak tanımlanır. Açık tema varsayılan; koyu tema sistem ayarını izler.
    Vurgu rengini değiştirmek için yalnızca --site-brand satırlarını güncelle. */
 @theme inline {
   --color-ink: var(--site-ink);
@@ -234,6 +234,30 @@
   --border: var(--site-line);
   --muted-foreground: var(--site-ink-soft);
   color-scheme: light;
+}
+
+/* Koyu tema: kullanıcının sistem ayarını izler (anahtar yok). Vurgu zeminin tersidir. */
+@media (prefers-color-scheme: dark) {
+  .site {
+    --site-paper: #141413;
+    --site-tile: #1d1d1b;
+    --site-surface: #242422;
+    --site-ink: #edebe6;
+    --site-ink-soft: #a9a69e;
+    --site-line: #363531;
+    --site-brand: #edebe6;
+    --site-on-brand: #141413;
+    --site-accent: #edebe6;
+    --site-on-accent: #141413;
+    color-scheme: dark;
+  }
+  html:has(.site) {
+    background: #141413;
+    color-scheme: dark;
+  }
+}
+html:has(.site) {
+  background: #f7f6f3;
 }
 
 /* menü, etiket, tür: küçük, harf aralıklı büyük harf (sans) */

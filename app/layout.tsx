@@ -1,6 +1,14 @@
-import type { Metadata } from "next";
+import type { Metadata, Viewport } from "next";
 import { siteConfig } from "@/lib/site";
 import "./globals.css";
+
+// Mobil tarayıcı çubuğu rengi sistem temasını izler
+export const viewport: Viewport = {
+  themeColor: [
+    { media: "(prefers-color-scheme: light)", color: "#f7f6f3" },
+    { media: "(prefers-color-scheme: dark)", color: "#141413" },
+  ],
+};
 
 export const metadata: Metadata = {
   metadataBase: new URL(siteConfig.url),
