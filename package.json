@@ -9,7 +9,8 @@
     "lint": "eslint",
     "create-admin": "tsx scripts/create-admin.ts",
     "postinstall": "prisma generate",
-    "seed-posts": "tsx scripts/seed-posts.ts"
+    "seed-posts": "tsx scripts/seed-posts.ts",
+    "seed-sample": "tsx scripts/seed-sample-content.ts"
   },
   "dependencies": {
     "@base-ui/react": "^1.9.0",
