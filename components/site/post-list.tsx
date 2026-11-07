@@ -23,7 +23,7 @@ export function PostList({ posts, locale = "tr" }: { posts: PostCard[]; locale?:
             <div className="flex max-w-3xl flex-col gap-3">
               <h2 className="font-serif-site text-2xl leading-snug font-normal tracking-tight text-balance sm:text-3xl">
                 <Link
-                  href={`/yazilar/${post.slug}`}
+                  href={locale === "fr" ? `/fr/publications/${post.slug}` : `/yazilar/${post.slug}`}
                   lang={post.lang}
                   className={`decoration-brand decoration-2 underline-offset-4 after:absolute after:inset-0 group-hover:underline ${focus}`}
                 >

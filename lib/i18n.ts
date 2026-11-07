@@ -2,7 +2,7 @@
 // Fransızca yalnızca üç sayfadır: Présentation, Publications, Contact.
 export type Locale = "tr" | "fr"
 
-export const FR_HOME = "/fr/presentation"
+export const FR_HOME = "/fr"
 
 type Page = { href: string; label: string; prefixes: string[] }
 
@@ -29,6 +29,23 @@ export const dict = {
     footer: { links: "Bağlantılar", up: "Yukarı ↑" },
     types: { YAZI: "Yazı", CEVIRI: "Çeviri" },
     read: "Oku →",
+    hero: { primary: "Hakkımda", primaryHref: "/hakkimda", secondary: "İletişime Geçin →", secondaryHref: "/iletisim" },
+    recent: { title: "Son yazılar", all: "Tüm Yazılar →", allHref: "/yazilar", empty: "Henüz yayınlanmış kayıt yok. Yeni yazılar yayınlandığında burada görünecek." },
+    article: {
+      rootLabel: "Yazılar",
+      rootHref: "/yazilar",
+      typePlural: { YAZI: "Yazılar", CEVIRI: "Çeviriler" },
+      typeHref: { YAZI: "/yazilar/tur/yazi", CEVIRI: "/yazilar/tur/ceviri" },
+      readMinutes: "dk okuma",
+      publishedIn: "Yayımlandığı yer",
+      originalAria: "Orijinal metin",
+      originalAuthor: "Orijinal yazar",
+      originalTitle: "Orijinal başlık",
+      source: "Kaynak",
+      goToSource: "Kaynağa git",
+      externalNote: "Bu metnin tamamı dış kaynakta yayımlanmıştır.",
+      fullTextLink: "Tam metne git →",
+    },
     contact: {
       email: "E-posta",
       phone: "Telefon",
@@ -45,6 +62,7 @@ export const dict = {
     ogLocale: "fr_FR",
     home: FR_HOME,
     nav: [
+      { href: "/fr", label: "Accueil", prefixes: [] },
       { href: "/fr/presentation", label: "Présentation", prefixes: ["/fr/presentation"] },
       { href: "/fr/publications", label: "Publications", prefixes: ["/fr/publications"] },
       { href: "/fr/contact", label: "Contact", prefixes: ["/fr/contact"] },
@@ -61,6 +79,23 @@ export const dict = {
     footer: { links: "Liens", up: "Haut ↑" },
     types: { YAZI: "Texte", CEVIRI: "Traduction" },
     read: "Lire →",
+    hero: { primary: "Présentation", primaryHref: "/fr/presentation", secondary: "Me contacter →", secondaryHref: "/fr/contact" },
+    recent: { title: "Dernières publications", all: "Toutes les publications →", allHref: "/fr/publications", empty: "Aucune publication pour le moment." },
+    article: {
+      rootLabel: "Publications",
+      rootHref: "/fr/publications",
+      typePlural: { YAZI: "Textes", CEVIRI: "Traductions" },
+      typeHref: { YAZI: "/fr/publications", CEVIRI: "/fr/publications" },
+      readMinutes: "min de lecture",
+      publishedIn: "Publié dans",
+      originalAria: "Texte original",
+      originalAuthor: "Auteur original",
+      originalTitle: "Titre original",
+      source: "Source",
+      goToSource: "Voir la source",
+      externalNote: "Le texte intégral est publié sur une source externe.",
+      fullTextLink: "Lire le texte intégral →",
+    },
     contact: {
       email: "E-mail",
       phone: "Téléphone",
@@ -80,6 +115,7 @@ export const frDescription =
 // Karşılıklı sayfalar: dil seçici ve hreflang bu eşleşmeyi kullanır.
 // Karşılığı olmayan sayfa, diğer dilin ana sayfasına gider (404'e düşmez).
 export const pairs = [
+  { tr: "/", fr: "/fr" },
   { tr: "/hakkimda", fr: "/fr/presentation" },
   { tr: "/yazilar", fr: "/fr/publications" },
   { tr: "/iletisim", fr: "/fr/contact" },
@@ -87,11 +123,18 @@ export const pairs = [
 
 export function counterpart(pathname: string, to: Locale) {
   if (to === "fr") {
+    // yazı sayfası: aynı yazının Fransızca kabuklu hali
+    const post = pathname.match(/^\/yazilar\/([^/]+)$/)
+    if (post && post[1] !== "sayfa" && post[1] !== "tur") return `/fr/publications/${post[1]}`
     const match = pairs.find(
-      (pair) => pathname === pair.tr || (pair.tr === "/yazilar" && /^\/yazilar\/(sayfa|tur)(\/|$)/.test(pathname))
+      (pair) =>
+        pathname === pair.tr ||
+        (pair.tr === "/yazilar" && /^\/yazilar\/(sayfa|tur)(\/|$)/.test(pathname))
     )
     return match ? match.fr : FR_HOME
   }
+  const post = pathname.match(/^\/fr\/publications\/([^/]+)$/)
+  if (post) return `/yazilar/${post[1]}`
   const match = pairs.find((pair) => pathname === pair.fr)
   return match ? match.tr : "/"
 }

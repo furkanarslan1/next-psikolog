@@ -46,10 +46,10 @@ Admin (`app/admin`, giriş `/admin`; panel `(panel)` grubunda): Panel, **Hero** 
 
 ## Fransızca sürüm (i18n)
 
-- Kütüphane yok: `lib/i18n.ts` (sözlük `dict`, `pairs`, `counterpart`, `languageAlternates`). Fransızca yalnızca üç sayfa: `/fr/presentation` (Hakkımda), `/fr/publications` (tüm yazılar, başlıklar Türkçe), `/fr/contact`; `/fr` → `/fr/presentation` (307). Rotalar `app/(fr)/fr/`, iskelet `components/site/site-shell.tsx` (`locale` prop'u; bileşenler `locale` alır).
-- Kök `<html lang="tr">` sabit; Fransızca sayfa dili `SiteShell`'deki `<div lang="fr">` ile belirtilir (tüm app'i `[lang]` altına taşımak admin'i de etkilerdi). Yazı sayfaları `<article lang={post.lang}>`.
-- Karşılığı olmayan sayfada dil seçici diğer dilin ana sayfasına gider (TR→`/fr/presentation`, FR→`/`). `hreflang` (`alternates.languages`) ve sitemap `alternates` yalnızca eşleşen üç çiftte; `og:locale:alternate` fr_FR/tr_TR.
-- Fransızca metin: `About.contentFr` (admin Hakkımda sayfasında ikinci editör; boşsa "bientôt disponible"). Fransızca seans iddia edilmez ("Séances en turc ; contact possible en français"). Yeni Fransızca sayfa eklenirse `pairs`, `dict`, sitemap ve CLAUDE.md güncellenmeli.
+- Kütüphane yok: `lib/i18n.ts` (sözlük `dict`, `pairs`, `counterpart`, `languageAlternates`). Fransızca sayfalar: `/fr` (ana sayfa, TR ana sayfanın karşılığı), `/fr/presentation` (Hakkımda), `/fr/publications` (liste) ve `/fr/publications/[slug]` (yazı; aynı yazının Fransızca menülü hali, kanonik adres Türkçe `/yazilar/[slug]`), `/fr/contact`. Rotalar `app/(fr)/fr/`, iskelet `components/site/site-shell.tsx` (`locale` prop'u; bileşenler `locale` alır), yazı gövdesi `components/site/post-article.tsx` (iki dil ortak).
+- Kök `<html lang="tr">` sabit; Fransızca sayfa dili `SiteShell`'deki `<div lang="fr">` ile belirtilir (tüm app'i `[lang]` altına taşımak admin'i de etkilerdi). Yazı gövdesi `lang={post.lang}` taşır. Yazı metinleri/başlıkları yazıldığı dilde kalır (çevrilmez); Fransızca yazmak için admin'de dil "Fransızca" seçilir.
+- Karşılığı olmayan sayfada dil seçici diğer dilin ana sayfasına gider (TR→`/fr`, FR→`/`). `hreflang` (`alternates.languages`) ve sitemap `alternates` yalnızca eşleşen çiftlerde; `og:locale:alternate` fr_FR/tr_TR. Yasal sayfalar yalnızca Türkçe.
+- Fransızca içerik admin'de: Hakkımda sayfasında `About.contentFr` (boşsa "bientôt disponible"), Hero sayfasında `Hero.descriptionFr` (boşsa Fransızca ana sayfada açıklama yok). Fransızca seans iddia edilmez ("Séances en turc ; contact possible en français"). Yeni Fransızca sayfa eklenirse `pairs`, `dict`, sitemap ve CLAUDE.md güncellenmeli.
 
 ## Tasarım kararları (herkese açık site)
 

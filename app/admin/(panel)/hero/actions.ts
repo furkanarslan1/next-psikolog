@@ -16,6 +16,7 @@ export async function saveHeroAction(values: HeroValues) {
   const data = {
     headline: parsed.data.headline,
     description: parsed.data.description || null,
+    descriptionFr: parsed.data.descriptionFr || null,
   }
 
   await db.hero.upsert({

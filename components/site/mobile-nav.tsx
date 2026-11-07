@@ -12,6 +12,7 @@ const icons = {
   "/hakkimda": UserRoundIcon,
   "/yazilar": NewspaperIcon,
   "/iletisim": MailIcon,
+  "/fr": HomeIcon,
   "/fr/presentation": UserRoundIcon,
   "/fr/publications": NewspaperIcon,
   "/fr/contact": MailIcon,

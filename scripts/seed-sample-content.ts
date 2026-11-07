@@ -12,6 +12,8 @@ const HERO = {
   headline: "Eren Arslan",
   description:
     "Psikanalitik yönelimle çalışan bir psikolog. Lacancı psikanalizin dinleme ve konuşma etiğine bağlı olarak formasyonumu sürdürüyorum. İstanbul'da yüz yüze ve çevrim içi görüşüyorum.",
+  descriptionFr:
+    "Psychologue d'orientation psychanalytique. Je poursuis ma formation dans l'éthique de l'écoute et de la parole propre à la psychanalyse lacanienne. Je reçois à Istanbul, en présentiel et en ligne.",
 }
 
 const ABOUT = `<p>Psikolog olarak çalışıyorum ve psikanalitik formasyonumu sürdürüyorum. Bu sayfada öğrenimimi, klinik deneyimimi ve bugün nasıl çalıştığımı kısaca anlatıyorum.</p>

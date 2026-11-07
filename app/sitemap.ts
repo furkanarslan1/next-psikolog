@@ -18,7 +18,7 @@ export default async function sitemap(): Promise<MetadataRoute.Sitemap> {
   }
 
   return [
-    { url: absoluteUrl("/"), changeFrequency: "weekly", priority: 1 },
+    { url: absoluteUrl("/"), changeFrequency: "weekly", priority: 1, alternates: alternates("/") },
     {
       url: absoluteUrl("/hakkimda"),
       changeFrequency: "monthly",
