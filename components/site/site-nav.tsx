@@ -26,7 +26,7 @@ export function SiteNav({ locale }: { locale: Locale }) {
             key={link.href}
             href={link.href}
             aria-current={active ? "page" : undefined}
-            className={`label-caps py-1 transition-colors focus-visible:outline-2 focus-visible:outline-offset-4 focus-visible:outline-brand ${
+            className={`label-caps link-slide py-1.5 transition-colors focus-visible:outline-2 focus-visible:outline-offset-4 focus-visible:outline-brand ${
               active ? "text-brand" : "text-ink hover:text-brand"
             }`}
           >
@@ -38,35 +38,39 @@ export function SiteNav({ locale }: { locale: Locale }) {
   )
 }
 
-// TR / FR seçici: sayfanın karşılığı yoksa diğer dilin ana sayfasına götürür (404 yok)
+// TR / FR seçici: köşeleri yuvarlak, düğme görünümlü; karşılığı olmayan sayfada diğer
+// dilin ana sayfasına gider (404 yok)
 export function LanguageSwitch({ locale }: { locale: Locale }) {
   const pathname = usePathname()
   const options: { code: Locale; label: string }[] = [
     { code: "tr", label: "TR" },
     { code: "fr", label: "FR" },
   ]
+  const pill = "label-caps rounded-full px-3.5 py-2 leading-none transition-colors"
 
   return (
-    <div className="label-caps flex items-center gap-2" role="group" aria-label="Langue / Dil">
-      {options.map((option, index) => (
-        <span key={option.code} className="flex items-center gap-2">
-          {index > 0 && <span aria-hidden className="text-ink-soft">/</span>}
-          {option.code === locale ? (
-            <span aria-current="true" className="text-brand">
-              {option.label}
-            </span>
-          ) : (
-            <Link
-              href={counterpart(pathname, option.code)}
-              hrefLang={option.code}
-              lang={option.code}
-              className="text-ink transition-colors hover:text-brand focus-visible:outline-2 focus-visible:outline-offset-4 focus-visible:outline-brand"
-            >
-              {option.label}
-            </Link>
-          )}
-        </span>
-      ))}
+    <div
+      className="inline-flex items-center gap-0.5 rounded-full border border-line bg-tile p-1"
+      role="group"
+      aria-label="Langue / Dil"
+    >
+      {options.map((option) =>
+        option.code === locale ? (
+          <span key={option.code} aria-current="true" className={`${pill} bg-brand text-on-brand`}>
+            {option.label}
+          </span>
+        ) : (
+          <Link
+            key={option.code}
+            href={counterpart(pathname, option.code)}
+            hrefLang={option.code}
+            lang={option.code}
+            className={`${pill} text-ink hover:bg-paper hover:text-brand focus-visible:outline-2 focus-visible:outline-offset-2 focus-visible:outline-brand`}
+          >
+            {option.label}
+          </Link>
+        )
+      )}
     </div>
   )
 }

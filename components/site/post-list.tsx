@@ -14,7 +14,7 @@ export function PostList({ posts, locale = "tr" }: { posts: PostCard[]; locale?:
     <ul className="flex flex-col border-t border-line">
       {posts.map((post) => (
         <li key={post.id} className="border-b border-line">
-          <article className="group relative flex flex-col gap-3 py-8 sm:grid sm:grid-cols-[11rem_1fr] sm:gap-10">
+          <article className="group relative -mx-4 flex flex-col gap-3 px-4 py-8 transition-colors hover:bg-tile sm:grid sm:grid-cols-[11rem_1fr] sm:gap-10 sm:-mx-6 sm:px-6">
             <div className="flex items-center gap-4 sm:flex-col sm:items-start sm:gap-4">
               <Matheme seed={post.slug} className="order-last sm:order-first" />
               <p className="label-caps flex flex-wrap items-center gap-x-3 gap-y-1 text-ink-soft sm:flex-col sm:items-start sm:gap-2">
@@ -37,7 +37,7 @@ export function PostList({ posts, locale = "tr" }: { posts: PostCard[]; locale?:
               <p lang={post.lang} className="line-clamp-2 text-lg leading-relaxed text-ink-soft">
                 {post.excerpt}
               </p>
-              <span className="label-caps text-brand" aria-hidden>
+              <span className="label-caps inline-block w-fit text-brand transition-transform group-hover:translate-x-1" aria-hidden>
                 {t.read}
               </span>
             </div>

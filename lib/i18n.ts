@@ -31,7 +31,7 @@ export const dict = {
     footer: { links: "Bağlantılar", up: "Yukarı ↑" },
     types: { YAZI: "Yazı", CEVIRI: "Çeviri" },
     read: "Oku →",
-    featured: { title: "Öne çıkanlar", prev: "Önceki", next: "Sonraki" },
+    featured: { title: "Öne çıkanlar", prev: "Önceki", next: "Sonraki", hint: "Kaydırın →", goTo: "Kart" },
     hero: { primary: "Hakkımda", primaryHref: "/hakkimda", secondary: "İletişime Geçin →", secondaryHref: "/iletisim" },
     recent: { title: "Son yazılar", all: "Tüm Yazılar →", allHref: "/yazilar", empty: "Henüz yayınlanmış kayıt yok. Yeni yazılar yayınlandığında burada görünecek." },
     article: {
@@ -84,7 +84,7 @@ export const dict = {
     footer: { links: "Liens", up: "Haut ↑" },
     types: { YAZI: "Texte", CEVIRI: "Traduction" },
     read: "Lire →",
-    featured: { title: "À la une", prev: "Précédent", next: "Suivant" },
+    featured: { title: "À la une", prev: "Précédent", next: "Suivant", hint: "Faites glisser →", goTo: "Carte" },
     hero: { primary: "Présentation", primaryHref: "/fr/presentation", secondary: "Me contacter →", secondaryHref: "/fr/contact" },
     recent: { title: "Dernières publications", all: "Toutes les publications →", allHref: "/fr/publications", empty: "Aucune publication pour le moment." },
     article: {

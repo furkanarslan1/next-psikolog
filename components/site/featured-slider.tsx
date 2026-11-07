@@ -69,6 +69,14 @@ export function FeaturedSlider({
     el.scrollBy({ left: direction * step, behavior: reduce ? "auto" : "smooth" })
   }
 
+  function goTo(position: number) {
+    const el = scroller.current
+    const card = el?.children[position] as HTMLElement | undefined
+    if (!el || !card) return
+    const reduce = window.matchMedia("(prefers-reduced-motion: reduce)").matches
+    el.scrollTo({ left: card.offsetLeft - el.offsetLeft, behavior: reduce ? "auto" : "smooth" })
+  }
+
   const pad = (n: number) => String(n).padStart(2, "0")
   const href = (slug: string) => (locale === "fr" ? `/fr/publications/${slug}` : `/yazilar/${slug}`)
 
@@ -93,7 +101,7 @@ export function FeaturedSlider({
             <p className="label-caps text-ink-soft" aria-live="polite">
               {pad(index + 1)} / {pad(total)}
             </p>
-            <div className="flex gap-2">
+            <div className="hidden gap-2 sm:flex">
               <button
                 type="button"
                 className={`${arrow} ${focus}`}
@@ -128,9 +136,9 @@ export function FeaturedSlider({
           <li
             key={item.id}
             aria-label={`${position + 1} / ${total}`}
-            className="min-w-0 flex-none basis-[86%] snap-start sm:basis-[calc(50%-0.75rem)] lg:basis-[calc(33.333%-1rem)]"
+            className="min-w-0 flex-none basis-[80%] snap-start sm:basis-[calc(50%-0.75rem)] lg:basis-[calc(33.333%-1rem)]"
           >
-            <article className="group relative flex h-full min-h-72 flex-col gap-4 border border-line p-6 transition-colors hover:border-brand">
+            <article className="group relative flex h-full min-h-72 flex-col gap-4 rounded-sm border border-line bg-tile p-6 transition-all hover:-translate-y-0.5 hover:border-brand">
               <div className="flex items-start justify-between gap-4">
                 <p className="label-caps text-brand">{t.types[item.type]}</p>
                 <Matheme seed={item.slug} />
@@ -161,6 +169,31 @@ export function FeaturedSlider({
           </li>
         ))}
       </ul>
+
+      {/* mobil: oklar yok; kaydırılabilir olduğunu sonraki kartın görünen kısmı, noktalar ve ipucu yazısı gösterir */}
+      {total > 1 && (
+        <div className="mt-5 flex items-center justify-between gap-4 sm:hidden">
+          <div className="flex items-center gap-2">
+            {items.map((item, position) => (
+              <button
+                key={item.id}
+                type="button"
+                aria-label={`${t.featured.goTo} ${position + 1} / ${total}`}
+                aria-current={position === index ? "true" : undefined}
+                onClick={() => goTo(position)}
+                className={`h-2 rounded-full transition-all ${focus} ${
+                  position === index ? "w-6 bg-brand" : "w-2 bg-line hover:bg-ink-soft"
+                }`}
+              />
+            ))}
+          </div>
+          {index === 0 && (
+            <p className="label-caps text-ink-soft" aria-hidden>
+              {t.featured.hint}
+            </p>
+          )}
+        </div>
+      )}
     </section>
   )
 }
