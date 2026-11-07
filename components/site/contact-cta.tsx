@@ -3,10 +3,13 @@
 import Link from "next/link"
 import { usePathname } from "next/navigation"
 
+import { dict, type Locale } from "@/lib/i18n"
+
 // Her sayfanın altında tekrar eden iletişim çağrısı (iletişim sayfasında gizlenir)
-export function ContactCta() {
+export function ContactCta({ locale }: { locale: Locale }) {
   const pathname = usePathname()
-  if (pathname.startsWith("/iletisim")) return null
+  const t = dict[locale].cta
+  if (pathname.startsWith(t.hideOn)) return null
 
   return (
     <section aria-labelledby="cta-heading" className="border-t border-line">
@@ -15,14 +18,14 @@ export function ContactCta() {
           id="cta-heading"
           className="font-serif-site text-3xl font-normal tracking-tight sm:text-5xl"
         >
-          Bana Ulaşın
+          {t.title}
         </h2>
-        <p className="max-w-md text-lg text-ink-soft">Bilgi almak ve randevu için yazın</p>
+        <p className="max-w-md text-lg text-ink-soft">{t.text}</p>
         <Link
-          href="/iletisim"
+          href={t.hideOn}
           className="btn-primary mt-2 focus-visible:outline-2 focus-visible:outline-offset-4 focus-visible:outline-brand"
         >
-          İletişim
+          {t.button}
         </Link>
       </div>
     </section>

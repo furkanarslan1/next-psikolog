@@ -25,6 +25,17 @@ const ABOUT = `<p>Psikolog olarak çalışıyorum ve psikanalitik formasyonumu s
 <p>İstanbul'da, yüz yüze ve çevrim içi görüşmeler yapıyorum. Görüşmeler Türkçedir. Bilgi almak ve randevu için bana yazabilirsiniz.</p>
 <blockquote><p>Aşk, sahip olmadığın şeyi, onu istemeyen birine vermektir.</p><p>Jacques Lacan</p></blockquote>`
 
+const ABOUT_FR = `<p>Je suis psychologue et je poursuis ma formation psychanalytique. Cette page présente brièvement mon parcours et ma pratique.</p>
+<h2>Formation universitaire</h2>
+<p>J'ai obtenu ma licence de psychologie à l'Université Abant İzzet Baysal. J'ai ensuite entamé un master de psychologie clinique à l'Université Arel ; mes études sont en cours.</p>
+<h2>Expérience clinique</h2>
+<p>Au cours de ma formation, j'ai effectué des stages cliniques sous supervision auprès de publics variés. Ces années m'ont appris qu'écouter ne se réduit pas à entendre : il s'agit de faire place à ce qui se dit et à ce qui ne parvient pas à se dire.</p>
+<h2>Formation psychanalytique</h2>
+<p>Je poursuis ma formation dans l'orientation lacanienne, autour de l'IF-EPFCL et du Forum Lacanien de Turquie : séminaires, groupes de lecture et supervision.</p>
+<h2>Pratique actuelle</h2>
+<p>Je reçois à Istanbul, en présentiel et en ligne. Séances en turc ; contact possible en français.</p>
+<blockquote><p>L'amour, c'est donner ce qu'on n'a pas à quelqu'un qui n'en veut pas.</p><p>Jacques Lacan</p></blockquote>`
+
 const CONTACT = {
   email: "pskerenarslan@gmail.com",
   instagram: "pskerenarslan",
@@ -126,7 +137,7 @@ async function main() {
     update: HERO,
     create: { id: "main", ...HERO },
   })
-  const about = { content: sanitizeContent(ABOUT) }
+  const about = { content: sanitizeContent(ABOUT), contentFr: sanitizeContent(ABOUT_FR) }
   await db.about.upsert({ where: { id: "main" }, update: about, create: { id: "main", ...about } })
   await db.contact.upsert({
     where: { id: "main" },

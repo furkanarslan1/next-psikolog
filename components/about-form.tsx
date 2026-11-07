@@ -12,7 +12,7 @@ import { Card, CardContent, CardDescription, CardHeader, CardTitle } from "@/com
 import { Field, FieldError, FieldLabel } from "@/components/ui/field"
 import { aboutSchema, type AboutValues } from "@/lib/validations/about"
 
-const emptyValues: AboutValues = { content: "" }
+const emptyValues: AboutValues = { content: "", contentFr: "" }
 
 export function AboutForm({ initialValues }: { initialValues?: AboutValues }) {
   const router = useRouter()
@@ -50,6 +50,29 @@ export function AboutForm({ initialValues }: { initialValues?: AboutValues }) {
                 <FieldLabel className="sr-only">Hakkımda metni</FieldLabel>
                 <RichTextEditor value={field.value} onChange={field.onChange} invalid={fieldState.invalid} />
                 {fieldState.invalid && <FieldError errors={[fieldState.error]} />}
+              </Field>
+            )}
+          />
+        </CardContent>
+      </Card>
+
+      <Card>
+        <CardHeader>
+          <CardTitle>Fransızca metin (Présentation)</CardTitle>
+          <CardDescription>
+            Fransızca sürümdeki Présentation sayfasında görünür. Boş bırakırsanız sayfada
+            &quot;yakında&quot; yazar. Fransızca seans verilmediği sürece bunu iddia etmeyin
+            (örn. &quot;Séances en turc ; contact possible en français&quot;).
+          </CardDescription>
+        </CardHeader>
+        <CardContent>
+          <Controller
+            name="contentFr"
+            control={form.control}
+            render={({ field }) => (
+              <Field>
+                <FieldLabel className="sr-only">Fransızca Hakkımda metni</FieldLabel>
+                <RichTextEditor value={field.value} onChange={field.onChange} />
               </Field>
             )}
           />

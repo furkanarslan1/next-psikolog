@@ -1,9 +1,10 @@
 import { MailIcon, MapPinIcon, MessageCircleIcon, PhoneIcon } from "lucide-react"
 
 import { telHref, whatsappHref } from "@/lib/phone"
+import { dict, type Locale } from "@/lib/i18n"
 import type { ContactData } from "@/lib/queries/contact"
 
-export const WHATSAPP_TEXT = "Merhaba, randevu hakkında bilgi almak istiyorum."
+export const WHATSAPP_TEXT = dict.tr.contact.whatsappText
 
 type Item = {
   key: string
@@ -15,15 +16,16 @@ type Item = {
   external: boolean
 }
 
-export function contactItems(contact: ContactData | null): Item[] {
+export function contactItems(contact: ContactData | null, locale: Locale = "tr"): Item[] {
   if (!contact) return []
+  const t = dict[locale].contact
   const items: Item[] = []
 
   if (contact.email) {
     items.push({
       key: "email",
       icon: MailIcon,
-      label: "E-posta",
+      label: t.email,
       value: contact.email,
       href: `mailto:${contact.email}`,
       external: false,
@@ -34,22 +36,22 @@ export function contactItems(contact: ContactData | null): Item[] {
     items.push({
       key: "phone",
       icon: PhoneIcon,
-      label: "Telefon",
+      label: t.phone,
       value: contact.phone,
       href: tel,
       external: false,
     })
   }
   const whatsapp = contact.whatsapp
-    ? whatsappHref(contact.whatsapp, WHATSAPP_TEXT)
+    ? whatsappHref(contact.whatsapp, t.whatsappText)
     : null
   if (contact.whatsapp && whatsapp) {
     items.push({
       key: "whatsapp",
       icon: MessageCircleIcon,
-      label: "WhatsApp",
+      label: t.whatsapp,
       value: contact.whatsapp,
-      action: "Mesaj gönderin",
+      action: t.whatsappAction,
       href: whatsapp,
       external: true,
     })
@@ -58,9 +60,9 @@ export function contactItems(contact: ContactData | null): Item[] {
     items.push({
       key: "address",
       icon: MapPinIcon,
-      label: "Adres",
+      label: t.address,
       value: contact.address,
-      action: "Yol tarifi al",
+      action: t.addressAction,
       href: `https://www.google.com/maps/search/?api=1&query=${encodeURIComponent(contact.address)}`,
       external: true,
     })

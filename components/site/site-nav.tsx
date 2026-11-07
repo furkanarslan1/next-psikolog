@@ -3,30 +3,23 @@
 import Link from "next/link"
 import { usePathname } from "next/navigation"
 
-// Menü dört sayfa: masaüstü başlığı ve mobil alt menü aynı listeyi kullanır
-export const navLinks = [
-  { href: "/", label: "Anasayfa", prefixes: [] as string[] },
-  { href: "/hakkimda", label: "Hakkımda", prefixes: ["/hakkimda"] },
-  {
-    href: "/yazilar",
-    label: "Yazılar",
-    prefixes: ["/yazilar", "/blog", "/kategori", "/etiket"],
-  },
-  { href: "/iletisim", label: "İletişim", prefixes: ["/iletisim"] },
-]
+import { counterpart, dict, type Locale } from "@/lib/i18n"
 
-export function isActive(link: (typeof navLinks)[number], pathname: string) {
+type NavLink = { href: string; label: string; prefixes: string[] }
+
+export function isActive(link: NavLink, pathname: string) {
   return link.href === "/"
     ? pathname === "/"
     : link.prefixes.some((prefix) => pathname.startsWith(prefix))
 }
 
-export function SiteNav() {
+export function SiteNav({ locale }: { locale: Locale }) {
   const pathname = usePathname()
+  const t = dict[locale]
 
   return (
-    <nav aria-label="Ana menü" className="flex items-center gap-6 sm:gap-8">
-      {navLinks.map((link) => {
+    <nav aria-label={t.navAria} className="flex items-center gap-6 sm:gap-8">
+      {t.nav.map((link) => {
         const active = isActive(link, pathname)
         return (
           <Link
@@ -42,5 +35,38 @@ export function SiteNav() {
         )
       })}
     </nav>
+  )
+}
+
+// TR / FR seçici: sayfanın karşılığı yoksa diğer dilin ana sayfasına götürür (404 yok)
+export function LanguageSwitch({ locale }: { locale: Locale }) {
+  const pathname = usePathname()
+  const options: { code: Locale; label: string }[] = [
+    { code: "tr", label: "TR" },
+    { code: "fr", label: "FR" },
+  ]
+
+  return (
+    <div className="label-caps flex items-center gap-2" role="group" aria-label="Langue / Dil">
+      {options.map((option, index) => (
+        <span key={option.code} className="flex items-center gap-2">
+          {index > 0 && <span aria-hidden className="text-ink-soft">/</span>}
+          {option.code === locale ? (
+            <span aria-current="true" className="text-brand">
+              {option.label}
+            </span>
+          ) : (
+            <Link
+              href={counterpart(pathname, option.code)}
+              hrefLang={option.code}
+              lang={option.code}
+              className="text-ink transition-colors hover:text-brand focus-visible:outline-2 focus-visible:outline-offset-4 focus-visible:outline-brand"
+            >
+              {option.label}
+            </Link>
+          )}
+        </span>
+      ))}
+    </div>
   )
 }

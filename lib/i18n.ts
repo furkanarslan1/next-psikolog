@@ -1,0 +1,111 @@
+// Küçük iki dilli yapı: Türkçe (varsayılan, ön eksiz) ve Fransızca (/fr/...).
+// Fransızca yalnızca üç sayfadır: Présentation, Publications, Contact.
+export type Locale = "tr" | "fr"
+
+export const FR_HOME = "/fr/presentation"
+
+type Page = { href: string; label: string; prefixes: string[] }
+
+export const dict = {
+  tr: {
+    lang: "tr",
+    ogLocale: "tr_TR",
+    home: "/",
+    nav: [
+      { href: "/", label: "Anasayfa", prefixes: [] },
+      { href: "/hakkimda", label: "Hakkımda", prefixes: ["/hakkimda"] },
+      { href: "/yazilar", label: "Yazılar", prefixes: ["/yazilar"] },
+      { href: "/iletisim", label: "İletişim", prefixes: ["/iletisim"] },
+    ] as Page[],
+    navAria: "Ana menü",
+    mobileNavAria: "Mobil menü",
+    tagline: "Psikolog · Psikanaliz Formasyonunda",
+    cta: {
+      title: "Bana Ulaşın",
+      text: "Bilgi almak ve randevu için yazın",
+      button: "İletişim",
+      hideOn: "/iletisim",
+    },
+    footer: { links: "Bağlantılar", up: "Yukarı ↑" },
+    types: { YAZI: "Yazı", CEVIRI: "Çeviri" },
+    read: "Oku →",
+    contact: {
+      email: "E-posta",
+      phone: "Telefon",
+      whatsapp: "WhatsApp",
+      whatsappAction: "Mesaj gönderin",
+      address: "Adres",
+      addressAction: "Yol tarifi al",
+      whatsappText: "Merhaba, randevu hakkında bilgi almak istiyorum.",
+    },
+    dateLocale: "tr-TR",
+  },
+  fr: {
+    lang: "fr",
+    ogLocale: "fr_FR",
+    home: FR_HOME,
+    nav: [
+      { href: "/fr/presentation", label: "Présentation", prefixes: ["/fr/presentation"] },
+      { href: "/fr/publications", label: "Publications", prefixes: ["/fr/publications"] },
+      { href: "/fr/contact", label: "Contact", prefixes: ["/fr/contact"] },
+    ] as Page[],
+    navAria: "Menu principal",
+    mobileNavAria: "Menu mobile",
+    tagline: "Psychologue · formation psychanalytique en cours",
+    cta: {
+      title: "Me contacter",
+      text: "Pour toute information ou prise de rendez-vous, écrivez-moi",
+      button: "Contact",
+      hideOn: "/fr/contact",
+    },
+    footer: { links: "Liens", up: "Haut ↑" },
+    types: { YAZI: "Texte", CEVIRI: "Traduction" },
+    read: "Lire →",
+    contact: {
+      email: "E-mail",
+      phone: "Téléphone",
+      whatsapp: "WhatsApp",
+      whatsappAction: "Envoyer un message",
+      address: "Adresse",
+      addressAction: "Itinéraire",
+      whatsappText: "Bonjour, je souhaiterais des informations sur un rendez-vous.",
+    },
+    dateLocale: "fr-FR",
+  },
+} as const
+
+export const frDescription =
+  "Eren Arslan, psychologue à Istanbul : formation psychanalytique d'orientation lacanienne, séances en turc, textes et traductions sur la psychanalyse."
+
+// Karşılıklı sayfalar: dil seçici ve hreflang bu eşleşmeyi kullanır.
+// Karşılığı olmayan sayfa, diğer dilin ana sayfasına gider (404'e düşmez).
+export const pairs = [
+  { tr: "/hakkimda", fr: "/fr/presentation" },
+  { tr: "/yazilar", fr: "/fr/publications" },
+  { tr: "/iletisim", fr: "/fr/contact" },
+] as const
+
+export function counterpart(pathname: string, to: Locale) {
+  if (to === "fr") {
+    const match = pairs.find(
+      (pair) => pathname === pair.tr || (pair.tr === "/yazilar" && /^\/yazilar\/(sayfa|tur)(\/|$)/.test(pathname))
+    )
+    return match ? match.fr : FR_HOME
+  }
+  const match = pairs.find((pair) => pathname === pair.fr)
+  return match ? match.tr : "/"
+}
+
+// TR sayfası için <link rel="alternate" hreflang>; FR karşılığı olan sayfalarda kullanılır
+export function languageAlternates(trPath: string) {
+  const pair = pairs.find((item) => item.tr === trPath)
+  if (!pair) return undefined
+  return { "tr-TR": pair.tr, "fr-FR": pair.fr, "x-default": pair.tr }
+}
+
+export function formatDateLocale(date: Date, locale: Locale) {
+  return new Intl.DateTimeFormat(dict[locale].dateLocale, {
+    dateStyle: "long",
+    timeZone: "Europe/Istanbul",
+  }).format(date)
+}

@@ -1,6 +1,7 @@
 import type { Metadata } from "next"
 
 import { JsonLd } from "@/components/site/json-ld"
+import { languageAlternates } from "@/lib/i18n"
 import { getAbout } from "@/lib/queries/about"
 import { absoluteUrl, defaultOgImages, siteConfig } from "@/lib/site"
 import { stripImages } from "@/lib/sanitize"
@@ -15,13 +16,15 @@ export async function generateMetadata(): Promise<Metadata> {
   return {
     title: "Hakkımda",
     description: description || siteConfig.description,
-    alternates: { canonical: "/hakkimda" },
+    alternates: { canonical: "/hakkimda", languages: languageAlternates("/hakkimda") },
     openGraph: {
       type: "profile",
       title: "Hakkımda",
       description: description || siteConfig.description,
       url: "/hakkimda",
       images: defaultOgImages,
+      locale: siteConfig.locale,
+      alternateLocale: ["fr_FR"],
     },
   }
 }

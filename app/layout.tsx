@@ -25,6 +25,7 @@ export const metadata: Metadata = {
     type: "website",
     siteName: siteConfig.name,
     locale: siteConfig.locale,
+    alternateLocale: ["fr_FR"],
   },
   // varsayılan paylaşım görseli app/opengraph-image.png ve twitter-image.png'dir
   twitter: { card: "summary_large_image" },

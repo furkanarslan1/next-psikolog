@@ -1,13 +1,14 @@
 import Link from "next/link"
 
 import { formatDate } from "@/lib/format"
-import { typeLabel } from "@/lib/blog-config"
+import { dict, type Locale } from "@/lib/i18n"
 import type { PostCard } from "@/lib/queries/posts"
 
 const focus = "focus-visible:outline-2 focus-visible:outline-offset-4 focus-visible:outline-brand"
 
 // Liste görünümü: tarih, tür etiketi, başlık, kısa özet ve "oku →"; en yeniden eskiye
-export function PostList({ posts }: { posts: PostCard[] }) {
+export function PostList({ posts, locale = "tr" }: { posts: PostCard[]; locale?: Locale }) {
+  const t = dict[locale]
   return (
     <ul className="flex flex-col border-t border-line">
       {posts.map((post) => (
@@ -15,9 +16,9 @@ export function PostList({ posts }: { posts: PostCard[] }) {
           <article className="group relative flex flex-col gap-3 py-8 sm:grid sm:grid-cols-[11rem_1fr] sm:gap-10">
             <p className="label-caps flex flex-wrap items-center gap-x-3 gap-y-1 text-ink-soft sm:flex-col sm:items-start sm:gap-2">
               {post.publishedAt && (
-                <time dateTime={post.publishedAt.toISOString()}>{formatDate(post.publishedAt)}</time>
+                <time dateTime={post.publishedAt.toISOString()}>{formatDate(post.publishedAt, locale)}</time>
               )}
-              <span className="text-brand">{typeLabel(post.type)}</span>
+              <span className="text-brand">{t.types[post.type]}</span>
             </p>
             <div className="flex max-w-3xl flex-col gap-3">
               <h2 className="font-serif-site text-2xl leading-snug font-normal tracking-tight text-balance sm:text-3xl">
@@ -33,7 +34,7 @@ export function PostList({ posts }: { posts: PostCard[] }) {
                 {post.excerpt}
               </p>
               <span className="label-caps text-brand" aria-hidden>
-                Oku →
+                {t.read}
               </span>
             </div>
           </article>
