@@ -10,7 +10,7 @@ Ortam değişkenleri (yalnızca adları): `DATABASE_URL`, `AUTH_SECRET`, `NEXT_P
 ## Çalışma kuralları
 
 - `.env*` dosyalarını **okuma**; değişken gerekiyorsa kullanıcıdan iste.
-- Her özellik ayrı `feature/...` dalında; commit mesajları `feat:`, `fix:`, `chore:`, `style:` önekiyle. Müşteri geri bildirimi çalışmasında (`docs/geri-bildirim/`) dalı, commit'i ve `main`'e `--no-ff` merge'ü Claude yapar; **push'u yalnızca kullanıcı yapar**.
+- Her özellik ayrı `feature/...` dalında; commit mesajları `feat:`, `fix:`, `chore:`, `style:` önekiyle. Müşteri geri bildirimi çalışmasında dalı, commit'i ve `main`'e `--no-ff` merge'ü Claude yapar; **push'u yalnızca kullanıcı yapar**.
 - Next.js 16'nın API'leri eğitim verisinden farklı: kod yazmadan önce `node_modules/next/dist/docs/` altındaki ilgili rehberi oku (`proxy.ts` = eski middleware).
 - Her özellikten sonra `npx tsc --noEmit`, `npx eslint .` ve `pnpm build` ile doğrula. Tarayıcıda görmediğin şeyi "çalışıyor" diye raporlama.
 - Kullanıcının çalıştırdığı `pnpm dev` sürecini öldürme, `.next` klasörünü silme (kendi testin için başka port kullan, yalnızca kendi başlattığın süreci sonlandır).
@@ -38,7 +38,7 @@ Ortam değişkenleri (yalnızca adları): `DATABASE_URL`, `AUTH_SECRET`, `NEXT_P
 
 ## Görseller
 
-Müşteri geri bildirimi: sitede **hiçbir yerde fotoğraf yok** (`docs/geri-bildirim/musteri-geri-bildirimi.md`). Cloudinary, görsel yükleme, Tiptap görsel eklentisi ve medya temizliği kaldırıldı; `sanitizeContent` `<img>` atar, eski içerikteki görseller `stripImages` ile gizlenir. Görsel sütunları migration `20261107200000_posts_archive` ile silindi.
+Müşteri isteği: sitede **hiçbir yerde fotoğraf yok**. Cloudinary, görsel yükleme, Tiptap görsel eklentisi ve medya temizliği kaldırıldı; `sanitizeContent` `<img>` atar, eski içerikteki görseller `stripImages` ile gizlenir. Görsel sütunları migration `20261107200000_posts_archive` ile silindi.
 
 ## Site yapısı
 
@@ -82,4 +82,4 @@ Admin (`app/admin`, giriş `/admin`; panel `(panel)` grubunda): Panel, **Hero** 
 
 ## Yapılacaklar (sırasız)
 
-Çalışma alanları, 404 sayfası, varsayılan OG görseli, SEO başlık şablonu/meta açıklama, Fransızca sürüm (`docs/geri-bildirim/musteri-geri-bildirimi.md` 9. konu), yayına alma hazırlığı (alan adı, `NEXT_PUBLIC_SITE_URL`, Vercel), site adının admin'den düzenlenebilmesi (isteğe bağlı).
+Çalışma alanları, 404 sayfası, varsayılan OG görseli, SEO başlık şablonu/meta açıklama, yayına alma hazırlığı (alan adı, `NEXT_PUBLIC_SITE_URL`, Vercel), site adının admin'den düzenlenebilmesi (isteğe bağlı).
