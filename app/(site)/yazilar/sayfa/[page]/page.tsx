@@ -37,7 +37,7 @@ export async function generateMetadata({
   if (page > pages) return {}
 
   return {
-    title: `Yazılarım - Sayfa ${page}`,
+    title: `Yazılar - Sayfa ${page}`,
     description: siteConfig.description,
     alternates: { canonical: pagePath("/yazilar", page) },
     pagination: {
@@ -64,7 +64,7 @@ export default async function PostsPageN({
 
   return (
     <PostsListing
-      title="Yazılarım"
+      title="Yazılar"
       description={`Sayfa ${page} / ${pages}`}
       posts={posts}
       categories={categories}

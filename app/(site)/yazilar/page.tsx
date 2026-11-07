@@ -9,7 +9,7 @@ export async function generateMetadata(): Promise<Metadata> {
   const { total } = await getPostsPage({ page: 1, pageSize: POSTS_PER_PAGE })
 
   return {
-    title: "Yazılarım",
+    title: "Yazılar",
     description: siteConfig.description,
     alternates: { canonical: "/yazilar" },
     pagination: totalPages(total) > 1 ? { next: "/yazilar/sayfa/2" } : undefined,
@@ -24,7 +24,7 @@ export default async function PostsPage() {
 
   return (
     <PostsListing
-      title="Yazılarım"
+      title="Yazılar"
       posts={posts}
       categories={categories}
       base="/yazilar"

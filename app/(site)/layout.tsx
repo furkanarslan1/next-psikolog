@@ -1,8 +1,6 @@
 import { EB_Garamond, Instrument_Sans } from "next/font/google"
-import { Suspense } from "react"
 
 import { MobileNav } from "@/components/site/mobile-nav"
-import { MobileNavLoader } from "@/components/site/mobile-nav-loader"
 import { SiteFooter } from "@/components/site/site-footer"
 import { SiteHeader } from "@/components/site/site-header"
 
@@ -25,9 +23,7 @@ export default function SiteLayout({ children }: { children: React.ReactNode }) 
       <SiteHeader />
       <main className="flex-1">{children}</main>
       <SiteFooter />
-      <Suspense fallback={<MobileNav appointmentHref="/iletisim" external={false} />}>
-        <MobileNavLoader />
-      </Suspense>
+      <MobileNav />
     </div>
   )
 }

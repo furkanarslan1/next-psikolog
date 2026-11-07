@@ -10,7 +10,7 @@ export default function DashboardPage() {
     <>
       <h1 className="text-2xl font-semibold">Panel</h1>
       <p className="text-muted-foreground">
-        Blog yazılarını buradan yöneteceksiniz.
+        Yazılarnı buradan yöneteceksiniz.
       </p>
     </>
   )

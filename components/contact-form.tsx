@@ -13,7 +13,7 @@ import { Input } from "@/components/ui/input"
 import { Textarea } from "@/components/ui/textarea"
 import { contactSchema, type ContactValues } from "@/lib/validations/contact"
 
-const emptyValues: ContactValues = { email: "", phone: "", whatsapp: "", address: "", instagram: "", x: "" }
+const emptyValues: ContactValues = { email: "", phone: "", whatsapp: "", address: "", instagram: "" }
 
 export function ContactForm({ initialValues }: { initialValues?: ContactValues }) {
   const router = useRouter()
@@ -105,17 +105,6 @@ export function ContactForm({ initialValues }: { initialValues?: ContactValues }
                   <FieldLabel htmlFor="instagram">Instagram</FieldLabel>
                   <Input {...field} id="instagram" placeholder="kullaniciadi veya profil adresi" aria-invalid={fieldState.invalid} />
                   <FieldDescription>Sitenin alt kısmında ve iletişim sayfasında simge olarak görünür</FieldDescription>
-                  {fieldState.invalid && <FieldError errors={[fieldState.error]} />}
-                </Field>
-              )}
-            />
-            <Controller
-              name="x"
-              control={form.control}
-              render={({ field, fieldState }) => (
-                <Field data-invalid={fieldState.invalid}>
-                  <FieldLabel htmlFor="x">X (Twitter)</FieldLabel>
-                  <Input {...field} id="x" placeholder="kullaniciadi veya profil adresi" aria-invalid={fieldState.invalid} />
                   {fieldState.invalid && <FieldError errors={[fieldState.error]} />}
                 </Field>
               )}

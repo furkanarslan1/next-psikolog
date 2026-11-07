@@ -35,7 +35,7 @@ const navigation = [
       { title: "Hero", url: "/admin/hero", icon: HouseIcon },
       { title: "Hakkımda", url: "/admin/about", icon: UserRoundIcon },
       { title: "İletişim", url: "/admin/contact", icon: PhoneIcon },
-      { title: "Blog yazıları", url: "/admin/posts", icon: FileTextIcon },
+      { title: "Yazılar", url: "/admin/posts", icon: FileTextIcon },
       { title: "Kategoriler", url: "/admin/categories", icon: FolderIcon },
     ],
   },

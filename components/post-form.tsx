@@ -93,7 +93,7 @@ export function PostForm({
                 <Field data-invalid={fieldState.invalid}>
                   <FieldLabel htmlFor="excerpt">Özet *</FieldLabel>
                   <Textarea {...field} id="excerpt" rows={3} aria-invalid={fieldState.invalid} />
-                  <FieldDescription>{field.value.length}/300 — blog listesinde ve arama sonuçlarında görünür</FieldDescription>
+                  <FieldDescription>{field.value.length}/300 — yazı listesinde ve arama sonuçlarında görünür</FieldDescription>
                   {fieldState.invalid && <FieldError errors={[fieldState.error]} />}
                 </Field>
               )}
