@@ -44,6 +44,14 @@ const nextConfig: NextConfig = {
   },
   cacheComponents: true,
   partialPrefetching: true,
+  // eski adresler (blog, kategori, etiket) kalıcı olarak yeni yerlerine taşınır
+  async redirects() {
+    return [
+      { source: "/blog/:slug", destination: "/yazilar/:slug", permanent: true },
+      { source: "/kategori/:path*", destination: "/yazilar", permanent: true },
+      { source: "/etiket/:path*", destination: "/yazilar", permanent: true },
+    ];
+  },
   async headers() {
     return [{ source: "/:path*", headers: securityHeaders }];
   },

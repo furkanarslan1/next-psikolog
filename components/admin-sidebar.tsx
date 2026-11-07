@@ -2,7 +2,6 @@
 
 import {
   FileTextIcon,
-  FolderIcon,
   HouseIcon,
   KeyRoundIcon,
   PhoneIcon,
@@ -36,7 +35,6 @@ const navigation = [
       { title: "Hakkımda", url: "/admin/about", icon: UserRoundIcon },
       { title: "İletişim", url: "/admin/contact", icon: PhoneIcon },
       { title: "Yazılar", url: "/admin/posts", icon: FileTextIcon },
-      { title: "Kategoriler", url: "/admin/categories", icon: FolderIcon },
     ],
   },
   {

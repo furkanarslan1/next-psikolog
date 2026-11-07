@@ -1,6 +1,7 @@
 import Link from "next/link"
 
-import { EmptyPosts } from "@/components/site/post-card"
+import { EmptyPosts } from "@/components/site/post-list"
+import { typeLabel } from "@/lib/blog-config"
 import { formatDate } from "@/lib/format"
 import type { PostCard } from "@/lib/queries/posts"
 
@@ -38,14 +39,17 @@ export function RecentPosts({ posts }: { posts: PostCard[] }) {
       ) : (
         <div className="mt-10 flex flex-col">
           <article className="group relative flex max-w-3xl flex-col gap-4 pb-12">
-            {latest.publishedAt && (
-              <time dateTime={latest.publishedAt.toISOString()} className="label-caps text-ink-soft">
-                {formatDate(latest.publishedAt)}
-              </time>
-            )}
+            <p className="label-caps flex gap-x-4 text-ink-soft">
+              {latest.publishedAt && (
+                <time dateTime={latest.publishedAt.toISOString()}>
+                  {formatDate(latest.publishedAt)}
+                </time>
+              )}
+              <span className="text-brand">{typeLabel(latest.type)}</span>
+            </p>
             <h3 className="font-serif-site text-3xl leading-tight font-normal tracking-tight text-balance sm:text-5xl">
               <Link
-                href={`/blog/${latest.slug}`}
+                href={`/yazilar/${latest.slug}`}
                 className={`decoration-brand decoration-2 underline-offset-4 after:absolute after:inset-0 group-hover:underline ${focus}`}
               >
                 {latest.title}
@@ -61,7 +65,7 @@ export function RecentPosts({ posts }: { posts: PostCard[] }) {
             >
               <h3 className="font-serif-site text-xl leading-snug sm:text-2xl">
                 <Link
-                  href={`/blog/${post.slug}`}
+                  href={`/yazilar/${post.slug}`}
                   className={`decoration-brand decoration-2 underline-offset-4 after:absolute after:inset-0 group-hover:underline ${focus}`}
                 >
                   {post.title}

@@ -20,37 +20,31 @@ async function main() {
     const { count } = await db.post.deleteMany({
       where: { title: TITLE, excerpt: EXCERPT },
     })
-    await db.tag.deleteMany({ where: { posts: { none: {} } } })
     console.log(`${count} test yazısı silindi.`)
     await db.$disconnect()
     return
   }
 
-  const category =
-    (await db.category.findFirst({ orderBy: { createdAt: "asc" } })) ??
-    (await db.category.create({ data: { name: "Genel", slug: "genel" } }))
-
   for (let index = 0; index < COUNT; index++) {
+    // her üçüncü kayıt çeviri
+    const translation = index % 3 === 2
     await db.post.create({
       data: {
+        type: translation ? "CEVIRI" : "YAZI",
         title: TITLE,
         slug: await uniquePostSlug(TITLE),
         excerpt: EXCERPT,
         content: sanitizeContent(CONTENT),
+        ...(translation
+          ? { originalAuthor: "Lorem Ipsum", originalTitle: "Dolor sit amet", originalLang: "Fransızca" }
+          : {}),
         status: "PUBLISHED",
         // yeniden eskiye: her yazı bir gün öncesinde yayınlanmış görünür
         publishedAt: new Date(Date.now() - index * 24 * 60 * 60 * 1000),
-        category: { connect: { id: category.id } },
-        tags: {
-          connectOrCreate: ["lorem", "ipsum"].map((name) => ({
-            where: { slug: name },
-            create: { name, slug: name },
-          })),
-        },
       },
     })
   }
-  console.log(`${COUNT} test yazısı oluşturuldu (kategori: ${category.name}).`)
+  console.log(`${COUNT} test kaydı oluşturuldu.`)
   await db.$disconnect()
 }
 

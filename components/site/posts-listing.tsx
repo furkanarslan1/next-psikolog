@@ -1,35 +1,30 @@
-import { CategoryNav } from "@/components/site/category-nav"
 import { PageHeading } from "@/components/site/page-heading"
 import { Pagination } from "@/components/site/pagination"
-import { EmptyPosts, PostGrid } from "@/components/site/post-card"
+import { EmptyPosts, PostList } from "@/components/site/post-list"
+import { TypeFilter } from "@/components/site/type-filter"
+import { listBase, type PostTypeSlug } from "@/lib/blog-config"
 import type { PostCard } from "@/lib/queries/posts"
 
-// /yazilar ve kategori sayfalarının ortak görünümü
+// /yazilar ve tür sayfalarının ortak görünümü
 export function PostsListing({
-  title,
+  type,
   description,
   posts,
-  categories,
-  activeSlug,
-  base,
   page,
   pages,
 }: {
-  title: string
+  type: PostTypeSlug | null
   description?: string
   posts: PostCard[]
-  categories: { name: string; slug: string }[]
-  activeSlug?: string
-  base: string
   page: number
   pages: number
 }) {
   return (
     <div className="mx-auto flex w-full max-w-6xl flex-col gap-10 px-5 py-14 sm:px-8 sm:py-20">
-      <PageHeading title={title} description={description} />
-      <CategoryNav categories={categories} activeSlug={activeSlug} />
-      {posts.length === 0 ? <EmptyPosts /> : <PostGrid posts={posts} />}
-      <Pagination base={base} current={page} total={pages} />
+      <PageHeading title="Yazılar" description={description} />
+      <TypeFilter active={type} />
+      {posts.length === 0 ? <EmptyPosts /> : <PostList posts={posts} />}
+      <Pagination base={listBase(type)} current={page} total={pages} />
     </div>
   )
 }
