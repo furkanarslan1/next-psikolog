@@ -52,7 +52,7 @@ Admin (`app/admin`, giriş `/admin`; panel `(panel)` grubunda): Panel, **Hero** 
 - Yazı tipleri yalnızca `components/site/site-shell.tsx`'te (EB Garamond + Instrument Sans; italik ayrı ve `preload: false`). Kök layout'ta yazı tipi/Toaster yok; Toaster `app/admin/layout.tsx`'te. Admin yazı tipi sistem sans (`globals.css` `--font-sans`). Yeni global font/JS kök layout'a eklenmemeli (herkese açık sayfalara yüklenir).
 - Özel 404: `app/not-found.tsx` (kök), `app/(site)/not-found.tsx`, `app/(fr)/fr/not-found.tsx`. Bilinmeyen `/yazilar/<slug>` yine 200 + noindex döner (soft 404, `generateStaticParams` + yeni yazı yayınlanabilmesi için bilinen sınır).
 - Dil adı → `lang` kodu: `lib/lang.ts` (`originalLang` serbest metin; tanınmazsa `lang` yazılmaz).
-- Bir `globals.css` değişikliği derlenen CSS'e yansımıyorsa Turbopack önbelleği bayatlamıştır; dosyada içerik değişikliği yapıp yeniden derle (`git stash` sonrası görüldü).
+- **Turbopack dosya sistemi önbelleği bilerek kapalı** (`next.config.ts` → `experimental.turbopackFileSystemCacheForBuild/ForDev: false`). Neden: canlı sitede (Vercel) yeni kod ama ilk dağıtımdan kalma eski `globals.css` derlemesi görüldü (renkler, `label-caps`, tema düğmesi kuralları yoktu); yerelde de dev ve build'de yeni CSS kuralları bir süre görünmedi. Temiz bir `origin/main` kopyası sıfırdan derlendiğinde CSS tamdı, yani kod doğruydu, sorun önbellekteydi. Bedeli: derleme/dev başlangıcı birkaç saniye uzar. Yayında CSS yine eski görünürse Vercel'de Redeploy → "Use existing Build Cache" kutusunu kaldır.
 
 ## Fransızca sürüm (i18n)
 
