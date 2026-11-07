@@ -3,14 +3,14 @@
 # Proje
 
 Psikolog **Eren Arslan** için tanıtım + blog sitesi. SEO çok önemli. Arayüz metinleri Türkçe.
-Next.js 16 (App Router, `cacheComponents` + `partialPrefetching` açık), Auth.js v5, Prisma 7 + Neon (Postgres), Cloudinary, Tiptap, shadcn/ui (base-nova), React Hook Form + Zod, Tailwind v4. Paket yöneticisi: pnpm.
+Next.js 16 (App Router, `cacheComponents` + `partialPrefetching` açık), Auth.js v5, Prisma 7 + Neon (Postgres), Tiptap, shadcn/ui (base-nova), React Hook Form + Zod, Tailwind v4. Paket yöneticisi: pnpm.
 
-Ortam değişkenleri (yalnızca adları): `DATABASE_URL`, `AUTH_SECRET`, `CLOUDINARY_URL` (`cloudinary://KEY:SECRET@CLOUD`), `NEXT_PUBLIC_SITE_URL`.
+Ortam değişkenleri (yalnızca adları): `DATABASE_URL`, `AUTH_SECRET`, `NEXT_PUBLIC_SITE_URL`.
 
 ## Çalışma kuralları
 
 - `.env*` dosyalarını **okuma**; değişken gerekiyorsa kullanıcıdan iste.
-- Her özellik ayrı `feature/...` dalında; commit mesajları `feat:`, `fix:`, `chore:`, `style:` önekiyle. Dalı kullanıcı açar; dal/commit işlemini kendin yapma.
+- Her özellik ayrı `feature/...` dalında; commit mesajları `feat:`, `fix:`, `chore:`, `style:` önekiyle. Müşteri geri bildirimi çalışmasında (`docs/geri-bildirim/`) dalı, commit'i ve `main`'e `--no-ff` merge'ü Claude yapar; **push'u yalnızca kullanıcı yapar**.
 - Next.js 16'nın API'leri eğitim verisinden farklı: kod yazmadan önce `node_modules/next/dist/docs/` altındaki ilgili rehberi oku (`proxy.ts` = eski middleware).
 - Her özellikten sonra `npx tsc --noEmit`, `npx eslint .` ve `pnpm build` ile doğrula. Tarayıcıda görmediğin şeyi "çalışıyor" diye raporlama.
 - Kullanıcının çalıştırdığı `pnpm dev` sürecini öldürme, `.next` klasörünü silme (kendi testin için başka port kullan, yalnızca kendi başlattığın süreci sonlandır).
@@ -23,7 +23,7 @@ Ortam değişkenleri (yalnızca adları): `DATABASE_URL`, `AUTH_SECRET`, `CLOUDI
 - Admin verisini okuyan/değiştiren **her** server action ve route handler `await requireAdmin()` (`lib/require-admin.ts`) ile başlar. İstisna: `loginAction`, `logoutAction`.
 - `proxy.ts` yalnızca iyimser kontroldür (imzalı çerez var mı); yetki kontrolü yerine geçmez. Admin sayfaları `auth()` ile oturumu kendisi doğrular.
 - Girdi sunucuda Zod ile yeniden doğrulanır (`lib/validations/`). Giriş ve şifre değiştirme `lib/rate-limit.ts` ile sınırlıdır; hata mesajları genel tutulur.
-- Kullanıcı HTML'i (blog, hakkımda) kaydedilirken `lib/sanitize.ts` ile temizlenir; görseller yalnızca Cloudinary'den olabilir.
+- Kullanıcı HTML'i (blog, hakkımda) kaydedilirken `lib/sanitize.ts` ile temizlenir.
 - Oturum JWT; `Admin.passwordChangedAt` değişince tüm oturumlar düşer. Tek admin, `pnpm create-admin` ile oluşturulur/güncellenir. Şifre kuralı: min 6, bir büyük harf, bir özel karakter, en çok 72 bayt.
 - Admin sayfaları `noindex`; CSP/güvenlik başlıkları `next.config.ts` içinde (statik, nonce yok: sayfalar statik kalsın).
 
@@ -34,12 +34,9 @@ Ortam değişkenleri (yalnızca adları): `DATABASE_URL`, `AUTH_SECRET`, `CLOUDI
 - Admin işlemleri **yalnızca etkilediği** etiketleri `updateTag` ile yeniler (`invalidateBlog`, `invalidateHero`, `invalidateContact`, `invalidateAbout`). Yeni içerik alanı eklenirse hem sorguya etiket hem action'a invalidation ekle.
 - `generateStaticParams` en az bir parametre dönmeli; veri yokken yer tutucu (`__yok__`, sayfa `"2"`) döner ve sayfa `notFound()` verir. Bilinmeyen adresler statik üretilmediği için 404 yerine 200 + noindex ("soft 404") dönebilir; bilinen sınır.
 
-## Görseller (Cloudinary)
+## Görseller
 
-- Tarayıcı yüklemeden önce 2000 px'e küçültüp WebP'ye çevirir; imzalı yükleme `lib/cloudinary.ts` (gelen dönüşüm `c_limit,w_2000,h_2000`, klasör `psikolog-blog`).
-- Gösterimde tek yükleyici: `lib/cloudinary-loader.ts` (`f_auto,q_auto:good`), genişlikler `next.config.ts`'te bilerek az (640/960/1280/1920, 320) → Cloudinary dönüşüm sayısı düşük. Yazı içi görseller `lib/content-images.ts` ile aynı genişliklere çevrilir.
-- Cloudinary görseli kullanan her yeni alan `lib/media.ts` → `getReferencedImageIds`'e eklenmeli; değişen/kaldırılan eski görsel kaydedilirken `deleteIfUnreferenced` ile silinmeli. **Taslaklardaki görseller silinmez** (her kayıt "kullanımda" sayılır). `pnpm verify-media` gerçek hesapta yaşam döngüsünü doğrular. Panelde "Kullanılmayan görselleri temizle" (24 saatten eski yetimler) butonu var.
-- LCP: hero, öne çıkan yazı ve ilk 3 kart `loading="eager"` + `fetchPriority="high"`; `priority` prop'u kullanılmaz (kullanımdan kalktı). `fill` kullanan görselin üst elemanı `relative` olmalı (`sticky` olamaz).
+Müşteri geri bildirimi: sitede **hiçbir yerde fotoğraf yok** (`docs/geri-bildirim/musteri-geri-bildirimi.md`). Cloudinary, görsel yükleme, Tiptap görsel eklentisi ve medya temizliği kaldırıldı; `sanitizeContent` `<img>` atar, eski içerikteki görseller `stripImages` ile gizlenir. `Post.coverImage*`, `Hero.image*`, `About.image*` sütunları şemada duruyor ama kullanılmıyor; `feature/posts-archive` migration'ında silinecek.
 
 ## Site yapısı
 
@@ -51,13 +48,13 @@ Admin (`app/admin`, giriş `/admin`; panel `(panel)` grubunda): Panel, **Hero** 
 
 - Palet: antrasit `#1F2327`, ink `#23272B`, ink-soft `#5B6168`, paper `#F4F5F6`, beyaz yüzey, çizgi `#DCDFE3`. **Bakır/turuncu vurgu kullanılmaz.** Vurgu/aktif durum zeminin tersidir: açık zeminde `#1F2327`, koyu zeminde `#FFFFFF`.
 - Yazı tipleri: başlıklar Newsreader (serif), gövde Instrument Sans. Büyük harfli etiket, numaralandırma, ok işareti, her şeyi aynı gölgeli karta koyma yok.
-- Hero: koyu antrasit, solda başlık/açıklama/açık butonu, sağda görsel (kırpılmadan kendi oranında); mobilde yatay görsel üstte, dikey görsel arka plan+overlay. Hakkımda: yuvarlak halkalı portre; ana sayfada ~10 satır önizleme + "Devamını oku", `/hakkimda` tam metin + WhatsApp'a giden kapanış bandı. Kategori adı kartlarda koyu yuvarlak rozet.
+- Hero: koyu antrasit, başlık/açıklama/açık buton (görsel yok). Hakkımda: ana sayfada ~10 satır önizleme + "Devamını oku", `/hakkimda` tam metin + WhatsApp'a giden kapanış bandı. Kategori adı kartlarda koyu yuvarlak rozet.
 - Okuma süresi yazı sayfasında otomatik hesaplanır (200 kelime/dk).
 
 ## Veri / yardımcı script'ler
 
-- `pnpm create-admin`, `pnpm verify-media`, `pnpm seed-posts <görsel>` / `pnpm seed-posts --remove`.
-- **Veritabanında 15 test yazısı var** ("Lorem Ipsum Dolor Sit Amet", aynı görsel, Kaygı kategorisi). Kullanıcı şimdilik silmek istemiyor; yayına almadan önce `pnpm seed-posts --remove` ile silinmeli, hatırlat.
+- `pnpm create-admin`, `pnpm seed-posts` / `pnpm seed-posts --remove`.
+- **Veritabanında 15 test yazısı var** ("Lorem Ipsum Dolor Sit Amet", Kaygı kategorisi). Kullanıcı şimdilik silmek istemiyor; yayına almadan önce `pnpm seed-posts --remove` ile silinmeli, hatırlat.
 
 ## Yapılacaklar (sırasız)
 

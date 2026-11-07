@@ -35,8 +35,6 @@ async function HeroEditor() {
               description: hero.description ?? "",
               buttonLabel: hero.buttonLabel,
               buttonUrl: hero.buttonUrl,
-              imageUrl: hero.imageUrl ?? "",
-              imageAlt: hero.imageAlt ?? "",
             }
           : undefined
       }

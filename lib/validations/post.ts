@@ -1,7 +1,6 @@
 import { z } from "zod"
 
-const isEmptyHtml = (html: string) =>
-  html.replace(/<[^>]*>/g, "").trim().length === 0 && !/<img/i.test(html)
+const isEmptyHtml = (html: string) => html.replace(/<[^>]*>/g, "").trim().length === 0
 
 export const postSchema = z.object({
   title: z
@@ -15,14 +14,6 @@ export const postSchema = z.object({
     .min(10, "Özet en az 10 karakter olmalıdır")
     .max(300, "Özet en fazla 300 karakter olabilir"),
   content: z.string().refine((value) => !isEmptyHtml(value), "İçerik zorunludur"),
-  coverImageUrl: z
-    .url("Geçerli bir görsel adresi girin")
-    .refine(
-      (value) => value.startsWith("https://res.cloudinary.com/"),
-      "Görsel Cloudinary üzerinden yüklenmelidir"
-    )
-    .or(z.literal("")),
-  coverImageAlt: z.string().trim().max(150, "Alt metin en fazla 150 karakter olabilir"),
   categoryId: z.string(),
   tags: z
     .array(z.string().trim().min(1).max(30, "Etiket en fazla 30 karakter olabilir"))
@@ -39,13 +30,6 @@ export const postSchema = z.object({
       code: "custom",
       path: ["categoryId"],
       message: "Yayınlamak için bir kategori seçin",
-    })
-  }
-  if (data.coverImageUrl && !data.coverImageAlt) {
-    ctx.addIssue({
-      code: "custom",
-      path: ["coverImageAlt"],
-      message: "Kapak görseli için bir açıklama girin",
     })
   }
 })

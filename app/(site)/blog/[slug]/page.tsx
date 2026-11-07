@@ -1,10 +1,7 @@
 import type { Metadata } from "next"
-import Image from "next/image"
 import Link from "next/link"
 import { notFound } from "next/navigation"
 
-import { transformedUrl } from "@/lib/cloudinary-url"
-import { optimizeContentHtml } from "@/lib/content-images"
 import { JsonLd } from "@/components/site/json-ld"
 import { PostCard } from "@/components/site/post-card"
 import { formatDate } from "@/lib/format"
@@ -14,6 +11,7 @@ import {
   getSitemapData,
 } from "@/lib/queries/posts"
 import { readingMinutes } from "@/lib/reading-time"
+import { stripImages } from "@/lib/sanitize"
 import { absoluteUrl, siteConfig } from "@/lib/site"
 
 // Cache Components, en az bir parametre ister; yazı yokken yer tutucu döner
@@ -24,11 +22,6 @@ export async function generateStaticParams() {
   return posts.length > 0
     ? posts.map((post) => ({ slug: post.slug }))
     : [{ slug: PLACEHOLDER_SLUG }]
-}
-
-// Sosyal paylaşım için 1200x630 JPEG (tüm platformlarla uyumlu)
-function shareImageUrl(url: string) {
-  return transformedUrl(url, { width: 1200, height: 630, crop: "fill", format: "jpg" })
 }
 
 export async function generateMetadata({
@@ -51,12 +44,9 @@ export async function generateMetadata({
       url: `/blog/${post.slug}`,
       publishedTime: post.publishedAt?.toISOString(),
       modifiedTime: post.updatedAt.toISOString(),
-      images: post.coverImageUrl
-        ? [{ url: shareImageUrl(post.coverImageUrl), width: 1200, height: 630, alt: post.coverImageAlt ?? post.title }]
-        : undefined,
     },
     twitter: {
-      card: post.coverImageUrl ? "summary_large_image" : "summary",
+      card: "summary",
       title,
       description,
     },
@@ -82,7 +72,6 @@ export default async function PostPage({ params }: PageProps<"/blog/[slug]">) {
               "@id": `${url}#article`,
               headline: post.title,
               description: post.metaDescription || post.excerpt,
-              image: post.coverImageUrl ? [shareImageUrl(post.coverImageUrl)] : undefined,
               datePublished: post.publishedAt?.toISOString(),
               dateModified: post.updatedAt.toISOString(),
               inLanguage: "tr-TR",
@@ -150,24 +139,10 @@ export default async function PostPage({ params }: PageProps<"/blog/[slug]">) {
           </p>
         </header>
 
-        {post.coverImageUrl && (
-          <div className="relative mx-auto aspect-[16/9] w-full max-w-5xl overflow-hidden rounded-xs bg-line">
-            <Image
-              src={post.coverImageUrl}
-              alt={post.coverImageAlt ?? ""}
-              fill
-              loading="eager"
-              fetchPriority="high"
-              sizes="(min-width: 1024px) 64rem, 100vw"
-              className="object-cover"
-            />
-          </div>
-        )}
-
         <div
           className="rich-content mx-auto w-full max-w-3xl"
           // içerik kaydedilirken sunucuda temizlenir (lib/sanitize.ts)
-          dangerouslySetInnerHTML={{ __html: optimizeContentHtml(post.content) }}
+          dangerouslySetInnerHTML={{ __html: stripImages(post.content) }}
         />
 
         {post.tags.length > 0 && (
