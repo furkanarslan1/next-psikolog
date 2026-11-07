@@ -2,6 +2,7 @@ import type { Metadata } from "next"
 
 import { PostsListing } from "@/components/site/posts-listing"
 import { POSTS_PER_PAGE, totalPages } from "@/lib/blog-config"
+import { languageAlternates } from "@/lib/i18n"
 import { getPostsPage } from "@/lib/queries/posts"
 import { siteConfig } from "@/lib/site"
 
@@ -11,7 +12,7 @@ export async function generateMetadata(): Promise<Metadata> {
   return {
     title: "Yazılar",
     description: siteConfig.description,
-    alternates: { canonical: "/yazilar" },
+    alternates: { canonical: "/yazilar", languages: languageAlternates("/yazilar") },
     pagination: totalPages(total) > 1 ? { next: "/yazilar/sayfa/2" } : undefined,
   }
 }

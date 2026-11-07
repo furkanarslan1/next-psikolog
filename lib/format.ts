@@ -1,8 +1,5 @@
-const dateFormat = new Intl.DateTimeFormat("tr-TR", {
-  dateStyle: "long",
-  timeZone: "Europe/Istanbul",
-})
+import { formatDateLocale, type Locale } from "@/lib/i18n"
 
-export function formatDate(date: Date) {
-  return dateFormat.format(date)
+export function formatDate(date: Date, locale: Locale = "tr") {
+  return formatDateLocale(date, locale)
 }

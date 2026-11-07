@@ -4,13 +4,14 @@ import { ContactItems, contactItems } from "@/components/site/contact-items"
 import { JsonLd } from "@/components/site/json-ld"
 import { SocialBandContent, socialItems } from "@/components/site/social-links"
 import { PageHeading } from "@/components/site/page-heading"
+import { languageAlternates } from "@/lib/i18n"
 import { getContact } from "@/lib/queries/contact"
 import { absoluteUrl, siteConfig } from "@/lib/site"
 
 export const metadata: Metadata = {
   title: "İletişim",
   description: `Psikolog ${siteConfig.name} ile iletişime geçin: randevu ve bilgi için e-posta, WhatsApp ve Instagram.`,
-  alternates: { canonical: "/iletisim" },
+  alternates: { canonical: "/iletisim", languages: languageAlternates("/iletisim") },
 }
 
 export default async function ContactPage() {

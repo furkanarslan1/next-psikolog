@@ -4,25 +4,30 @@ import { HomeIcon, MailIcon, NewspaperIcon, UserRoundIcon } from "lucide-react"
 import Link from "next/link"
 import { usePathname } from "next/navigation"
 
-import { isActive, navLinks } from "@/components/site/site-nav"
+import { isActive } from "@/components/site/site-nav"
+import { dict, type Locale } from "@/lib/i18n"
 
 const icons = {
   "/": HomeIcon,
   "/hakkimda": UserRoundIcon,
   "/yazilar": NewspaperIcon,
   "/iletisim": MailIcon,
+  "/fr/presentation": UserRoundIcon,
+  "/fr/publications": NewspaperIcon,
+  "/fr/contact": MailIcon,
 } as const
 
-export function MobileNav() {
+export function MobileNav({ locale }: { locale: Locale }) {
   const pathname = usePathname()
+  const t = dict[locale]
 
   return (
     <nav
-      aria-label="Mobil menü"
+      aria-label={t.mobileNavAria}
       className="fixed inset-x-0 bottom-0 z-40 px-4 pb-[max(0.75rem,env(safe-area-inset-bottom))] md:hidden"
     >
       <ul className="mx-auto flex max-w-md items-center rounded-full border border-line bg-paper/95 px-2 py-1.5 shadow-[0_8px_24px_-12px_rgba(22,22,21,0.35)] backdrop-blur">
-        {navLinks.map((link) => {
+        {t.nav.map((link) => {
           const active = isActive(link, pathname)
           const Icon = icons[link.href as keyof typeof icons]
           return (

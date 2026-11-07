@@ -30,7 +30,7 @@ async function AboutEditor() {
     <AboutForm
       initialValues={
         about
-          ? { content: about.content }
+          ? { content: about.content, contentFr: about.contentFr ?? "" }
           : undefined
       }
     />

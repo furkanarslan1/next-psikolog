@@ -90,5 +90,7 @@ model Contact {
 model About {
   id          String   @id @default("main")
   content     String   @db.Text
+  // Fransızca "Présentation" sayfası metni (boşsa sayfa "yakında" gösterir)
+  contentFr   String?  @db.Text
   updatedAt   DateTime @updatedAt
 }
