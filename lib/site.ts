@@ -16,8 +16,7 @@ export const siteConfig = {
 // Footer'daki kurumsal bağlantılar. href yoksa düz yazı olarak gösterilir.
 export const institutions: { name: string; href?: string }[] = [
   { name: "IF-EPFCL", href: "http://www.champlacanien.net/public/2/epPresentation.php" },
-  // TODO: Lacancı Forum Türkiye'nin adresi gelince href eklenecek
-  { name: "Lacancı Forum Türkiye" },
+  { name: "Lacancı Forum Türkiye", href: "https://www.lacanciforum.org/" },
 ]
 
 // Varsayılan paylaşım görseli (app/opengraph-image.png). Kendi openGraph nesnesini
