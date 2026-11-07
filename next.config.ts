@@ -37,6 +37,11 @@ const nextConfig: NextConfig = {
   /* config options here */
   experimental: {
     agentFeedback: true,
+    // Turbopack'in dosya sistemi önbelleği bu projede bayat CSS üretti: canlı sitede yeni kod
+    // ama ilk dağıtımdan kalma eski globals.css derlemesi görüldü, yerelde de dev ve build'de
+    // yeni CSS kuralları görünmedi. Önbellek kapatılır; derleme birkaç saniye uzar.
+    turbopackFileSystemCacheForBuild: false,
+    turbopackFileSystemCacheForDev: false,
   },
   // Geliştirme terminaline sunucu işlemi argümanlarını (şifreler dahil) yazma
   logging: {
