@@ -181,18 +181,21 @@
   pointer-events: none;
 }
 
-/* Herkese açık site: kırık beyaz zemin, koyu antrasit metin, tek vurgu (antrasit).
-   Renkler .site üzerinde değişken olarak tanımlanır; karanlık mod sistem tercihini izler. */
+/* Herkese açık site: kırık beyaz zemin, koyu metin, TEK vurgu rengi (brand).
+   Renkler .site üzerinde değişken olarak tanımlanır; karanlık mod sistem tercihini izler.
+   Vurgu rengini değiştirmek için yalnızca --site-brand satırlarını güncelle. */
 @theme inline {
   --color-ink: var(--site-ink);
   --color-ink-soft: var(--site-ink-soft);
   --color-paper: var(--site-paper);
   --color-surface: var(--site-surface);
   --color-line: var(--site-line);
-  /* vurgu zeminin tersidir: açıkta antrasit, koyuda açık; üzerindeki yazı da tersi */
+  --color-brand: var(--site-brand);
+  --color-on-brand: var(--site-on-brand);
+  /* metin renginin dolgu hali (ikincil butonlar, monogram çerçevesi) */
   --color-anthracite: var(--site-accent);
   --color-on-anthracite: var(--site-on-accent);
-  /* her iki temada koyu kalan paneller (footer, hero, kapanış bandı) */
+  /* mobil menü hapı: her iki temada koyu */
   --color-panel: #1f2327;
   --font-serif-site: var(--site-serif);
   --font-sans-site: var(--site-sans);
@@ -202,11 +205,13 @@
   --site-serif: var(--font-garamond), Georgia, "Times New Roman", serif;
   --site-sans: var(--font-instrument), system-ui, sans-serif;
   --site-paper: #fafaf7;
-  --site-surface: #f3f3ee;
+  --site-surface: #f3efe5;
   --site-ink: #161615;
-  --site-ink-soft: #5e5e5a;
-  --site-line: #deded8;
-  --site-accent: #1f2327;
+  --site-ink-soft: #5f5f5b;
+  --site-line: #e2dfd6;
+  --site-brand: #8a3a28;
+  --site-on-brand: #ffffff;
+  --site-accent: #161615;
   --site-on-accent: #ffffff;
   --border: var(--site-line);
   --muted-foreground: var(--site-ink-soft);
@@ -216,13 +221,43 @@
 @media (prefers-color-scheme: dark) {
   .site {
     --site-paper: #121314;
-    --site-surface: #1a1c1e;
-    --site-ink: #ecece7;
-    --site-ink-soft: #a4a4a0;
-    --site-line: #2e3135;
-    --site-accent: #ecece7;
+    --site-surface: #1a1b1c;
+    --site-ink: #ecebe5;
+    --site-ink-soft: #a5a49e;
+    --site-line: #2d2f31;
+    --site-brand: #d9917b;
+    --site-on-brand: #161615;
+    --site-accent: #ecebe5;
     --site-on-accent: #161615;
     color-scheme: dark;
+  }
+}
+
+/* menü, etiket, tür: küçük, harf aralıklı büyük harf (sans) */
+@utility label-caps {
+  font-family: var(--site-sans);
+  font-size: 0.75rem;
+  font-weight: 500;
+  letter-spacing: 0.16em;
+  text-transform: uppercase;
+}
+
+/* birincil buton: dolgu vurgu rengi */
+@utility btn-primary {
+  display: inline-flex;
+  align-items: center;
+  padding: 1rem 1.75rem;
+  border-radius: 2px;
+  background: var(--site-brand);
+  color: var(--site-on-brand);
+  font-family: var(--site-sans);
+  font-size: 0.8125rem;
+  font-weight: 500;
+  letter-spacing: 0.16em;
+  text-transform: uppercase;
+  transition: background-color 0.2s;
+  &:hover {
+    background: color-mix(in oklab, var(--site-brand), black 18%);
   }
 }
 
@@ -237,7 +272,7 @@
   letter-spacing: -0.01em;
 }
 .site .rich-content a {
-  text-decoration-color: var(--site-accent);
+  text-decoration-color: var(--site-brand);
   text-decoration-thickness: 1.5px;
 }
 .site .rich-content a:hover {
@@ -270,6 +305,6 @@
   font-size: 1.375rem;
   line-height: 1.6;
   color: var(--site-ink);
-  border-left: 2px solid var(--site-accent);
+  border-left: 2px solid var(--site-brand);
   padding-left: 1.5rem;
 }

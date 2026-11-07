@@ -46,9 +46,10 @@ Admin (`app/admin`, giriş `/admin`; panel `(panel)` grubunda): Panel, **Hero** 
 
 ## Tasarım kararları (herkese açık site)
 
-- Palet (`app/globals.css`, `.site` değişkenleri): kırık beyaz `paper #FAFAF7`, `ink #161615`, `ink-soft #5E5E5A`, `line #DEDED8`, `surface #F3F3EE`. Tek vurgu `anthracite` = zeminin tersi (açıkta `#1F2327`, koyuda `#ECECE7`; üstündeki yazı `on-anthracite`). Koyu kalan paneller (hero, footer, kapanış bandı, mobil menü) `bg-panel`. Bakır/turuncu vurgu, renkli kutu ve gradyan yok. Karanlık mod yalnızca sistem tercihini izler (`prefers-color-scheme`), anahtar yok.
-- Yazı tipleri: başlık ve gövde EB Garamond (serif, `font-serif-site`); menü, buton, etiket, meta Instrument Sans (`font-sans-site`). Yazı gövdesi en çok 70ch. Logo "EA" monogramı (`components/site/site-header.tsx`), favicon `app/icon.svg`.
-- Hero: koyu antrasit, başlık/açıklama/açık buton (görsel yok). Hakkımda: ana sayfada ~10 satır önizleme + "Devamını oku", `/hakkimda` tam metin + WhatsApp'a giden kapanış bandı. Kategori adı kartlarda koyu yuvarlak rozet.
+- Referans: oguzhannacak.com (açık, editoryal, büyük serif isim, harf aralıklı büyük harfli etiketler). Müşteri notu: "kırık beyaz zemin, tek vurgu rengi, renkli kutu/gradyan yok".
+- Palet (`app/globals.css`, `.site` değişkenleri): `paper #FAFAF7`, `surface #F3EFE5` (footer/ara bölümler), `ink #161615`, `ink-soft #5F5F5B`, `line #E2DFD6`. **Tek vurgu `brand #8A3A28`** (paslı kırmızı, Nacak'tan; değiştirmek için yalnızca `--site-brand`). Karanlık modda brand `#D9917B`. Vurgu: aktif menü, birincil buton (`btn-primary`), tür etiketi, bağlantı üstü çizgisi. Karanlık mod yalnızca sistem tercihini izler. Koyu dolgulu bloklar yok (yalnızca mobil menü hapı `bg-panel`).
+- Etiketler (`label-caps`): menü, tür, kategori, "Yukarı": küçük, harf aralıklı büyük harf, sans. Yazı tipleri: başlık ve gövde EB Garamond (`font-serif-site`), UI Instrument Sans (`font-sans-site`). Yazı gövdesi en çok 70ch. Logo: yuvarlak çerçeveli "EA" monogramı, favicon `app/icon.svg`.
+- Hero: açık zemin, vurgu renkli unvan satırı (`siteConfig.tagline`), çok büyük serif başlık, açıklama, birincil buton (görsel yok). Hakkımda: ana sayfada ~10 satır önizleme + "Devamını oku", `/hakkimda` tam metin + WhatsApp'a giden kapanış bandı. Kategori adı kartlarda koyu yuvarlak rozet.
 - Okuma süresi yazı sayfasında otomatik hesaplanır (200 kelime/dk).
 
 ## Veri / yardımcı script'ler

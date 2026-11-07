@@ -118,7 +118,7 @@ export default async function PostPage({ params }: PageProps<"/blog/[slug]">) {
                 <span aria-hidden className="mx-2">/</span>
                 <Link
                   href={`/kategori/${post.category.slug}`}
-                  className="font-medium text-anthracite hover:underline"
+                  className="font-medium text-brand hover:underline"
                 >
                   {post.category.name}
                 </Link>
@@ -151,7 +151,7 @@ export default async function PostPage({ params }: PageProps<"/blog/[slug]">) {
               <li key={tag.slug}>
                 <Link
                   href={`/etiket/${tag.slug}`}
-                  className="inline-block rounded-xs border border-line bg-surface px-3 py-1 text-sm text-ink-soft transition-colors hover:border-anthracite hover:text-ink"
+                  className="inline-block rounded-xs border border-line bg-surface px-3 py-1 text-sm text-ink-soft transition-colors hover:border-brand hover:text-ink"
                 >
                   {tag.name}
                 </Link>

@@ -1,5 +1,7 @@
 import Link from "next/link"
 
+import { siteConfig } from "@/lib/site"
+
 type HeroData = {
   headline: string
   description: string | null
@@ -8,7 +10,7 @@ type HeroData = {
 }
 
 const buttonClass =
-  "inline-flex w-fit items-center rounded-xs bg-white px-7 py-3.5 font-sans-site text-base font-medium text-panel transition-colors hover:bg-white/90 focus-visible:outline-2 focus-visible:outline-offset-4 focus-visible:outline-white"
+  "btn-primary w-fit focus-visible:outline-2 focus-visible:outline-offset-4 focus-visible:outline-brand"
 
 export function HeroButton({ label, url }: { label: string; url: string }) {
   // site içi yol Link ile, dış adresler yeni sekmede açılır
@@ -33,13 +35,14 @@ export function HeroButton({ label, url }: { label: string; url: string }) {
 
 export function Hero({ hero }: { hero: HeroData }) {
   return (
-    <section className="bg-panel text-white">
-      <div className="mx-auto flex w-full max-w-6xl flex-col items-start gap-6 px-5 py-14 sm:px-8 sm:py-20 lg:py-28">
-        <h1 className="font-serif-site max-w-3xl text-4xl leading-[1.08] font-normal tracking-tight text-balance sm:text-5xl lg:text-6xl">
+    <section className="border-b border-line">
+      <div className="mx-auto flex w-full max-w-6xl flex-col items-start gap-8 px-5 py-16 sm:px-8 sm:py-24 lg:py-32">
+        <p className="label-caps text-brand">{siteConfig.tagline}</p>
+        <h1 className="font-serif-site max-w-4xl text-[clamp(3.5rem,9vw,7.5rem)] leading-[0.95] font-normal tracking-[-0.02em] text-balance">
           {hero.headline}
         </h1>
         {hero.description && (
-          <p className="max-w-xl text-base leading-relaxed text-white/75">
+          <p className="max-w-2xl text-xl leading-relaxed text-ink-soft sm:text-[1.375rem]">
             {hero.description}
           </p>
         )}

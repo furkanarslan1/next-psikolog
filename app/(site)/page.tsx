@@ -45,7 +45,7 @@ export default async function HomePage() {
           <div className="flex justify-center border-t border-line pt-10">
             <Link
               href="/yazilar"
-              className="inline-flex items-center rounded-xs bg-anthracite px-7 py-3.5 font-sans-site text-base font-medium text-on-anthracite transition-colors hover:bg-ink focus-visible:outline-2 focus-visible:outline-offset-4 focus-visible:outline-anthracite"
+              className="inline-flex items-center btn-primary focus-visible:outline-2 focus-visible:outline-offset-4 focus-visible:outline-brand"
             >
               Daha fazla oku
             </Link>

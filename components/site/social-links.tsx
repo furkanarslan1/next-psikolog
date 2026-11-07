@@ -30,15 +30,14 @@ type Items = ReturnType<typeof socialItems>
 
 // Yuvarlak simge butonları
 const buttonVariants = {
-  dark: "border-white/25 text-white hover:bg-white hover:text-panel focus-visible:outline-white",
   light:
-    "border-anthracite/25 text-anthracite hover:bg-anthracite hover:text-on-anthracite focus-visible:outline-anthracite",
+    "border-line text-ink hover:border-brand hover:bg-brand hover:text-on-brand focus-visible:outline-brand",
 }
 
 export function SocialIconButtons({
   items,
   className = "",
-  variant = "dark",
+  variant = "light",
 }: {
   items: Items
   className?: string
@@ -64,11 +63,11 @@ export function SocialIconButtons({
   )
 }
 
-// Koyu "Beni sosyal medyadan takip edin" şeridinin içeriği (iletişim bölümü ve sayfası)
+// "Beni sosyal medyadan takip edin" şeridinin içeriği (iletişim bölümü ve sayfası)
 export function SocialBandContent({ items }: { items: Items }) {
   return (
     <div className="flex flex-col items-center gap-4 text-center sm:flex-row sm:justify-between sm:text-left">
-      <p className="font-serif-site text-xl text-white sm:text-2xl">
+      <p className="font-serif-site text-xl text-ink sm:text-2xl">
         Beni sosyal medyadan takip edin
       </p>
       <SocialIconButtons items={items} />

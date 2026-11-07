@@ -31,7 +31,7 @@ export function AboutSection({ about }: { about: AboutData | null }) {
             Hakkımda
           </h2>
           <p className="mt-3 text-ink-soft">{siteConfig.name}</p>
-          <span aria-hidden className="mt-6 block h-px w-16 bg-anthracite" />
+          <span aria-hidden className="mt-6 block h-px w-16 bg-brand" />
 
           <p className="mt-8 line-clamp-10 w-full text-left text-[1.0625rem] leading-[1.85] whitespace-pre-line text-ink">
             {preview.text}
@@ -40,7 +40,7 @@ export function AboutSection({ about }: { about: AboutData | null }) {
           {hasMore && (
             <Link
               href="/hakkimda"
-              className="mt-8 inline-flex items-center rounded-xs bg-anthracite px-7 py-3.5 font-sans-site text-base font-medium text-on-anthracite transition-colors hover:bg-ink focus-visible:outline-2 focus-visible:outline-offset-4 focus-visible:outline-anthracite"
+              className="mt-8 inline-flex items-center btn-primary focus-visible:outline-2 focus-visible:outline-offset-4 focus-visible:outline-brand"
             >
               Devamını oku
             </Link>
