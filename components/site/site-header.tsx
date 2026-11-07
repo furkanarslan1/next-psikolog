@@ -1,6 +1,7 @@
 import Link from "next/link"
 
 import { LanguageSwitch, SiteNav } from "@/components/site/site-nav"
+import { ThemeToggle } from "@/components/site/theme-toggle"
 import { dict, type Locale } from "@/lib/i18n"
 import { siteConfig } from "@/lib/site"
 
@@ -27,7 +28,10 @@ export function SiteHeader({ locale }: { locale: Locale }) {
           <div className="hidden md:block">
             <SiteNav locale={locale} />
           </div>
-          <LanguageSwitch locale={locale} />
+          <div className="flex items-center gap-2">
+            <LanguageSwitch locale={locale} />
+            <ThemeToggle locale={locale} />
+          </div>
         </div>
       </div>
     </header>
