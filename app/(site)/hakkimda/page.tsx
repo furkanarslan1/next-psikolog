@@ -1,12 +1,7 @@
 import type { Metadata } from "next"
 
-import { WHATSAPP_TEXT } from "@/components/site/contact-items"
-import { HeroButton } from "@/components/site/hero"
 import { JsonLd } from "@/components/site/json-ld"
-import { whatsappHref } from "@/lib/phone"
 import { getAbout } from "@/lib/queries/about"
-import { getContact } from "@/lib/queries/contact"
-import { getHero } from "@/lib/queries/hero"
 import { absoluteUrl, siteConfig } from "@/lib/site"
 import { stripImages } from "@/lib/sanitize"
 import { plainText } from "@/lib/teaser"
@@ -31,18 +26,7 @@ export async function generateMetadata(): Promise<Metadata> {
 }
 
 export default async function AboutPage() {
-  const [about, contact, hero] = await Promise.all([
-    getAbout(),
-    getContact(),
-    getHero(),
-  ])
-  // randevu butonu: WhatsApp numarası varsa oraya, yoksa hero butonuna
-  const whatsapp = contact?.whatsapp
-    ? whatsappHref(contact.whatsapp, WHATSAPP_TEXT)
-    : null
-  const cta = whatsapp
-    ? { label: "WhatsApp ile yazın", url: whatsapp }
-    : { label: hero?.buttonLabel ?? "İletişime geçin", url: hero?.buttonUrl ?? "/iletisim" }
+  const about = await getAbout()
 
   return (
     <>
@@ -87,14 +71,6 @@ export default async function AboutPage() {
         )}
       </article>
 
-      <section className="border-t border-line bg-surface">
-        <div className="mx-auto flex w-full max-w-6xl flex-col items-center gap-6 px-5 py-14 text-center sm:px-8 sm:py-16">
-          <h2 className="font-serif-site text-3xl font-normal tracking-tight sm:text-4xl">
-            Tanışmak için bir adım atın
-          </h2>
-          <HeroButton label={cta.label} url={cta.url} />
-        </div>
-      </section>
     </>
   )
 }

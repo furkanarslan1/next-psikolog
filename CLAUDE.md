@@ -40,9 +40,9 @@ Müşteri geri bildirimi: sitede **hiçbir yerde fotoğraf yok** (`docs/geri-bil
 
 ## Site yapısı
 
-Herkese açık (`app/(site)`): `/` (hero → hakkımda önizlemesi → yazılar [en yeni 5 + "Daha fazla oku"] → iletişim), `/yazilar` ve `/yazilar/sayfa/[n]` (9/sayfa), `/blog/[slug]`, `/kategori/[slug]` (+ `/sayfa/[n]`), `/etiket/[slug]` (noindex), `/hakkimda`, `/iletisim`, `robots.ts`, `sitemap.ts`. Ayarlar: `lib/blog-config.ts`, site adı/açıklama `lib/site.ts`.
+Herkese açık (`app/(site)`): `/` (hero → Instagram → son yazılar [en yeni 3: ilki özetli büyük, diğerleri tek satır; "Tüm Yazılar →"]; her sayfanın altında `ContactCta` "Bana Ulaşın"), `/yazilar` ve `/yazilar/sayfa/[n]` (9/sayfa), `/blog/[slug]`, `/kategori/[slug]` (+ `/sayfa/[n]`), `/etiket/[slug]` (noindex), `/hakkimda`, `/iletisim`, `robots.ts`, `sitemap.ts`. Ayarlar: `lib/blog-config.ts`, site adı/açıklama `lib/site.ts`.
 
-Admin (`app/admin`, giriş `/admin`; panel `(panel)` grubunda): Panel, **Hero** (başlık, açıklama, buton, görsel), **Hakkımda** (zengin metin + görsel), **İletişim** (e-posta, telefon, WhatsApp, adres; hepsi isteğe bağlı), **Blog yazıları** (Tiptap, taslak/yayın, kategori zorunlu yayında, etiketler, SEO alanları), Kategoriler, Şifre değiştir. Tek satırlık kayıtlar (`Hero`, `About`, `Contact`) `id = "main"` ile upsert edilir. Slug'lar başlıktan sunucuda üretilir (benzersiz `-2`, `-3`); yayınlanmış yazının slug'ı değişmez.
+Admin (`app/admin`, giriş `/admin`; panel `(panel)` grubunda): Panel, **Hero** (başlık, açıklama), **Hakkımda** (zengin metin), **İletişim** (e-posta, telefon, WhatsApp, adres; hepsi isteğe bağlı), **Blog yazıları** (Tiptap, taslak/yayın, kategori zorunlu yayında, etiketler, SEO alanları), Kategoriler, Şifre değiştir. Tek satırlık kayıtlar (`Hero`, `About`, `Contact`) `id = "main"` ile upsert edilir. Slug'lar başlıktan sunucuda üretilir (benzersiz `-2`, `-3`); yayınlanmış yazının slug'ı değişmez.
 
 ## Tasarım kararları (herkese açık site)
 
@@ -50,7 +50,7 @@ Admin (`app/admin`, giriş `/admin`; panel `(panel)` grubunda): Panel, **Hero** 
 - Palet (`app/globals.css`, `.site` değişkenleri): `paper #FAFAF7`, `surface #F3EFE5` (footer/ara bölümler), `ink #161615`, `ink-soft #5F5F5B`, `line #E2DFD6`. **Tek vurgu `brand #8A3A28`** (paslı kırmızı, Nacak'tan; değiştirmek için yalnızca `--site-brand`). Karanlık modda brand `#D9917B`. Vurgu: aktif menü, birincil buton (`btn-primary`), tür etiketi, bağlantı üstü çizgisi. Karanlık mod yalnızca sistem tercihini izler. Koyu dolgulu bloklar yok (yalnızca mobil menü hapı `bg-panel`).
 - Etiketler (`label-caps`): menü, tür, kategori, "Yukarı": küçük, harf aralıklı büyük harf, sans. Yazı tipleri: başlık ve gövde EB Garamond (`font-serif-site`), UI Instrument Sans (`font-sans-site`). Yazı gövdesi en çok 70ch. Logo: yuvarlak çerçeveli "EA" monogramı, favicon `app/icon.svg`.
 - Menü dört sayfa (Anasayfa, Hakkımda, Yazılar, İletişim; `components/site/site-nav.tsx`, mobil alt menü aynı listeyi kullanır). TR/FR seçici i18n konusuyla gelecek. Tek sade footer: kimlik, kurumsal bağlantılar (`institutions` in `lib/site.ts`), e-posta, Instagram, "Yukarı". Sosyal: yalnızca Instagram (`siteConfig.instagram`, admin'de girilmediyse varsayılan).
-- Hero: açık zemin, vurgu renkli unvan satırı (`siteConfig.tagline`), çok büyük serif başlık, açıklama, birincil buton (görsel yok). Hakkımda: ana sayfada ~10 satır önizleme + "Devamını oku", `/hakkimda` tam metin + WhatsApp'a giden kapanış bandı. Kategori adı kartlarda koyu yuvarlak rozet.
+- Hero: açık zemin, vurgu renkli unvan satırı (`siteConfig.tagline`), çok büyük serif başlık, açıklama, sabit iki buton (Hakkımda / İletişime Geçin) ve Instagram simgesi (görsel yok). Hakkımda: ana sayfada ~10 satır önizleme + "Devamını oku", `/hakkimda` tam metin + WhatsApp'a giden kapanış bandı. Kategori adı kartlarda koyu yuvarlak rozet.
 - Okuma süresi yazı sayfasında otomatik hesaplanır (200 kelime/dk).
 
 ## Veri / yardımcı script'ler

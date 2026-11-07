@@ -16,8 +16,6 @@ import { heroSchema, type HeroValues } from "@/lib/validations/hero"
 const emptyValues: HeroValues = {
   headline: "",
   description: "",
-  buttonLabel: "Randevu alın",
-  buttonUrl: "",
 }
 
 export function HeroForm({ initialValues }: { initialValues?: HeroValues }) {
@@ -43,7 +41,7 @@ export function HeroForm({ initialValues }: { initialValues?: HeroValues }) {
       <Card>
         <CardHeader>
           <CardTitle>Metin</CardTitle>
-          <CardDescription>Ana sayfanın en üstünde görünen bölüm</CardDescription>
+          <CardDescription>Ana sayfanın en üstünde görünen bölüm. Altındaki &quot;Hakkımda&quot; ve &quot;İletişime Geçin&quot; butonları sabittir.</CardDescription>
         </CardHeader>
         <CardContent>
           <FieldGroup>
@@ -54,7 +52,7 @@ export function HeroForm({ initialValues }: { initialValues?: HeroValues }) {
                 <Field data-invalid={fieldState.invalid}>
                   <FieldLabel htmlFor="headline">Başlık *</FieldLabel>
                   <Input {...field} id="headline" aria-invalid={fieldState.invalid} />
-                  <FieldDescription>Genellikle ad, soyad ve unvan</FieldDescription>
+                  <FieldDescription>Büyük harflerle görünen ad, örn. Eren Arslan</FieldDescription>
                   {fieldState.invalid && <FieldError errors={[fieldState.error]} />}
                 </Field>
               )}
@@ -67,39 +65,7 @@ export function HeroForm({ initialValues }: { initialValues?: HeroValues }) {
                   <FieldLabel htmlFor="description">Açıklama</FieldLabel>
                   <Textarea {...field} id="description" rows={3} aria-invalid={fieldState.invalid} />
                   <FieldDescription>
-                    {field.value.length}/280 — isteğe bağlı, başlığın altında daha küçük
-                    yazıyla görünür
-                  </FieldDescription>
-                  {fieldState.invalid && <FieldError errors={[fieldState.error]} />}
-                </Field>
-              )}
-            />
-            <Controller
-              name="buttonLabel"
-              control={form.control}
-              render={({ field, fieldState }) => (
-                <Field data-invalid={fieldState.invalid}>
-                  <FieldLabel htmlFor="buttonLabel">Buton yazısı *</FieldLabel>
-                  <Input {...field} id="buttonLabel" aria-invalid={fieldState.invalid} />
-                  {fieldState.invalid && <FieldError errors={[fieldState.error]} />}
-                </Field>
-              )}
-            />
-            <Controller
-              name="buttonUrl"
-              control={form.control}
-              render={({ field, fieldState }) => (
-                <Field data-invalid={fieldState.invalid}>
-                  <FieldLabel htmlFor="buttonUrl">Buton bağlantısı *</FieldLabel>
-                  <Input
-                    {...field}
-                    id="buttonUrl"
-                    placeholder="https://randevu-sitesi.com/..."
-                    aria-invalid={fieldState.invalid}
-                  />
-                  <FieldDescription>
-                    Randevu sayfasının adresi. Site içi sayfa için /iletisim gibi, e-posta
-                    için mailto:ad@ornek.com yazabilirsiniz.
+                    {field.value.length}/400 — 2-3 cümlelik tanıtım: yönelim, kurum üyelikleri
                   </FieldDescription>
                   {fieldState.invalid && <FieldError errors={[fieldState.error]} />}
                 </Field>
