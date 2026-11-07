@@ -26,6 +26,7 @@ function buildPostData(values: PostValues) {
     // yalnızca özet gösterilecekse gövde saklanmaz
     content: values.fullText ? sanitizeContent(values.content) : "",
     fullText: values.fullText,
+    featured: values.featured,
     publishedIn: values.publishedIn || null,
     // çeviriye özel alanlar yazıda boş kalır
     originalAuthor: translation ? values.originalAuthor || null : null,

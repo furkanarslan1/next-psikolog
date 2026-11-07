@@ -24,6 +24,7 @@ const emptyValues: PostValues = {
   excerpt: "",
   content: "",
   fullText: true,
+  featured: false,
   publishedIn: "",
   originalAuthor: "",
   originalTitle: "",
@@ -224,6 +225,22 @@ export function PostForm({
                       aria-invalid={fieldState.invalid}
                     />
                     {fieldState.invalid && <FieldError errors={[fieldState.error]} />}
+                  </Field>
+                )}
+              />
+              <Controller
+                name="featured"
+                control={form.control}
+                render={({ field }) => (
+                  <Field orientation="horizontal">
+                    <input
+                      id="featured"
+                      type="checkbox"
+                      checked={field.value}
+                      onChange={(event) => field.onChange(event.target.checked)}
+                      className="size-4"
+                    />
+                    <FieldLabel htmlFor="featured">Ana sayfada öne çıkar</FieldLabel>
                   </Field>
                 )}
               />

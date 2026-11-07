@@ -29,6 +29,7 @@ export const postSchema = z
       .max(300, "Özet en fazla 300 karakter olabilir"),
     content: z.string(),
     fullText: z.boolean(),
+    featured: z.boolean(),
     publishedIn: optional("Yayımlandığı yer", 150),
     originalAuthor: optional("Orijinal yazar", 120),
     originalTitle: optional("Orijinal başlık", 200),

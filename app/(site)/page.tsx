@@ -1,5 +1,6 @@
 import type { Metadata } from "next"
 
+import { FeaturedSlider } from "@/components/site/featured-slider"
 import { Hero } from "@/components/site/hero"
 import { JsonLd } from "@/components/site/json-ld"
 import { RecentPosts } from "@/components/site/recent-posts"
@@ -8,7 +9,7 @@ import { HOME_POST_COUNT } from "@/lib/blog-config"
 import { languageAlternates } from "@/lib/i18n"
 import { getContact } from "@/lib/queries/contact"
 import { getHero } from "@/lib/queries/hero"
-import { getPostsPage } from "@/lib/queries/posts"
+import { getFeaturedPosts, getPostsPage } from "@/lib/queries/posts"
 import { absoluteUrl, siteConfig } from "@/lib/site"
 
 export const metadata: Metadata = {
@@ -17,10 +18,11 @@ export const metadata: Metadata = {
 }
 
 export default async function HomePage() {
-  const [hero, contact, { posts }] = await Promise.all([
+  const [hero, contact, { posts }, featured] = await Promise.all([
     getHero(),
     getContact(),
     getPostsPage({ page: 1, pageSize: HOME_POST_COUNT }),
+    getFeaturedPosts(),
   ])
 
   const social = socialItems(contact)
@@ -53,7 +55,8 @@ export default async function HomePage() {
         }}
       />
       <Hero hero={hero} social={social} />
-      <RecentPosts posts={posts} />
+      {featured.length > 0 && <FeaturedSlider items={featured} />}
+      <RecentPosts posts={posts} number={featured.length > 0 ? "02" : "01"} />
     </>
   )
 }

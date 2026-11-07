@@ -1,5 +1,7 @@
 import Link from "next/link"
 
+import { Matheme } from "@/components/site/matheme"
+import { SectionNumber } from "@/components/site/section-number"
 import { formatDate } from "@/lib/format"
 import { dict, type Locale } from "@/lib/i18n"
 import type { PostCard } from "@/lib/queries/posts"
@@ -7,7 +9,15 @@ import type { PostCard } from "@/lib/queries/posts"
 const focus = "focus-visible:outline-2 focus-visible:outline-offset-4 focus-visible:outline-brand"
 
 // Ana sayfa: en yeni yazı özetiyle büyük, diğerleri tek satır (tarih + başlık)
-export function RecentPosts({ posts, locale = "tr" }: { posts: PostCard[]; locale?: Locale }) {
+export function RecentPosts({
+  posts,
+  locale = "tr",
+  number = "02",
+}: {
+  posts: PostCard[]
+  locale?: Locale
+  number?: string
+}) {
   const t = dict[locale]
   const postHref = (slug: string) => (locale === "fr" ? `/fr/publications/${slug}` : `/yazilar/${slug}`)
   const [latest, ...rest] = posts
@@ -18,13 +28,16 @@ export function RecentPosts({ posts, locale = "tr" }: { posts: PostCard[]; local
       aria-labelledby="recent-heading"
       className="mx-auto w-full max-w-6xl scroll-mt-4 border-t border-line px-5 py-14 sm:px-8 sm:py-20"
     >
-      <div className="flex items-baseline justify-between gap-6">
-        <h2
-          id="recent-heading"
-          className="font-serif-site text-3xl font-normal tracking-tight sm:text-4xl"
-        >
-          {t.recent.title}
-        </h2>
+      <div className="flex items-end justify-between gap-6">
+        <div className="flex flex-col gap-3">
+          <SectionNumber n={number} />
+          <h2
+            id="recent-heading"
+            className="font-serif-site text-3xl font-normal tracking-tight sm:text-4xl"
+          >
+            {t.recent.title}
+          </h2>
+        </div>
         <Link
           href={t.recent.allHref}
           className={`label-caps shrink-0 transition-colors hover:text-brand ${focus}`}
@@ -40,14 +53,17 @@ export function RecentPosts({ posts, locale = "tr" }: { posts: PostCard[]; local
       ) : (
         <div className="mt-10 flex flex-col">
           <article className="group relative flex max-w-3xl flex-col gap-4 pb-12">
-            <p className="label-caps flex gap-x-4 text-ink-soft">
-              {latest.publishedAt && (
-                <time dateTime={latest.publishedAt.toISOString()}>
-                  {formatDate(latest.publishedAt, locale)}
-                </time>
-              )}
-              <span className="text-brand">{t.types[latest.type]}</span>
-            </p>
+            <div className="flex items-center gap-4">
+              <Matheme seed={latest.slug} />
+              <p className="label-caps flex gap-x-4 text-ink-soft">
+                {latest.publishedAt && (
+                  <time dateTime={latest.publishedAt.toISOString()}>
+                    {formatDate(latest.publishedAt, locale)}
+                  </time>
+                )}
+                <span className="text-brand">{t.types[latest.type]}</span>
+              </p>
+            </div>
             <h3 className="font-serif-site text-3xl leading-tight font-normal tracking-tight text-balance sm:text-5xl">
               <Link
                 href={postHref(latest.slug)}
