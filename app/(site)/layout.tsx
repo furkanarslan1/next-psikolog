@@ -1,5 +1,6 @@
 import { EB_Garamond, Instrument_Sans } from "next/font/google"
 
+import { ContactCta } from "@/components/site/contact-cta"
 import { MobileNav } from "@/components/site/mobile-nav"
 import { SiteFooter } from "@/components/site/site-footer"
 import { SiteHeader } from "@/components/site/site-header"
@@ -22,6 +23,7 @@ export default function SiteLayout({ children }: { children: React.ReactNode }) 
     >
       <SiteHeader />
       <main className="flex-1">{children}</main>
+      <ContactCta />
       <SiteFooter />
       <MobileNav />
     </div>

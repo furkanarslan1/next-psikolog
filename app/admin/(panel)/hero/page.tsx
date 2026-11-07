@@ -33,8 +33,6 @@ async function HeroEditor() {
           ? {
               headline: hero.headline,
               description: hero.description ?? "",
-              buttonLabel: hero.buttonLabel,
-              buttonUrl: hero.buttonUrl,
             }
           : undefined
       }

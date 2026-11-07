@@ -1,5 +1,5 @@
 /** Ana sayfada gösterilen en yeni yazı sayısı */
-export const HOME_POST_COUNT = 5
+export const HOME_POST_COUNT = 3
 /** /yazilar ve kategori sayfalarında sayfa başına yazı sayısı */
 export const POSTS_PER_PAGE = 9
 
