@@ -8,7 +8,7 @@ import { formatDate } from "@/lib/format"
 import { getPostBySlug, getSitemapData } from "@/lib/queries/posts"
 import { readingMinutes } from "@/lib/reading-time"
 import { stripImages } from "@/lib/sanitize"
-import { absoluteUrl, siteConfig } from "@/lib/site"
+import { absoluteUrl, defaultOgImages, siteConfig } from "@/lib/site"
 
 // Cache Components, en az bir parametre ister; yazı yokken yer tutucu döner
 const PLACEHOLDER_SLUG = "__yok__"
@@ -40,11 +40,12 @@ export async function generateMetadata({
       title,
       description,
       url: `/yazilar/${post.slug}`,
+      images: defaultOgImages,
       locale: post.lang === "fr" ? "fr_FR" : siteConfig.locale,
       publishedTime: post.publishedAt?.toISOString(),
       modifiedTime: post.updatedAt.toISOString(),
     },
-    twitter: { card: "summary", title, description },
+    twitter: { card: "summary_large_image", title, description },
   }
 }
 

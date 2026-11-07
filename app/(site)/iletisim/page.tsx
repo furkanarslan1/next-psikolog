@@ -9,7 +9,7 @@ import { absoluteUrl, siteConfig } from "@/lib/site"
 
 export const metadata: Metadata = {
   title: "İletişim",
-  description: `${siteConfig.name} ile iletişime geçin: e-posta, telefon, WhatsApp, adres ve sosyal medya hesapları.`,
+  description: `Psikolog ${siteConfig.name} ile iletişime geçin: randevu ve bilgi için e-posta, WhatsApp ve Instagram.`,
   alternates: { canonical: "/iletisim" },
 }
 
