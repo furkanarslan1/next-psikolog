@@ -1,0 +1,149 @@
+<!doctype html>
+<html lang="tr">
+<head>
+<meta charset="utf-8">
+<meta name="viewport" content="width=device-width, initial-scale=1">
+<title>Renk ve logo önerileri — Eren Arslan</title>
+<link rel="preconnect" href="https://fonts.googleapis.com">
+<link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+<link href="https://fonts.googleapis.com/css2?family=EB+Garamond:ital,wght@0,400;0,500;1,400&family=Instrument+Sans:wght@400;500&display=swap" rel="stylesheet">
+<style>
+  :root { font-family: 'Instrument Sans', system-ui, sans-serif; color: #161b1a; background: #ececea; }
+  * { box-sizing: border-box; margin: 0; }
+  body { padding: 32px 20px 80px; }
+  .wrap { max-width: 1180px; margin: 0 auto; }
+  h1 { font: 400 40px/1.1 'EB Garamond', serif; letter-spacing: -.01em; }
+  h2 { font: 400 28px/1.2 'EB Garamond', serif; margin: 56px 0 8px; }
+  .lead { color: #55554f; margin-top: 10px; max-width: 70ch; line-height: 1.6; }
+  .grid { display: grid; gap: 24px; margin-top: 24px; }
+  .g2 { grid-template-columns: repeat(auto-fit, minmax(420px, 1fr)); }
+  .g4 { grid-template-columns: repeat(auto-fit, minmax(250px, 1fr)); }
+
+  /* ---- temalar ---- */
+  .t-a { --paper:#f6f7f8; --tile:#eef0f3; --line:#d6dae0; --ink:#151a24; --soft:#4b5566; --brand:#243b6b; --surface:#e4e8ee; }
+  .t-b { --paper:#f8f6f7; --tile:#f1edef; --line:#ddd5da; --ink:#1d1519; --soft:#5a4e55; --brand:#5b2d4f; --surface:#e9e2e6; }
+  .t-c { --paper:#f6f7f3; --tile:#eef1ea; --line:#d5dbcf; --ink:#171c17; --soft:#4f594f; --brand:#3e6650; --surface:#e4e9de; }
+  .t-d { --paper:#f7f6f3; --tile:#efede8; --line:#d8d5ce; --ink:#1a1a18; --soft:#5a5852; --brand:#2b2b28; --surface:#e6e3dc; }
+
+  .site { background: var(--paper); color: var(--ink); border: 1px solid #c9c9c4; border-radius: 6px; overflow: hidden; font-family: 'EB Garamond', serif; }
+  .label { font: 500 11px/1 'Instrument Sans', sans-serif; letter-spacing: .16em; text-transform: uppercase; }
+  .hdr { display:flex; align-items:center; justify-content:space-between; padding: 16px 24px; border-bottom: 1px solid var(--line); }
+  .nav { display:flex; gap: 18px; }
+  .nav span { composes: label; }
+  .pill { display:inline-flex; gap:2px; padding:3px; border:1px solid var(--line); background:var(--tile); border-radius:999px; }
+  .pill b { font: 500 10px/1 'Instrument Sans'; letter-spacing:.16em; padding:7px 11px; border-radius:999px; }
+  .pill b.on { background: var(--brand); color:#fff; }
+  .hero { padding: 40px 24px 36px; }
+  .kicker { color: var(--brand); }
+  .name { font-size: 62px; line-height: .98; letter-spacing: -.02em; margin: 14px 0 12px; }
+  .desc { color: var(--soft); font-size: 19px; line-height: 1.55; max-width: 34ch; }
+  .btn { display:inline-block; margin-top: 20px; background: var(--brand); color:#fff; padding: 13px 20px; border-radius: 2px; }
+  .cards { display:grid; grid-template-columns: 1fr 1fr; gap: 14px; padding: 0 24px 28px; }
+  .card { background: var(--tile); border:1px solid var(--line); border-radius: 3px; padding: 16px; }
+  .card .t { font-size: 20px; margin: 10px 0 6px; }
+  .card p { color: var(--soft); font-size: 15px; line-height: 1.45; }
+  .foot { background: var(--surface); border-top:1px solid var(--line); padding: 14px 24px; display:flex; justify-content:space-between; color: var(--soft); }
+  .tag { margin-top: 12px; font: 500 12px/1.5 'Instrument Sans'; color:#55554f; }
+  .tag b { color:#161b1a; }
+  .swatches { display:flex; gap:6px; margin-top:10px; }
+  .sw { width:34px; height:34px; border-radius:4px; border:1px solid rgba(0,0,0,.12); }
+
+  /* ---- logolar ---- */
+  .logo-box { background: var(--paper); border:1px solid #c9c9c4; border-radius:6px; padding: 28px 24px; color: var(--ink); }
+  .lg { display:flex; align-items:center; gap:12px; font-family:'EB Garamond', serif; }
+  .lg1 .n { font-size: 30px; letter-spacing: -.01em; line-height: 1; }
+  .lg1 .r { display:block; margin-top:7px; }
+  .lg2 .m { font-size: 30px; letter-spacing: .06em; line-height: 1; padding-bottom: 4px; border-bottom: 2px solid var(--brand); }
+  .lg2 .n { font-size: 26px; letter-spacing: -.01em; }
+  .lg3 .psi { font-size: 42px; line-height: 1; color: var(--brand); font-family: 'EB Garamond', serif; }
+  .lg3 .n { font-size: 28px; letter-spacing: -.01em; line-height:1; }
+  .lg4 .n { font-size: 32px; letter-spacing: -.015em; line-height:1; }
+  .lg4 .dot { display:inline-block; width:7px; height:7px; border-radius:50%; background: var(--brand); margin-left:3px; }
+  .fav { display:flex; gap:10px; align-items:center; margin-top:18px; color:#55554f; font: 12px 'Instrument Sans'; }
+  .fav i { width:32px; height:32px; display:inline-flex; align-items:center; justify-content:center; font-style:normal; font-family:'EB Garamond', serif; font-size:19px; border:1px solid var(--line); border-radius:6px; background:#fff; color: var(--brand); }
+  .switch { display:flex; gap:8px; margin: 16px 0 0; flex-wrap: wrap; }
+  .switch button { font: 500 12px 'Instrument Sans'; padding: 8px 14px; border-radius: 999px; border: 1px solid #b5b5ae; background:#fff; cursor:pointer; }
+  .switch button[aria-pressed="true"] { background:#161b1a; color:#fff; border-color:#161b1a; }
+  .note { margin-top: 56px; padding: 18px 20px; border-left: 3px solid #161b1a; background:#fff; color:#33332f; line-height:1.6; max-width: 80ch; }
+</style>
+</head>
+<body>
+<div class="wrap">
+  <h1>Renk ve logo önerileri</h1>
+  <p class="lead">Aşağıdaki dört renk ailesi aynı sayfa parçasıyla gösteriliyor (menü, ad, düğme, kartlar, footer). Hepsi açık tema, hepsi tek vurgu rengi ve hepsi yazı için yeterli kontrasta sahip. Beğendiğiniz rengin <b>harfini</b> ve logonun <b>numarasını</b> söylemeniz yeterli (örn. "A ve 3").</p>
+
+  <h2>Renk önerileri</h2>
+  <div class="grid g2">
+    <div>
+      <div class="site t-a">
+        <div class="hdr"><div class="lg lg1"><div><span class="n">Eren Arslan</span><span class="label r" style="color:var(--soft)">Psikolog</span></div></div><div style="display:flex;gap:16px;align-items:center"><span class="label">Anasayfa</span><span class="label" style="color:var(--brand)">Hakkımda</span><span class="pill"><b class="on">TR</b><b>FR</b></span></div></div>
+        <div class="hero"><div class="label kicker">Psikolog · Psikanaliz formasyonunda</div><div class="name">Eren Arslan</div><div class="desc">Psikanalitik yönelimle çalışan bir psikolog. İstanbul'da yüz yüze ve çevrim içi.</div><span class="btn label">Hakkımda</span></div>
+        <div class="cards"><div class="card"><span class="label kicker">Yazı</span><div class="t">Psikanalizde Dinlemek</div><p>Söylenenin içinde konuşan başka bir şeye yer açmak.</p></div><div class="card"><span class="label kicker">Çeviri</span><div class="t">Ayna Evresi Üzerine</div><p>Yalnızca özet burada, tam metin dış kaynakta.</p></div></div>
+        <div class="foot"><span>© 2026 Eren Arslan</span><span class="label">Yukarı ↑</span></div>
+      </div>
+      <div class="tag"><b>A · Lacivert</b> (öneri) — akademik, güvenilir, sakin; makale ve çeviri ağırlıklı bir site için doğal. <span style="color:#555">#243B6B</span></div>
+      <div class="swatches"><div class="sw" style="background:#f6f7f8"></div><div class="sw" style="background:#eef0f3"></div><div class="sw" style="background:#243b6b"></div><div class="sw" style="background:#151a24"></div></div>
+    </div>
+
+    <div>
+      <div class="site t-b">
+        <div class="hdr"><div class="lg lg1"><div><span class="n">Eren Arslan</span><span class="label r" style="color:var(--soft)">Psikolog</span></div></div><div style="display:flex;gap:16px;align-items:center"><span class="label">Anasayfa</span><span class="label" style="color:var(--brand)">Hakkımda</span><span class="pill"><b class="on">TR</b><b>FR</b></span></div></div>
+        <div class="hero"><div class="label kicker">Psikolog · Psikanaliz formasyonunda</div><div class="name">Eren Arslan</div><div class="desc">Psikanalitik yönelimle çalışan bir psikolog. İstanbul'da yüz yüze ve çevrim içi.</div><span class="btn label">Hakkımda</span></div>
+        <div class="cards"><div class="card"><span class="label kicker">Yazı</span><div class="t">Psikanalizde Dinlemek</div><p>Söylenenin içinde konuşan başka bir şeye yer açmak.</p></div><div class="card"><span class="label kicker">Çeviri</span><div class="t">Ayna Evresi Üzerine</div><p>Yalnızca özet burada, tam metin dış kaynakta.</p></div></div>
+        <div class="foot"><span>© 2026 Eren Arslan</span><span class="label">Yukarı ↑</span></div>
+      </div>
+      <div class="tag"><b>B · Erik (koyu mor)</b> — derinlik, düşünsellik; psikanalize en yakın ve en akılda kalıcı seçenek, psikolog sitelerinde nadir. <span style="color:#555">#5B2D4F</span></div>
+      <div class="swatches"><div class="sw" style="background:#f8f6f7"></div><div class="sw" style="background:#f1edef"></div><div class="sw" style="background:#5b2d4f"></div><div class="sw" style="background:#1d1519"></div></div>
+    </div>
+
+    <div>
+      <div class="site t-c">
+        <div class="hdr"><div class="lg lg1"><div><span class="n">Eren Arslan</span><span class="label r" style="color:var(--soft)">Psikolog</span></div></div><div style="display:flex;gap:16px;align-items:center"><span class="label">Anasayfa</span><span class="label" style="color:var(--brand)">Hakkımda</span><span class="pill"><b class="on">TR</b><b>FR</b></span></div></div>
+        <div class="hero"><div class="label kicker">Psikolog · Psikanaliz formasyonunda</div><div class="name">Eren Arslan</div><div class="desc">Psikanalitik yönelimle çalışan bir psikolog. İstanbul'da yüz yüze ve çevrim içi.</div><span class="btn label">Hakkımda</span></div>
+        <div class="cards"><div class="card"><span class="label kicker">Yazı</span><div class="t">Psikanalizde Dinlemek</div><p>Söylenenin içinde konuşan başka bir şeye yer açmak.</p></div><div class="card"><span class="label kicker">Çeviri</span><div class="t">Ayna Evresi Üzerine</div><p>Yalnızca özet burada, tam metin dış kaynakta.</p></div></div>
+        <div class="foot"><span>© 2026 Eren Arslan</span><span class="label">Yukarı ↑</span></div>
+      </div>
+      <div class="tag"><b>C · Adaçayı (koyu yeşil)</b> — huzur ve doğallık; terapi sitelerinde en yaygın yön, daha sıcak ve yumuşak. <span style="color:#555">#3E6650</span></div>
+      <div class="swatches"><div class="sw" style="background:#f6f7f3"></div><div class="sw" style="background:#eef1ea"></div><div class="sw" style="background:#3e6650"></div><div class="sw" style="background:#171c17"></div></div>
+    </div>
+
+    <div>
+      <div class="site t-d">
+        <div class="hdr"><div class="lg lg1"><div><span class="n">Eren Arslan</span><span class="label r" style="color:var(--soft)">Psikolog</span></div></div><div style="display:flex;gap:16px;align-items:center"><span class="label">Anasayfa</span><span class="label" style="color:var(--brand)">Hakkımda</span><span class="pill"><b class="on">TR</b><b>FR</b></span></div></div>
+        <div class="hero"><div class="label kicker">Psikolog · Psikanaliz formasyonunda</div><div class="name">Eren Arslan</div><div class="desc">Psikanalitik yönelimle çalışan bir psikolog. İstanbul'da yüz yüze ve çevrim içi.</div><span class="btn label">Hakkımda</span></div>
+        <div class="cards"><div class="card"><span class="label kicker">Yazı</span><div class="t">Psikanalizde Dinlemek</div><p>Söylenenin içinde konuşan başka bir şeye yer açmak.</p></div><div class="card"><span class="label kicker">Çeviri</span><div class="t">Ayna Evresi Üzerine</div><p>Yalnızca özet burada, tam metin dış kaynakta.</p></div></div>
+        <div class="foot"><span>© 2026 Eren Arslan</span><span class="label">Yukarı ↑</span></div>
+      </div>
+      <div class="tag"><b>D · Taş ve kömür (renksiz)</b> — en sade ve en "metin odaklı"; renk yok, yalnızca tonlar. Müşterinin "sade" isteğine en yakını. <span style="color:#555">#2B2B28</span></div>
+      <div class="swatches"><div class="sw" style="background:#f7f6f3"></div><div class="sw" style="background:#efede8"></div><div class="sw" style="background:#2b2b28"></div><div class="sw" style="background:#1a1a18"></div></div>
+    </div>
+  </div>
+
+  <h2>Logo önerileri</h2>
+  <p class="lead">Dolgulu rozet kaldırıldı. Aşağıdakiler kutusuz, yazı ağırlıklı seçenekler. Renk seçimini üstteki düğmelerle logo üzerinde de deneyebilirsiniz.</p>
+  <div class="switch" id="sw">
+    <button data-t="t-a" aria-pressed="true">A Lacivert</button>
+    <button data-t="t-b" aria-pressed="false">B Erik</button>
+    <button data-t="t-c" aria-pressed="false">C Adaçayı</button>
+    <button data-t="t-d" aria-pressed="false">D Taş</button>
+  </div>
+  <div class="grid g4" id="logos">
+    <div class="logo-box t-a"><div class="lg lg1"><div><span class="n">Eren Arslan</span><span class="label r" style="color:var(--soft)">Psikolog</span></div></div><div class="fav"><i>EA</i> favicon: “EA” harfleri</div><div class="tag"><b>1 · Yazı logosu</b> — yalnızca ad ve altında unvan. En sade, en zamansız.</div></div>
+    <div class="logo-box t-a"><div class="lg lg2"><span class="m">EA</span><span class="n">Eren Arslan</span></div><div class="fav"><i>EA</i> favicon: “EA” harfleri</div><div class="tag"><b>2 · EA harfleri ve çizgi</b> — kutusuz monogram, altında ince vurgu çizgisi.</div></div>
+    <div class="logo-box t-a"><div class="lg lg3"><span class="psi">Ψ</span><span class="n">Eren Arslan</span></div><div class="fav"><i>Ψ</i> favicon: psi harfi</div><div class="tag"><b>3 · Psi (Ψ) ve ad</b> — psikolojinin evrensel simgesi; hemen "psikolog" dedirtir, ama genel.</div></div>
+    <div class="logo-box t-a"><div class="lg lg4"><span class="n">Eren Arslan<span class="dot"></span></span></div><div class="fav"><i>EA</i> favicon: “EA” harfleri</div><div class="tag"><b>4 · Noktalı ad</b> — adın sonunda küçük bir vurgu noktası; ince, modern, unvansız.</div></div>
+  </div>
+
+  <div class="note"><b>Benim önerim:</b> renk için <b>A (Lacivert)</b>, daha özgün olsun derseniz <b>B (Erik)</b>. Logo için <b>1 (yazı logosu)</b>; psikolog olduğu hemen anlaşılsın isterseniz <b>3 (Ψ)</b>. Halkalı süs şekilleri yalnızca geniş ekranda kalacak, mobilde olmayacak.</div>
+</div>
+<script>
+  const boxes = document.querySelectorAll('#logos .logo-box');
+  document.querySelectorAll('#sw button').forEach(function (b) {
+    b.addEventListener('click', function () {
+      document.querySelectorAll('#sw button').forEach(function (x) { x.setAttribute('aria-pressed', x === b ? 'true' : 'false'); });
+      boxes.forEach(function (box) { box.className = 'logo-box ' + b.dataset.t; });
+    });
+  });
+</script>
+</body>
+</html>

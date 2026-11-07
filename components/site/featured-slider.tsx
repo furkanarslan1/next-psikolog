@@ -173,7 +173,7 @@ export function FeaturedSlider({
       {/* mobil: oklar yok; kaydırılabilir olduğunu sonraki kartın görünen kısmı, noktalar ve ipucu yazısı gösterir */}
       {total > 1 && (
         <div className="mt-5 flex items-center justify-between gap-4 sm:hidden">
-          <div className="flex items-center gap-2">
+          <div className="-ml-1 flex items-center">
             {items.map((item, position) => (
               <button
                 key={item.id}
@@ -181,10 +181,15 @@ export function FeaturedSlider({
                 aria-label={`${t.featured.goTo} ${position + 1} / ${total}`}
                 aria-current={position === index ? "true" : undefined}
                 onClick={() => goTo(position)}
-                className={`h-2 rounded-full transition-all ${focus} ${
-                  position === index ? "w-6 bg-brand" : "w-2 bg-line hover:bg-ink-soft"
-                }`}
-              />
+                className={`group flex size-6 items-center justify-center ${focus}`}
+              >
+                {/* görünen nokta küçük; dokunma alanı 24 px */}
+                <span
+                  className={`block h-2 rounded-full transition-all ${
+                    position === index ? "w-6 bg-brand" : "w-2 bg-line group-hover:bg-ink-soft"
+                  }`}
+                />
+              </button>
             ))}
           </div>
           {index === 0 && (

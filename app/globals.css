@@ -207,16 +207,16 @@
 .site {
   --site-serif: var(--font-garamond), Georgia, "Times New Roman", serif;
   --site-sans: var(--font-instrument), system-ui, sans-serif;
-  --site-paper: #f8f7f2;
-  /* kartlar sayfa zemininden belirgin biçimde koyu; footer en koyu ton */
-  --site-tile: #f0ece1;
-  --site-surface: #ebe6d8;
-  --site-ink: #161615;
-  --site-ink-soft: #55554f;
-  --site-line: #d9d5c8;
-  --site-brand: #8a3a28;
+  --site-paper: #f7f8f6;
+  /* kartlar sayfa zemininden hafifçe koyu; footer en koyu ton */
+  --site-tile: #f0f3f1;
+  --site-surface: #e5eae7;
+  --site-ink: #161b1a;
+  --site-ink-soft: #4d5856;
+  --site-line: #d3dad6;
+  --site-brand: #1f5c63;
   --site-on-brand: #ffffff;
-  --site-accent: #161615;
+  --site-accent: #161b1a;
   --site-on-accent: #ffffff;
   --border: var(--site-line);
   --muted-foreground: var(--site-ink-soft);
