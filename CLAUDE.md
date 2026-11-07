@@ -5,7 +5,7 @@
 Psikolog **Eren Arslan** için tanıtım + blog sitesi. SEO çok önemli. Arayüz metinleri Türkçe.
 Next.js 16 (App Router, `cacheComponents` + `partialPrefetching` açık), Auth.js v5, Prisma 7 + Neon (Postgres), Tiptap, shadcn/ui (base-nova), React Hook Form + Zod, Tailwind v4. Paket yöneticisi: pnpm.
 
-Ortam değişkenleri (yalnızca adları): `DATABASE_URL`, `AUTH_SECRET`, `NEXT_PUBLIC_SITE_URL`.
+Ortam değişkenleri (yalnızca adları): `DATABASE_URL`, `AUTH_SECRET`, `NEXT_PUBLIC_SITE_URL` (yayında zorunlu: canonical, sitemap, OG), `GOOGLE_SITE_VERIFICATION` (isteğe bağlı, Search Console).
 
 ## Çalışma kuralları
 
@@ -50,6 +50,7 @@ Admin (`app/admin`, giriş `/admin`; panel `(panel)` grubunda): Panel, **Hero** 
 - Palet (`app/globals.css`, `.site` değişkenleri): `paper #FAFAF7`, `surface #F3EFE5` (footer/ara bölümler), `ink #161615`, `ink-soft #5F5F5B`, `line #E2DFD6`. **Tek vurgu `brand #8A3A28`** (paslı kırmızı, Nacak'tan; değiştirmek için yalnızca `--site-brand`). Karanlık modda brand `#D9917B`. Vurgu: aktif menü, birincil buton (`btn-primary`), tür etiketi, bağlantı üstü çizgisi. Karanlık mod yalnızca sistem tercihini izler. Koyu dolgulu bloklar yok (yalnızca mobil menü hapı `bg-panel`).
 - Etiketler (`label-caps`): menü, tür, kategori, "Yukarı": küçük, harf aralıklı büyük harf, sans. Yazı tipleri: başlık ve gövde EB Garamond (`font-serif-site`), UI Instrument Sans (`font-sans-site`). Yazı gövdesi en çok 70ch. Hakkımda alıntı bloğu (`blockquote`: son paragraf yazar adı) tırnak işaretli tipografiyle çizilir. Logo: yuvarlak çerçeveli "EA" monogramı, favicon `app/icon.svg`.
 - Menü dört sayfa (Anasayfa, Hakkımda, Yazılar, İletişim; `components/site/site-nav.tsx`, mobil alt menü aynı listeyi kullanır). TR/FR seçici i18n konusuyla gelecek. Tek sade footer: kimlik, kurumsal bağlantılar (`institutions` in `lib/site.ts`), e-posta, Instagram, yasal sayfa linkleri, "Yukarı". Yasal sayfalar (`/kvkk`, `/gizlilik`, `/yasal-uyari`, `components/site/legal-page.tsx`, tarih `LEGAL_UPDATED`) koddadır; **hukuki gözden geçirme gerektiren taslaktır**. Sitede ziyaretçi çerezi/analiz yok; analiz eklenirse çerez onayı ve gizlilik metni güncellenmeli. Sosyal: yalnızca Instagram (`siteConfig.instagram`, admin'de girilmediyse varsayılan).
+- SEO: başlık `siteConfig.title`, iç sayfalar `%s — Eren Arslan`; paylaşım görseli `app/opengraph-image.png` (+ twitter-image, 1200×630, fotoğrafsız; `docs`te kaynağı yok, yeniden üretmek için aynı tasarım); `twitter:card` summary_large_image; ana sayfada Person + WebSite JSON-LD.
 - Hero: açık zemin, vurgu renkli unvan satırı (`siteConfig.tagline`), çok büyük serif başlık, açıklama, sabit iki buton (Hakkımda / İletişime Geçin) ve Instagram simgesi (görsel yok). Hakkımda: ana sayfada ~10 satır önizleme + "Devamını oku", `/hakkimda` tam metin + WhatsApp'a giden kapanış bandı. 
 - Okuma süresi yazı sayfasında otomatik hesaplanır (200 kelime/dk).
 

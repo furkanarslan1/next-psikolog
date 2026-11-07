@@ -17,8 +17,8 @@ const geistMono = Geist_Mono({
 export const metadata: Metadata = {
   metadataBase: new URL(siteConfig.url),
   title: {
-    default: siteConfig.name,
-    template: `%s | ${siteConfig.name}`,
+    default: siteConfig.title,
+    template: `%s — ${siteConfig.name}`,
   },
   description: siteConfig.description,
   openGraph: {
@@ -26,6 +26,12 @@ export const metadata: Metadata = {
     siteName: siteConfig.name,
     locale: siteConfig.locale,
   },
+  // varsayılan paylaşım görseli app/opengraph-image.png ve twitter-image.png'dir
+  twitter: { card: "summary_large_image" },
+  // Google Search Console doğrulama kodu (ortam değişkeni verilirse eklenir)
+  verification: process.env.GOOGLE_SITE_VERIFICATION
+    ? { google: process.env.GOOGLE_SITE_VERIFICATION }
+    : undefined,
 };
 
 export default function RootLayout({ children }: LayoutProps<"/">) {

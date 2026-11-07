@@ -2,7 +2,7 @@ import type { Metadata } from "next"
 
 import { JsonLd } from "@/components/site/json-ld"
 import { getAbout } from "@/lib/queries/about"
-import { absoluteUrl, siteConfig } from "@/lib/site"
+import { absoluteUrl, defaultOgImages, siteConfig } from "@/lib/site"
 import { stripImages } from "@/lib/sanitize"
 import { plainText } from "@/lib/teaser"
 
@@ -21,6 +21,7 @@ export async function generateMetadata(): Promise<Metadata> {
       title: "Hakkımda",
       description: description || siteConfig.description,
       url: "/hakkimda",
+      images: defaultOgImages,
     },
   }
 }
