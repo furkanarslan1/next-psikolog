@@ -30,9 +30,9 @@ type Items = ReturnType<typeof socialItems>
 
 // Yuvarlak simge butonları
 const buttonVariants = {
-  dark: "border-white/25 text-white hover:bg-white hover:text-anthracite focus-visible:outline-white",
+  dark: "border-white/25 text-white hover:bg-white hover:text-panel focus-visible:outline-white",
   light:
-    "border-anthracite/25 text-anthracite hover:bg-anthracite hover:text-white focus-visible:outline-anthracite",
+    "border-anthracite/25 text-anthracite hover:bg-anthracite hover:text-on-anthracite focus-visible:outline-anthracite",
 }
 
 export function SocialIconButtons({

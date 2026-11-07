@@ -11,7 +11,7 @@ export function ContactSection({ contact }: { contact: ContactData | null }) {
   return (
     <>
       {social.length > 0 && (
-        <section aria-label="Sosyal medya" className="bg-anthracite">
+        <section aria-label="Sosyal medya" className="bg-panel">
           <div className="mx-auto w-full max-w-6xl px-5 py-8 sm:px-8">
             <SocialBandContent items={social} />
           </div>

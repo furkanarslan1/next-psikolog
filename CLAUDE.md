@@ -46,8 +46,8 @@ Admin (`app/admin`, giriş `/admin`; panel `(panel)` grubunda): Panel, **Hero** 
 
 ## Tasarım kararları (herkese açık site)
 
-- Palet: antrasit `#1F2327`, ink `#23272B`, ink-soft `#5B6168`, paper `#F4F5F6`, beyaz yüzey, çizgi `#DCDFE3`. **Bakır/turuncu vurgu kullanılmaz.** Vurgu/aktif durum zeminin tersidir: açık zeminde `#1F2327`, koyu zeminde `#FFFFFF`.
-- Yazı tipleri: başlıklar Newsreader (serif), gövde Instrument Sans. Büyük harfli etiket, numaralandırma, ok işareti, her şeyi aynı gölgeli karta koyma yok.
+- Palet (`app/globals.css`, `.site` değişkenleri): kırık beyaz `paper #FAFAF7`, `ink #161615`, `ink-soft #5E5E5A`, `line #DEDED8`, `surface #F3F3EE`. Tek vurgu `anthracite` = zeminin tersi (açıkta `#1F2327`, koyuda `#ECECE7`; üstündeki yazı `on-anthracite`). Koyu kalan paneller (hero, footer, kapanış bandı, mobil menü) `bg-panel`. Bakır/turuncu vurgu, renkli kutu ve gradyan yok. Karanlık mod yalnızca sistem tercihini izler (`prefers-color-scheme`), anahtar yok.
+- Yazı tipleri: başlık ve gövde EB Garamond (serif, `font-serif-site`); menü, buton, etiket, meta Instrument Sans (`font-sans-site`). Yazı gövdesi en çok 70ch. Logo "EA" monogramı (`components/site/site-header.tsx`), favicon `app/icon.svg`.
 - Hero: koyu antrasit, başlık/açıklama/açık buton (görsel yok). Hakkımda: ana sayfada ~10 satır önizleme + "Devamını oku", `/hakkimda` tam metin + WhatsApp'a giden kapanış bandı. Kategori adı kartlarda koyu yuvarlak rozet.
 - Okuma süresi yazı sayfasında otomatik hesaplanır (200 kelime/dk).
 

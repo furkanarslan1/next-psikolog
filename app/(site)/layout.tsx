@@ -1,4 +1,4 @@
-import { Instrument_Sans, Newsreader } from "next/font/google"
+import { EB_Garamond, Instrument_Sans } from "next/font/google"
 import { Suspense } from "react"
 
 import { MobileNav } from "@/components/site/mobile-nav"
@@ -6,9 +6,9 @@ import { MobileNavLoader } from "@/components/site/mobile-nav-loader"
 import { SiteFooter } from "@/components/site/site-footer"
 import { SiteHeader } from "@/components/site/site-header"
 
-const newsreader = Newsreader({
+const garamond = EB_Garamond({
   subsets: ["latin", "latin-ext"],
-  variable: "--font-newsreader",
+  variable: "--font-garamond",
   style: ["normal", "italic"],
 })
 
@@ -20,7 +20,7 @@ const instrumentSans = Instrument_Sans({
 export default function SiteLayout({ children }: { children: React.ReactNode }) {
   return (
     <div
-      className={`${newsreader.variable} ${instrumentSans.variable} site flex min-h-svh flex-col bg-paper font-sans-site text-ink`}
+      className={`${garamond.variable} ${instrumentSans.variable} site flex min-h-svh flex-col bg-paper font-serif-site text-ink`}
     >
       <SiteHeader />
       <main className="flex-1">{children}</main>

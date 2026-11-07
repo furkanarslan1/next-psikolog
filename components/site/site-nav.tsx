@@ -17,7 +17,7 @@ export function SiteNav() {
   const pathname = usePathname()
 
   return (
-    <nav aria-label="Ana menü" className="flex items-center gap-6 sm:gap-8">
+    <nav aria-label="Ana menü" className="flex items-center gap-6 font-sans-site sm:gap-8">
       {links.map((link) => {
         const active = link.prefixes.some((prefix) => pathname.startsWith(prefix))
         return (

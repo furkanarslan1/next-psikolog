@@ -5,9 +5,9 @@ import type { PostCard as PostCardData } from "@/lib/queries/posts"
 
 function Meta({ post }: { post: PostCardData }) {
   return (
-    <p className="flex flex-wrap items-center gap-x-3 gap-y-2 text-sm text-ink-soft">
+    <p className="flex flex-wrap items-center gap-x-3 gap-y-2 font-sans-site text-sm text-ink-soft">
       {post.category && (
-        <span className="rounded-full bg-anthracite px-3 py-1 text-xs font-medium text-white">
+        <span className="rounded-full bg-anthracite px-3 py-1 font-sans-site text-xs font-medium text-on-anthracite">
           {post.category.name}
         </span>
       )}

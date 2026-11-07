@@ -57,9 +57,9 @@ export function MobileNav({
   return (
     <nav
       aria-label="Mobil menü"
-      className="fixed inset-x-0 bottom-0 z-40 px-4 pb-[max(0.75rem,env(safe-area-inset-bottom))] md:hidden"
+      className="fixed inset-x-0 bottom-0 z-40 font-sans-site px-4 pb-[max(0.75rem,env(safe-area-inset-bottom))] md:hidden"
     >
-      <ul className="relative mx-auto flex max-w-md items-end rounded-[1.75rem] bg-anthracite px-2 pt-2 pb-1.5 shadow-[0_10px_30px_-8px_rgba(31,35,39,0.55)] ring-1 ring-white/10">
+      <ul className="relative mx-auto flex max-w-md items-end rounded-[1.75rem] bg-panel px-2 pt-2 pb-1.5 shadow-[0_10px_30px_-8px_rgba(31,35,39,0.55)] ring-1 ring-white/10">
         {left.map(renderItem)}
         <li className="flex flex-1 justify-center">
           <a
@@ -68,7 +68,7 @@ export function MobileNav({
             aria-label="Randevu al"
             className="-mt-9 flex flex-col items-center gap-1 text-[11px] font-semibold text-white focus-visible:outline-none"
           >
-            <span className="flex size-14 items-center justify-center rounded-full bg-white text-anthracite shadow-[0_8px_20px_-4px_rgba(31,35,39,0.5)] ring-4 ring-paper transition-transform active:scale-95">
+            <span className="flex size-14 items-center justify-center rounded-full bg-white text-panel shadow-[0_8px_20px_-4px_rgba(31,35,39,0.5)] ring-4 ring-paper transition-transform active:scale-95">
               <CalendarCheckIcon className="size-6" aria-hidden />
             </span>
             Randevu al
