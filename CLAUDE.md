@@ -55,8 +55,8 @@ Admin (`app/admin`, giriş `/admin`; panel `(panel)` grubunda): Panel, **Hero** 
 
 ## Veri / yardımcı script'ler
 
-- `pnpm create-admin`, `pnpm seed-posts` / `pnpm seed-posts --remove`.
-- **Veritabanında 15 test yazısı var** ("Lorem Ipsum Dolor Sit Amet" ve benzerleri). Kullanıcı şimdilik silmek istemiyor; yayına almadan önce `pnpm seed-posts --remove` ile silinmeli, hatırlat.
+- `pnpm create-admin`, `pnpm seed-sample` (örnek hero/hakkımda/iletişim + 5 örnek kayıt; tekrar çalıştırılabilir), `pnpm seed-posts` / `pnpm seed-posts --remove` (sayfalamayı denemek için 15 Lorem kaydı).
+- **Veritabanındaki hero, hakkımda ve 5 yazı ÖRNEKTİR** (`pnpm seed-sample`): staj/kurum ayrıntıları ve alıntı Eren'in gerçek metniyle değiştirilmeli; çeviri kaydının kaynak bağlantısı örnektir. WhatsApp numarası ve adres kullanıcının girdiği değerlerdir.
 
 ## Yapılacaklar (sırasız)
 
