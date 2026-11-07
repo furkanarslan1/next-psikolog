@@ -18,6 +18,8 @@ export const dict = {
       { href: "/iletisim", label: "İletişim", prefixes: ["/iletisim"] },
     ] as Page[],
     navAria: "Ana menü",
+    skip: "İçeriğe atla",
+    notFound: { title: "Sayfa bulunamadı", text: "Aradığınız sayfa taşınmış ya da hiç var olmamış olabilir.", button: "Ana sayfaya dön" },
     mobileNavAria: "Mobil menü",
     tagline: "Psikolog · Psikanaliz Formasyonunda",
     cta: {
@@ -69,6 +71,8 @@ export const dict = {
       { href: "/fr/contact", label: "Contact", prefixes: ["/fr/contact"] },
     ] as Page[],
     navAria: "Menu principal",
+    skip: "Aller au contenu",
+    notFound: { title: "Page introuvable", text: "La page demandée a peut-être été déplacée ou n'a jamais existé.", button: "Retour à l'accueil" },
     mobileNavAria: "Menu mobile",
     tagline: "Psychologue · formation psychanalytique en cours",
     cta: {

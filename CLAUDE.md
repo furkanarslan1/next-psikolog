@@ -44,6 +44,14 @@ Herkese açık (`app/(site)`): `/` (hero → Instagram → "Öne çıkanlar" kay
 
 Admin (`app/admin`, giriş `/admin`; panel `(panel)` grubunda): Panel, **Hero** (başlık, açıklama), **Hakkımda** (zengin metin), **İletişim** (e-posta, telefon, WhatsApp, adres; hepsi isteğe bağlı), **Yazılar** (Tiptap, taslak/yayın, "Ana sayfada öne çıkar", tür Yazı/Çeviri, dil tr/fr, yayımlandığı yer, çeviri alanları, "tam metin" anahtarı, SEO alanları), Şifre değiştir. Tek satırlık kayıtlar (`Hero`, `About`, `Contact`) `id = "main"` ile upsert edilir. Eski `/blog/*`, `/kategori/*`, `/etiket/*` adresleri `next.config.ts`'te 308 ile yönlenir. Yazı türü/dil: `Post.type` (YAZI/CEVIRI), `Post.lang` (`tr`/`fr`; listede ayrılmaz). Çeviriye özel alanlar yazıda boş kalır; `fullText=false` ise yalnızca özet + `sourceUrl` dış linki gösterilir. Slug'lar başlıktan sunucuda üretilir (benzersiz `-2`, `-3`); yayınlanmış yazının slug'ı değişmez.
 
+## Performans / erişilebilirlik notları
+
+- Ölçüm: `npx lighthouse` (mobil, simüle yavaş 4G) `pnpm build` + `next start` üzerinde: performans 89-92, erişilebilirlik/en iyi uygulamalar/SEO 100. Kalan LCP (3.3-3.7 sn) web fontu boyutundan (EB Garamond değişken font, ~200 KB); `display: swap`.
+- Yazı tipleri yalnızca `components/site/site-shell.tsx`'te (EB Garamond + Instrument Sans; italik ayrı ve `preload: false`). Kök layout'ta yazı tipi/Toaster yok; Toaster `app/admin/layout.tsx`'te. Admin yazı tipi sistem sans (`globals.css` `--font-sans`). Yeni global font/JS kök layout'a eklenmemeli (herkese açık sayfalara yüklenir).
+- Özel 404: `app/not-found.tsx` (kök), `app/(site)/not-found.tsx`, `app/(fr)/fr/not-found.tsx`. Bilinmeyen `/yazilar/<slug>` yine 200 + noindex döner (soft 404, `generateStaticParams` + yeni yazı yayınlanabilmesi için bilinen sınır).
+- Dil adı → `lang` kodu: `lib/lang.ts` (`originalLang` serbest metin; tanınmazsa `lang` yazılmaz).
+- Bir `globals.css` değişikliği derlenen CSS'e yansımıyorsa Turbopack önbelleği bayatlamıştır; dosyada içerik değişikliği yapıp yeniden derle (`git stash` sonrası görüldü).
+
 ## Fransızca sürüm (i18n)
 
 - Kütüphane yok: `lib/i18n.ts` (sözlük `dict`, `pairs`, `counterpart`, `languageAlternates`). Fransızca sayfalar: `/fr` (ana sayfa, TR ana sayfanın karşılığı), `/fr/presentation` (Hakkımda), `/fr/publications` (liste) ve `/fr/publications/[slug]` (yazı; aynı yazının Fransızca menülü hali, kanonik adres Türkçe `/yazilar/[slug]`), `/fr/contact`. Rotalar `app/(fr)/fr/`, iskelet `components/site/site-shell.tsx` (`locale` prop'u; bileşenler `locale` alır), yazı gövdesi `components/site/post-article.tsx` (iki dil ortak).
