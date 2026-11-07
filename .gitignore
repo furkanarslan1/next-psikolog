@@ -43,3 +43,6 @@ next-env.d.ts
 
 # prisma
 /lib/generated
+
+# müşteri geri bildirim PDF'leri (commitlenmez)
+/docs/geri-bildirim/*.pdf
