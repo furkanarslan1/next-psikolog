@@ -8,8 +8,8 @@ import { counterpart, dict, type Locale } from "@/lib/i18n"
 type NavLink = { href: string; label: string; prefixes: string[] }
 
 export function isActive(link: NavLink, pathname: string) {
-  return link.href === "/"
-    ? pathname === "/"
+  return link.href === "/" || link.href === "/fr"
+    ? pathname === link.href
     : link.prefixes.some((prefix) => pathname.startsWith(prefix))
 }
 

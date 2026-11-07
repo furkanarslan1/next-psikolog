@@ -72,6 +72,8 @@ model Hero {
   id          String   @id @default("main")
   headline    String
   description String?
+  // Fransızca ana sayfa için tanıtım metni (boşsa Fransızca ana sayfada gösterilmez)
+  descriptionFr String?
   updatedAt   DateTime @updatedAt
 }
 

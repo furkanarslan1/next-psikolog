@@ -48,8 +48,6 @@ const nextConfig: NextConfig = {
   async redirects() {
     return [
       { source: "/blog/:slug", destination: "/yazilar/:slug", permanent: true },
-      // Fransızca sürümün ana sayfası Présentation'dır
-      { source: "/fr", destination: "/fr/presentation", permanent: false },
       { source: "/kategori/:path*", destination: "/yazilar", permanent: true },
       { source: "/etiket/:path*", destination: "/yazilar", permanent: true },
     ];

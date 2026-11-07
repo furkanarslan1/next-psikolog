@@ -5,6 +5,7 @@ import { JsonLd } from "@/components/site/json-ld"
 import { RecentPosts } from "@/components/site/recent-posts"
 import { socialItems } from "@/components/site/social-links"
 import { HOME_POST_COUNT } from "@/lib/blog-config"
+import { languageAlternates } from "@/lib/i18n"
 import { getContact } from "@/lib/queries/contact"
 import { getHero } from "@/lib/queries/hero"
 import { getPostsPage } from "@/lib/queries/posts"
@@ -12,7 +13,7 @@ import { absoluteUrl, siteConfig } from "@/lib/site"
 
 export const metadata: Metadata = {
   description: siteConfig.description,
-  alternates: { canonical: "/" },
+  alternates: { canonical: "/", languages: languageAlternates("/") },
 }
 
 export default async function HomePage() {

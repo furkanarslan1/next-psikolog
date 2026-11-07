@@ -33,6 +33,7 @@ async function HeroEditor() {
           ? {
               headline: hero.headline,
               description: hero.description ?? "",
+              descriptionFr: hero.descriptionFr ?? "",
             }
           : undefined
       }

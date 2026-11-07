@@ -16,6 +16,7 @@ import { heroSchema, type HeroValues } from "@/lib/validations/hero"
 const emptyValues: HeroValues = {
   headline: "",
   description: "",
+  descriptionFr: "",
 }
 
 export function HeroForm({ initialValues }: { initialValues?: HeroValues }) {
@@ -66,6 +67,21 @@ export function HeroForm({ initialValues }: { initialValues?: HeroValues }) {
                   <Textarea {...field} id="description" rows={3} aria-invalid={fieldState.invalid} />
                   <FieldDescription>
                     {field.value.length}/400 — 2-3 cümlelik tanıtım: yönelim, kurum üyelikleri
+                  </FieldDescription>
+                  {fieldState.invalid && <FieldError errors={[fieldState.error]} />}
+                </Field>
+              )}
+            />
+            <Controller
+              name="descriptionFr"
+              control={form.control}
+              render={({ field, fieldState }) => (
+                <Field data-invalid={fieldState.invalid}>
+                  <FieldLabel htmlFor="descriptionFr">Açıklama (Fransızca)</FieldLabel>
+                  <Textarea {...field} id="descriptionFr" rows={3} aria-invalid={fieldState.invalid} />
+                  <FieldDescription>
+                    {field.value.length}/400 — Fransızca ana sayfada görünür. Boş bırakırsanız o sayfada
+                    açıklama yer almaz.
                   </FieldDescription>
                   {fieldState.invalid && <FieldError errors={[fieldState.error]} />}
                 </Field>

@@ -1,14 +1,15 @@
 import Link from "next/link"
 
-import { EmptyPosts } from "@/components/site/post-list"
-import { typeLabel } from "@/lib/blog-config"
 import { formatDate } from "@/lib/format"
+import { dict, type Locale } from "@/lib/i18n"
 import type { PostCard } from "@/lib/queries/posts"
 
 const focus = "focus-visible:outline-2 focus-visible:outline-offset-4 focus-visible:outline-brand"
 
 // Ana sayfa: en yeni yazı özetiyle büyük, diğerleri tek satır (tarih + başlık)
-export function RecentPosts({ posts }: { posts: PostCard[] }) {
+export function RecentPosts({ posts, locale = "tr" }: { posts: PostCard[]; locale?: Locale }) {
+  const t = dict[locale]
+  const postHref = (slug: string) => (locale === "fr" ? `/fr/publications/${slug}` : `/yazilar/${slug}`)
   const [latest, ...rest] = posts
 
   return (
@@ -22,19 +23,19 @@ export function RecentPosts({ posts }: { posts: PostCard[] }) {
           id="recent-heading"
           className="font-serif-site text-3xl font-normal tracking-tight sm:text-4xl"
         >
-          Son yazılar
+          {t.recent.title}
         </h2>
         <Link
-          href="/yazilar"
+          href={t.recent.allHref}
           className={`label-caps shrink-0 transition-colors hover:text-brand ${focus}`}
         >
-          Tüm Yazılar →
+          {t.recent.all}
         </Link>
       </div>
 
       {!latest ? (
         <div className="mt-10">
-          <EmptyPosts />
+          <p className="max-w-prose text-lg text-ink-soft">{t.recent.empty}</p>
         </div>
       ) : (
         <div className="mt-10 flex flex-col">
@@ -42,14 +43,14 @@ export function RecentPosts({ posts }: { posts: PostCard[] }) {
             <p className="label-caps flex gap-x-4 text-ink-soft">
               {latest.publishedAt && (
                 <time dateTime={latest.publishedAt.toISOString()}>
-                  {formatDate(latest.publishedAt)}
+                  {formatDate(latest.publishedAt, locale)}
                 </time>
               )}
-              <span className="text-brand">{typeLabel(latest.type)}</span>
+              <span className="text-brand">{t.types[latest.type]}</span>
             </p>
             <h3 className="font-serif-site text-3xl leading-tight font-normal tracking-tight text-balance sm:text-5xl">
               <Link
-                href={`/yazilar/${latest.slug}`}
+                href={postHref(latest.slug)}
                 className={`decoration-brand decoration-2 underline-offset-4 after:absolute after:inset-0 group-hover:underline ${focus}`}
               >
                 {latest.title}
@@ -65,7 +66,7 @@ export function RecentPosts({ posts }: { posts: PostCard[] }) {
             >
               <h3 className="font-serif-site text-xl leading-snug sm:text-2xl">
                 <Link
-                  href={`/yazilar/${post.slug}`}
+                  href={postHref(post.slug)}
                   className={`decoration-brand decoration-2 underline-offset-4 after:absolute after:inset-0 group-hover:underline ${focus}`}
                 >
                   {post.title}
@@ -76,7 +77,7 @@ export function RecentPosts({ posts }: { posts: PostCard[] }) {
                   dateTime={post.publishedAt.toISOString()}
                   className="label-caps shrink-0 text-ink-soft"
                 >
-                  {formatDate(post.publishedAt)}
+                  {formatDate(post.publishedAt, locale)}
                 </time>
               )}
             </article>
