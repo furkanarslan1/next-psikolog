@@ -1,4 +1,3 @@
-import Image from "next/image"
 import Link from "next/link"
 
 import type { AboutData } from "@/lib/queries/about"
@@ -12,8 +11,8 @@ const TEASER_CHARS = 800
 export function AboutSection({ about }: { about: AboutData | null }) {
   if (!about) return null
   const preview = teaser(about.content, TEASER_CHARS)
-  // başlık, liste, görsel gibi yapılar önizlemede görünmez; tam sayfaya gitmeye değer
-  const hasMore = preview.truncated || /<(h[1-6]|img|ul|ol|blockquote)\b/i.test(about.content)
+  // başlık, liste gibi yapılar önizlemede görünmez; tam sayfaya gitmeye değer
+  const hasMore = preview.truncated || /<(h[1-6]|ul|ol|blockquote)\b/i.test(about.content)
 
   return (
     <section
@@ -22,25 +21,8 @@ export function AboutSection({ about }: { about: AboutData | null }) {
       className="scroll-mt-4 border-b border-line bg-surface"
     >
       <div
-        className={`mx-auto grid w-full max-w-6xl items-center gap-10 px-5 py-14 sm:px-8 sm:py-20 ${
-          about.imageUrl ? "lg:grid-cols-[20rem_1fr] lg:gap-20" : "justify-items-center"
-        }`}
+        className="mx-auto grid w-full max-w-6xl items-center justify-items-center gap-10 px-5 py-14 sm:px-8 sm:py-20"
       >
-        {about.imageUrl && (
-          // halka ile görsel arasındaki boşluk madalyon etkisi verir
-          <div className="flex justify-center">
-            <div className="relative size-48 overflow-hidden rounded-full ring-1 ring-line ring-offset-8 ring-offset-surface sm:size-60 lg:size-72">
-              <Image
-                src={about.imageUrl}
-                alt={about.imageAlt ?? ""}
-                fill
-                sizes="(min-width: 1024px) 18rem, 15rem"
-                className="object-cover object-top"
-              />
-            </div>
-          </div>
-        )}
-
         <div className="flex w-full max-w-2xl flex-col items-center text-center lg:items-start lg:text-left">
           <h2
             id="about-heading"

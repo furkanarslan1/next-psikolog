@@ -10,8 +10,6 @@ const cardSelect = {
   title: true,
   slug: true,
   excerpt: true,
-  coverImageUrl: true,
-  coverImageAlt: true,
   publishedAt: true,
   category: { select: { name: true, slug: true } },
 } as const

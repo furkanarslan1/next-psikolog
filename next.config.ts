@@ -8,9 +8,9 @@ const contentSecurityPolicy = [
   "default-src 'self'",
   `script-src 'self' 'unsafe-inline'${isDev ? " 'unsafe-eval'" : ""}`,
   "style-src 'self' 'unsafe-inline'",
-  "img-src 'self' data: blob: https://res.cloudinary.com",
+  "img-src 'self' data:",
   "font-src 'self'",
-  "connect-src 'self' https://api.cloudinary.com",
+  "connect-src 'self'",
   "object-src 'none'",
   "base-uri 'self'",
   "form-action 'self'",
@@ -37,13 +37,6 @@ const nextConfig: NextConfig = {
   /* config options here */
   experimental: {
     agentFeedback: true,
-  },
-  images: {
-    loader: "custom",
-    loaderFile: "./lib/cloudinary-loader.ts",
-    // Cloudinary dönüşüm sayısı = benzersiz genişlik sayısı; listeyi kısa tut.
-    deviceSizes: [640, 960, 1280, 1920],
-    imageSizes: [320],
   },
   // Geliştirme terminaline sunucu işlemi argümanlarını (şifreler dahil) yazma
   logging: {

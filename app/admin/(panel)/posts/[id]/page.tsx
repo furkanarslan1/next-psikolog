@@ -47,8 +47,6 @@ async function EditPostForm({
         title: post.title,
         excerpt: post.excerpt,
         content: post.content,
-        coverImageUrl: post.coverImageUrl ?? "",
-        coverImageAlt: post.coverImageAlt ?? "",
         categoryId: post.categoryId ?? "",
         tags: post.tags.map((tag) => tag.name),
         status: post.status,

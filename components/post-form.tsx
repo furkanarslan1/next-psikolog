@@ -1,12 +1,9 @@
 "use client"
 
 import { zodResolver } from "@hookform/resolvers/zod"
-import { ImageIcon, XIcon } from "lucide-react"
-import Image from "next/image"
 import Link from "next/link"
 import { useRouter } from "next/navigation"
-import * as React from "react"
-import { Controller, useForm, useWatch } from "react-hook-form"
+import { Controller, useForm } from "react-hook-form"
 import { toast } from "sonner"
 
 import {
@@ -20,16 +17,12 @@ import { Card, CardContent, CardHeader, CardTitle } from "@/components/ui/card"
 import { Field, FieldDescription, FieldError, FieldGroup, FieldLabel } from "@/components/ui/field"
 import { Input } from "@/components/ui/input"
 import { Textarea } from "@/components/ui/textarea"
-import { UploadProgress } from "@/components/upload-progress"
-import { uploadImage } from "@/lib/upload-image"
 import { postSchema, type PostValues } from "@/lib/validations/post"
 
 const emptyValues: PostValues = {
   title: "",
   excerpt: "",
   content: "",
-  coverImageUrl: "",
-  coverImageAlt: "",
   categoryId: "",
   tags: [],
   status: "DRAFT",
@@ -50,15 +43,11 @@ export function PostForm({
   initialValues?: PostValues
 }) {
   const router = useRouter()
-  const [progress, setProgress] = React.useState<number | null>(null)
-  const uploading = progress !== null
-  const coverInput = React.useRef<HTMLInputElement>(null)
 
   const form = useForm<PostValues>({
     resolver: zodResolver(postSchema),
     defaultValues: initialValues ?? emptyValues,
   })
-  const coverImageUrl = useWatch({ control: form.control, name: "coverImageUrl" })
 
   async function onSubmit(values: PostValues) {
     const result = postId
@@ -71,19 +60,6 @@ export function PostForm({
     }
     toast.success(postId ? "Yazı güncellendi" : "Yazı oluşturuldu")
     router.push("/admin/posts")
-  }
-
-  async function onCoverSelected(file: File | undefined) {
-    if (!file) return
-    setProgress(0)
-    try {
-      const image = await uploadImage(file, setProgress)
-      form.setValue("coverImageUrl", image.url, { shouldDirty: true })
-    } catch (error) {
-      toast.error(error instanceof Error ? error.message : "Görsel yüklenemedi")
-    } finally {
-      setProgress(null)
-    }
   }
 
   return (
@@ -204,71 +180,9 @@ export function PostForm({
                   </Field>
                 )}
               />
-              <Button type="submit" disabled={form.formState.isSubmitting || uploading}>
+              <Button type="submit" disabled={form.formState.isSubmitting}>
                 {postId ? "Kaydet" : "Oluştur"}
               </Button>
-            </FieldGroup>
-          </CardContent>
-        </Card>
-
-        <Card>
-          <CardHeader>
-            <CardTitle>Kapak görseli</CardTitle>
-          </CardHeader>
-          <CardContent>
-            <FieldGroup>
-              <Field>
-                {coverImageUrl ? (
-                  <div className="relative aspect-video overflow-hidden rounded-lg border">
-                    <Image src={coverImageUrl} alt="" fill sizes="20rem" className="object-cover" />
-                    <Button
-                      type="button"
-                      size="icon-sm"
-                      variant="secondary"
-                      className="absolute top-2 right-2"
-                      aria-label="Görseli kaldır"
-                      onClick={() => form.setValue("coverImageUrl", "", { shouldDirty: true })}
-                    >
-                      <XIcon />
-                    </Button>
-                  </div>
-                ) : (
-                  <>
-                    <Button
-                      type="button"
-                      variant="outline"
-                      disabled={uploading}
-                      onClick={() => coverInput.current?.click()}
-                    >
-                      <ImageIcon />
-                      {uploading ? "Yükleniyor..." : "Görsel yükle"}
-                    </Button>
-                    {progress !== null && <UploadProgress percent={progress} />}
-                  </>
-                )}
-                <input
-                  ref={coverInput}
-                  type="file"
-                  accept="image/jpeg,image/png,image/webp"
-                  className="hidden"
-                  onChange={(event) => {
-                    void onCoverSelected(event.target.files?.[0])
-                    event.target.value = ""
-                  }}
-                />
-              </Field>
-              <Controller
-                name="coverImageAlt"
-                control={form.control}
-                render={({ field, fieldState }) => (
-                  <Field data-invalid={fieldState.invalid}>
-                    <FieldLabel htmlFor="coverImageAlt">Alt metin</FieldLabel>
-                    <Input {...field} id="coverImageAlt" aria-invalid={fieldState.invalid} />
-                    <FieldDescription>Görsel seçildiyse zorunlu (SEO ve erişilebilirlik)</FieldDescription>
-                    {fieldState.invalid && <FieldError errors={[fieldState.error]} />}
-                  </Field>
-                )}
-              />
             </FieldGroup>
           </CardContent>
         </Card>
