@@ -46,6 +46,20 @@ export async function getPostsPage({
   return { posts, total }
 }
 
+// Ana sayfa "Öne çıkanlar" kaydırıcısı: admin'de işaretlenen yayınlanmış kayıtlar
+export async function getFeaturedPosts() {
+  "use cache"
+  cacheLife("days")
+  cacheTag(cacheTags.posts)
+
+  return db.post.findMany({
+    where: { ...published, featured: true },
+    orderBy: { publishedAt: "desc" },
+    take: 6,
+    select: cardSelect,
+  })
+}
+
 export type PostCard = Awaited<ReturnType<typeof getPostsPage>>["posts"][number]
 
 export async function getPostBySlug(slug: string) {

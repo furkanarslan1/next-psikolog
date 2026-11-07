@@ -48,6 +48,8 @@ model Post {
   content         String     @db.Text
   // false ise yalnızca özet gösterilir ve sourceUrl'e dış link verilir (telif)
   fullText        Boolean    @default(true)
+  // ana sayfadaki "Öne çıkanlar" kaydırıcısında gösterilir
+  featured        Boolean    @default(false)
   // yayımlandığı yer (dergi, sayı, sempozyum)
   publishedIn     String?
   originalAuthor  String?
@@ -65,6 +67,7 @@ model Post {
 
   @@index([status, publishedAt])
   @@index([status, type, publishedAt])
+  @@index([status, featured, publishedAt])
 }
 
 // Tek satırlık ana sayfa (hero) ayarı: id her zaman "main"

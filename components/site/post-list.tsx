@@ -1,5 +1,6 @@
 import Link from "next/link"
 
+import { Matheme } from "@/components/site/matheme"
 import { formatDate } from "@/lib/format"
 import { dict, type Locale } from "@/lib/i18n"
 import type { PostCard } from "@/lib/queries/posts"
@@ -14,12 +15,15 @@ export function PostList({ posts, locale = "tr" }: { posts: PostCard[]; locale?:
       {posts.map((post) => (
         <li key={post.id} className="border-b border-line">
           <article className="group relative flex flex-col gap-3 py-8 sm:grid sm:grid-cols-[11rem_1fr] sm:gap-10">
-            <p className="label-caps flex flex-wrap items-center gap-x-3 gap-y-1 text-ink-soft sm:flex-col sm:items-start sm:gap-2">
-              {post.publishedAt && (
-                <time dateTime={post.publishedAt.toISOString()}>{formatDate(post.publishedAt, locale)}</time>
-              )}
-              <span className="text-brand">{t.types[post.type]}</span>
-            </p>
+            <div className="flex items-center gap-4 sm:flex-col sm:items-start sm:gap-4">
+              <Matheme seed={post.slug} className="order-last sm:order-first" />
+              <p className="label-caps flex flex-wrap items-center gap-x-3 gap-y-1 text-ink-soft sm:flex-col sm:items-start sm:gap-2">
+                {post.publishedAt && (
+                  <time dateTime={post.publishedAt.toISOString()}>{formatDate(post.publishedAt, locale)}</time>
+                )}
+                <span className="text-brand">{t.types[post.type]}</span>
+              </p>
+            </div>
             <div className="flex max-w-3xl flex-col gap-3">
               <h2 className="font-serif-site text-2xl leading-snug font-normal tracking-tight text-balance sm:text-3xl">
                 <Link

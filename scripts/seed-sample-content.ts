@@ -53,6 +53,7 @@ type Sample = {
   excerpt: string
   content: string
   fullText?: boolean
+  featured?: boolean
   daysAgo: number
   originalAuthor?: string
   originalTitle?: string
@@ -73,6 +74,7 @@ const POSTS: Sample[] = [
 <h2>Anlamaktan önce</h2>
 <p>Bu yüzden analitik dinleme, hemen yorum yapmaktan kaçınır. Anlam, çoğu zaman anlatılanın içinde değil, anlatılanın bir sonraki cümlede nasıl değiştiğinde ortaya çıkar. Dinleyenin işi, bu değişime alan bırakmaktır.</p>
 <p>Bu bir teknik olmaktan önce bir tutumdur: karşımızdakinin kendi sözüne yaklaşabilmesi için ona zaman tanımak.</p>`,
+    featured: true,
     daysAgo: 6,
   },
   {
@@ -97,6 +99,7 @@ const POSTS: Sample[] = [
 <p>Çocukken yaşanan bir olay, o sırada anlaşılamayabilir. Yıllar sonra başka bir deneyim, o olaya yeni bir anlam yükler. Biz de geçmişi anlatırken aslında bugünden anlatırız.</p>
 <h2>Anlatmanın yeri</h2>
 <p>Bu yüzden analizde anılar, doğrulanması gereken olaylar olarak değil, anlatıldıkça değişen bir malzeme olarak ele alınır. Anlatılan kadar, anlatma biçimi de önemlidir.</p>`,
+    featured: true,
     daysAgo: 41,
   },
   {
@@ -107,6 +110,7 @@ const POSTS: Sample[] = [
       "Lacan'ın, Ben işlevinin oluşumunda ayna evresinin rolünü ele aldığı kısa ve etkili metnin çevirisi. Yalnızca özet burada, tam metin dış kaynakta.",
     content: "",
     fullText: false,
+    featured: true,
     daysAgo: 12,
     originalAuthor: "Jacques Lacan",
     originalTitle: "Le stade du miroir comme formateur de la fonction du Je",
@@ -155,6 +159,7 @@ async function main() {
       excerpt: post.excerpt,
       content: post.fullText === false ? "" : sanitizeContent(post.content),
       fullText: post.fullText ?? true,
+      featured: post.featured ?? false,
       originalAuthor: post.originalAuthor ?? null,
       originalTitle: post.originalTitle ?? null,
       originalLang: post.originalLang ?? null,

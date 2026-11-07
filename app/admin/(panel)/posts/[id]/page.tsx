@@ -43,6 +43,7 @@ async function EditPostForm({
         excerpt: post.excerpt,
         content: post.content,
         fullText: post.fullText,
+        featured: post.featured,
         publishedIn: post.publishedIn ?? "",
         originalAuthor: post.originalAuthor ?? "",
         originalTitle: post.originalTitle ?? "",
