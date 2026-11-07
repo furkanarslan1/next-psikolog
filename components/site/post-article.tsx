@@ -3,6 +3,7 @@ import Link from "next/link"
 import { JsonLd } from "@/components/site/json-ld"
 import { formatDate } from "@/lib/format"
 import { dict, type Locale } from "@/lib/i18n"
+import { langCode } from "@/lib/lang"
 import type { getPostBySlug } from "@/lib/queries/posts"
 import { readingMinutes } from "@/lib/reading-time"
 import { stripImages } from "@/lib/sanitize"
@@ -128,7 +129,7 @@ export function PostArticle({ post, locale }: { post: Post; locale: Locale }) {
                 <>
                   <dt className="label-caps text-ink">{a.originalTitle}</dt>
                   <dd>
-                    <span lang={post.originalLang ?? undefined}>{post.originalTitle}</span>
+                    <span lang={langCode(post.originalLang)}>{post.originalTitle}</span>
                     {post.originalLang && ` (${post.originalLang})`}
                   </dd>
                 </>

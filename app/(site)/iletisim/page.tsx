@@ -57,6 +57,9 @@ export default async function ContactPage() {
             {items.length > 0 && <ContactItems items={items} />}
           </>
         )}
+        <p className="max-w-prose text-base text-ink-soft">
+          Lütfen e-posta veya mesajla sağlık bilgilerinizi paylaşmayın; asıl konuşma seansta yapılır.
+        </p>
       </div>
     </>
   )

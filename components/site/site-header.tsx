@@ -10,7 +10,7 @@ export function SiteHeader({ locale }: { locale: Locale }) {
       <div className="mx-auto flex min-h-16 w-full max-w-6xl items-center justify-between gap-x-6 px-5 py-3 sm:px-8">
         <Link
           href={dict[locale].home}
-          aria-label={siteConfig.name}
+          aria-label={`EA — ${siteConfig.name}`}
           className="flex size-11 items-center justify-center rounded-full border-[1.5px] border-anthracite font-serif-site text-lg leading-none font-medium tracking-wide focus-visible:outline-2 focus-visible:outline-offset-4 focus-visible:outline-anthracite"
         >
           EA
