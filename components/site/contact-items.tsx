@@ -90,7 +90,7 @@ export function ContactItems({ items }: { items: Item[] }) {
             <item.icon className="mt-0.5 size-5 shrink-0 text-brand" aria-hidden />
             <span className="flex min-w-0 flex-col gap-1.5">
               <span className="text-sm text-ink-soft">{item.label}</span>
-              <span className="font-serif-site text-xl leading-snug break-words whitespace-pre-line decoration-brand decoration-2 underline-offset-4 group-hover:underline">
+              <span className="font-serif-site text-xl leading-snug break-words whitespace-pre-line transition-[text-decoration-color] underline decoration-transparent decoration-2 underline-offset-4 group-hover:decoration-brand">
                 {item.value}
               </span>
               {item.action && (

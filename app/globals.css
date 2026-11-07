@@ -4,6 +4,12 @@
 
 @custom-variant dark (&:is(.dark *));
 
+@theme {
+  /* tüm hover/odak geçişleri: ani değil, yumuşak */
+  --default-transition-duration: 300ms;
+  --default-transition-timing-function: cubic-bezier(0.22, 0.61, 0.36, 1);
+}
+
 @theme inline {
   --color-background: var(--background);
   --color-foreground: var(--foreground);
@@ -120,6 +126,13 @@
 }
 
 @layer base {
+  .site a,
+  .site button {
+    transition-property: color, background-color, border-color, opacity, transform,
+      box-shadow, text-decoration-color;
+    transition-duration: 300ms;
+    transition-timing-function: cubic-bezier(0.22, 0.61, 0.36, 1);
+  }
   * {
     @apply border-border outline-ring/50;
   }
@@ -207,16 +220,16 @@
 .site {
   --site-serif: var(--font-garamond), Georgia, "Times New Roman", serif;
   --site-sans: var(--font-instrument), system-ui, sans-serif;
-  --site-paper: #f8f7f2;
-  /* kartlar sayfa zemininden belirgin biçimde koyu; footer en koyu ton */
-  --site-tile: #f0ece1;
-  --site-surface: #ebe6d8;
-  --site-ink: #161615;
-  --site-ink-soft: #55554f;
-  --site-line: #d9d5c8;
-  --site-brand: #8a3a28;
+  --site-paper: #f7f6f3;
+  /* kartlar sayfa zemininden hafifçe koyu; footer en koyu ton */
+  --site-tile: #efede8;
+  --site-surface: #e6e3dc;
+  --site-ink: #1a1a18;
+  --site-ink-soft: #5a5852;
+  --site-line: #d8d5ce;
+  --site-brand: #2b2b28;
   --site-on-brand: #ffffff;
-  --site-accent: #161615;
+  --site-accent: #1a1a18;
   --site-on-accent: #ffffff;
   --border: var(--site-line);
   --muted-foreground: var(--site-ink-soft);
@@ -246,8 +259,8 @@
   letter-spacing: 0.16em;
   text-transform: uppercase;
   transition:
-    background-color 0.2s,
-    transform 0.2s;
+    background-color 0.3s cubic-bezier(0.22, 0.61, 0.36, 1),
+    transform 0.3s cubic-bezier(0.22, 0.61, 0.36, 1);
   &:hover {
     background: color-mix(in oklab, var(--site-brand), black 18%);
     transform: translateY(-1px);
@@ -267,7 +280,7 @@
     background: var(--site-brand);
     transform: scaleX(0);
     transform-origin: left;
-    transition: transform 0.25s ease;
+    transition: transform 0.3s cubic-bezier(0.22, 0.61, 0.36, 1);
   }
   &:hover::after,
   &[aria-current="page"]::after {

@@ -29,7 +29,7 @@ export function PostList({ posts, locale = "tr" }: { posts: PostCard[]; locale?:
                 <Link
                   href={locale === "fr" ? `/fr/publications/${post.slug}` : `/yazilar/${post.slug}`}
                   lang={post.lang}
-                  className={`decoration-brand decoration-2 underline-offset-4 after:absolute after:inset-0 group-hover:underline ${focus}`}
+                  className={`underline decoration-transparent decoration-2 underline-offset-4 after:absolute after:inset-0 group-hover:decoration-brand ${focus}`}
                 >
                   {post.title}
                 </Link>

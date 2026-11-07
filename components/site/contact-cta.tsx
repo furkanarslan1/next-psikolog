@@ -19,7 +19,7 @@ export function ContactCta({ locale }: { locale: Locale }) {
     >
       <Rings
         disc="paper"
-        className="absolute -bottom-32 -left-40 w-[26rem] opacity-70 sm:-left-24 sm:w-[30rem] lg:left-8"
+        className="absolute -bottom-32 left-8 hidden w-[30rem] opacity-70 sm:block"
       />
       <div className="relative mx-auto flex w-full max-w-6xl flex-col items-center gap-5 px-5 py-16 text-center sm:px-8 sm:py-24">
         <h2

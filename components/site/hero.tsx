@@ -29,8 +29,8 @@ export function Hero({
 
   return (
     <section className="relative overflow-hidden">
-      {/* mobilde büyük ve silik bir arka plan; geniş ekranda sağda belirgin */}
-      <Rings className="absolute top-1/2 left-1/2 w-[34rem] max-w-none -translate-x-[38%] -translate-y-1/2 opacity-45 sm:top-1/2 sm:right-[-6rem] sm:left-auto sm:w-[32rem] sm:translate-x-0 sm:opacity-100 lg:right-4 lg:w-[38rem]" />
+      {/* şekil yalnızca geniş ekranda (mobilde yok) */}
+      <Rings className="absolute top-1/2 right-[-6rem] hidden w-[32rem] -translate-y-1/2 sm:block lg:right-4 lg:w-[38rem]" />
       <div className="relative mx-auto flex w-full max-w-6xl flex-col items-start gap-8 px-5 py-16 sm:px-8 sm:py-24 lg:py-32">
         <p className="label-caps text-brand">{t.tagline}</p>
         <h1 className="font-serif-site max-w-4xl text-[clamp(3.5rem,9vw,7.5rem)] leading-[0.95] font-normal tracking-[-0.02em] text-balance">
